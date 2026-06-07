@@ -1,0 +1,32 @@
+---
+import "../styles.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  article?: boolean;
+}
+
+const {
+  title = "Mr.ATG | Pixel Lab",
+  description = "Mr.ATG 的像素风个人博客，记录计算机视觉、边缘 AI、AI 工程化平台、游戏、音乐与旅行。",
+  article = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preload" as="image" href="/assets/pixel-lab-hero.jpg" />
+  </head>
+  <body class:list={[article && "article-page"]}>
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <canvas class="starfield" aria-hidden="true"></canvas>
+    <slot />
+    <script src="/script.js"></script>
+  </body>
+</html>

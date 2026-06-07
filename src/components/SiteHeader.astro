@@ -1,0 +1,22 @@
+---
+const navItems = [
+  ["Projects", "/#projects"],
+  ["Research", "/#research"],
+  ["Writing", "/#writing"],
+  ["Journal", "/#journal"],
+  ["Contact", "/#contact"],
+];
+---
+
+<header class="site-header" data-reveal>
+  <a class="brand" href="/#top" aria-label="Mr.ATG home">
+    <span class="brand-mark">A</span>
+    <span>
+      <strong>Mr.ATG</strong>
+      <small>Pixel Lab</small>
+    </span>
+  </a>
+  <nav class="nav" aria-label="Primary navigation">
+    {navItems.map(([label, href]) => <a href={href}>{label}</a>)}
+  </nav>
+</header>

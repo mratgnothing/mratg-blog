@@ -1,0 +1,154 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { journalTopics, projects, researchItems } from "../data/projects";
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout>
+  <SiteHeader />
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-art" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-content" data-reveal>
+        <p class="eyebrow">Chien-Shiung Wu College, Southeast University / INFJ / Builder</p>
+        <h1 id="hero-title">Building computer vision systems, one pixel at a time.</h1>
+        <p class="hero-copy">
+          我是 Mr.ATG，东南大学吴健雄学院本科生，关注小目标检测、边缘 AI 与 AI 工程化系统。这里也记录游戏、音乐、旅行和那些让我保持好奇的事情。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#projects">View Projects</a>
+          <a class="button ghost" href="#writing">Read Notes</a>
+        </div>
+        <ul class="quick-stats" aria-label="Focus areas">
+          <li><span>CV</span><strong>Small Object Detection</strong></li>
+          <li><span>Edge</span><strong>Ascend 310 / RK3588</strong></li>
+          <li><span>Life</span><strong>Games / Music / Travel</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section intro-band" data-reveal>
+      <div>
+        <p class="section-kicker">Now Public</p>
+        <h2>最近会公开记录什么</h2>
+      </div>
+      <div class="ticker" aria-label="Public topics">
+        <span>SDD-YOLO experiments</span>
+        <span>WAVE-cloud progress</span>
+        <span>arXiv notes</span>
+        <span>AI Agent logs</span>
+        <span>Pixel life journal</span>
+      </div>
+    </section>
+
+    <section id="projects" class="section" aria-labelledby="projects-title">
+      <div class="section-heading" data-reveal>
+        <p class="section-kicker">Projects</p>
+        <h2 id="projects-title">代表项目</h2>
+        <p>第一版网站先突出能公开宣传的研究与工程项目；链接、论文结果和演示视频可以后续逐项补全。</p>
+      </div>
+      <div class="project-grid">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </section>
+
+    <section id="research" class="section split" aria-labelledby="research-title">
+      <div class="section-heading sticky-heading" data-reveal>
+        <p class="section-kicker">Research</p>
+        <h2 id="research-title">研究与公开材料</h2>
+        <p>这里适合放论文、arXiv 链接、数据集说明、模型结构图、实验记录和部署报告。未补全的链接先保留位置。</p>
+      </div>
+      <div class="timeline">
+        {
+          researchItems.map((item) => (
+            <article class="timeline-item" data-reveal>
+              <span>{item.number}</span>
+              <h3>{item.title}</h3>
+              <p>
+                {item.href ? <a href={item.href} target="_blank" rel="noreferrer">{item.body}</a> : item.body}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="writing" class="section" aria-labelledby="writing-title">
+      <div class="section-banner" data-reveal>
+        <img src="/assets/banner-writing.jpg" alt="Pixel art research notes desk banner." loading="lazy" />
+        <div>
+          <span>Field Notes</span>
+          <strong>把实验、部署和踩坑记录成可复用的文章。</strong>
+        </div>
+      </div>
+      <div class="section-heading" data-reveal>
+        <p class="section-kicker">Writing</p>
+        <h2 id="writing-title">首批文章计划</h2>
+      </div>
+      <div class="post-grid">
+        {
+          posts.map((post) => (
+            <a class="post-card" href={`/posts/${post.id}/`} data-reveal>
+              <span>{post.data.category}</span>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="journal" class="section journal" aria-labelledby="journal-title">
+      <div class="journal-cover" data-reveal>
+        <img src="/assets/journal-life.jpg" alt="Pixel art desk with games music travel and campus life objects." loading="lazy" />
+      </div>
+      <div class="section-heading" data-reveal>
+        <p class="section-kicker">Journal</p>
+        <h2 id="journal-title">不只写代码</h2>
+        <p>网站会保留更轻松的内容入口：游戏、音乐、旅行、校园生活和个人观察。技术项目负责展示能力，生活日志负责保留温度。</p>
+      </div>
+      <div class="journal-shelf" data-reveal>
+        {
+          journalTopics.map((topic) => (
+            <div class="shelf-item">
+              <span class:list={["shelf-pixel", topic.icon]}></span>
+              <strong>{topic.title}</strong>
+              <p>{topic.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-panel" aria-labelledby="contact-title" data-reveal>
+      <div>
+        <p class="section-kicker">Contact</p>
+        <h2 id="contact-title">一起交流项目、论文和像素生活</h2>
+        <p>如果你对小目标检测、边缘部署、AI Agent、科研工具或 Minecraft-like / cozy pixel 风格网站感兴趣，可以从这里找到我。</p>
+      </div>
+      <div class="contact-links">
+        <a href="https://github.com/mratgnothing" target="_blank" rel="noreferrer">GitHub / mratgnothing</a>
+        <a href="https://x.com/A_T_G114514" target="_blank" rel="noreferrer">X / A_T_G114514</a>
+        <a href="mailto:213240443@seu.edu.cn">213240443@seu.edu.cn</a>
+      </div>
+      <div class="friend-links" aria-label="Friends and collaborators">
+        <span>Collaborator</span>
+        <a href="https://vedaru.cn/" target="_blank" rel="noreferrer">
+          <strong>Vedaru</strong>
+          <small>EdgeDistillDet / WAVE partner</small>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
