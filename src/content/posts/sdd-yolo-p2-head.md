@@ -2,11 +2,13 @@
 title: "为什么无人机小目标检测需要 P2 检测头"
 description: "从目标尺度、特征图分辨率和误检样本说起。"
 category: "Tech Note"
+column: "tech-note"
 tags:
   - "SDD-YOLO"
   - "Small Object Detection"
   - "arXiv:2603.25218"
 date: "2026-06-07"
+updated: "2026-06-08T13:04:00+08:00"
 featured: true
 ---
 

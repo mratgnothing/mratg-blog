@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CommentBox from "../../components/CommentBox.astro";
+import EngagementBar from "../../components/EngagementBar.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
@@ -12,15 +14,29 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const columns = await getCollection("columns", ({ data }) => !data.draft);
+const column = post.data.column ? columns.find((item) => item.id === post.data.column) : undefined;
+const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  timeZone: "Asia/Shanghai",
+});
+const formatDate = (date: Date) => dateFormatter.format(date);
 ---
 
 <BaseLayout title={`${post.data.title} | Mr.ATG`} description={post.data.description} article>
   <main class="article-shell">
     <header class="article-hero" data-reveal>
-      <a href="/#writing">Back to Writing</a>
+      <a href={column ? `/columns/${column.id}/` : "/#writing"}>{column ? `Back to ${column.data.title}` : "Back to Writing"}</a>
       <h1>{post.data.title}</h1>
+      <div class="article-dates" aria-label="文章时间">
+        <time datetime={post.data.date.toISOString()}>发布 {formatDate(post.data.date)}</time>
+        <time datetime={(post.data.updated ?? post.data.date).toISOString()}>修改 {formatDate(post.data.updated ?? post.data.date)}</time>
+      </div>
       <ul class="article-meta">
         <li>{post.data.category}</li>
+        {column && <li>{column.data.title}</li>}
         {post.data.tags.map((tag) => <li>{tag}</li>)}
       </ul>
     </header>
@@ -28,5 +44,16 @@ const { Content } = await render(post);
     <article class="article-body" data-reveal>
       <Content />
     </article>
+
+    <EngagementBar
+      threadId={`post:${post.id}`}
+      title={post.data.title}
+      description={post.data.description}
+      href={`/posts/${post.id}/`}
+      type="文章"
+      dateLabel={formatDate(post.data.updated ?? post.data.date)}
+    />
+
+    <CommentBox threadId={`post:${post.id}`} />
   </main>
 </BaseLayout>

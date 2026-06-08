@@ -1,14 +1,49 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import CommentBox from "../components/CommentBox.astro";
+import EngagementBar from "../components/EngagementBar.astro";
 import { journalTopics, projects, researchItems } from "../data/projects";
 
 const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  (a, b) => (b.data.updated ?? b.data.date).valueOf() - (a.data.updated ?? a.data.date).valueOf()
 );
+const recentPosts = posts.slice(0, 6);
+const columns = (await getCollection("columns", ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const writingColumns = columns.filter((column) => column.data.group === "writing");
+const journalColumns = columns.filter((column) => column.data.group === "journal");
+const journalColumnByTitle = new Map(journalColumns.map((column) => [column.data.title, column]));
+const diaryEntries = (await getCollection("diary", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.datetime.valueOf() - a.data.datetime.valueOf()
+);
+const diaryItems = await Promise.all(
+  diaryEntries.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { entry, Content };
+  })
+);
+const recentDiaryItems = diaryItems.slice(0, 3);
+const postDateFormatter = new Intl.DateTimeFormat("zh-CN", {
+  month: "2-digit",
+  day: "2-digit",
+  timeZone: "Asia/Shanghai",
+});
+const diaryDateFormatter = new Intl.DateTimeFormat("zh-CN", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+  timeZone: "Asia/Shanghai",
+});
+const formatPostDate = (date: Date) => postDateFormatter.format(date);
+const formatDiaryDate = (date: Date) => diaryDateFormatter.format(date);
 ---
 
 <BaseLayout>
@@ -61,49 +96,84 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
       </div>
     </section>
 
-    <section id="research" class="section split" aria-labelledby="research-title">
-      <div class="section-heading sticky-heading" data-reveal>
-        <p class="section-kicker">Research</p>
-        <h2 id="research-title">研究与公开材料</h2>
-        <p>这里适合放论文、arXiv 链接、数据集说明、模型结构图、实验记录和部署报告。未补全的链接先保留位置。</p>
+    <section id="research" class="section research-lab" aria-labelledby="research-title">
+      <div class="research-cover" data-reveal>
+        <img src="/assets/research-archive-pixel.png" alt="Pixel art computer vision research archive with drone detection screen." loading="lazy" />
+        <div class="research-stamp">
+          <span>Open Archive</span>
+          <strong>Paper / Dataset / Deploy</strong>
+        </div>
       </div>
-      <div class="timeline">
-        {
-          researchItems.map((item) => (
-            <article class="timeline-item" data-reveal>
-              <span>{item.number}</span>
-              <h3>{item.title}</h3>
-              <p>
-                {item.href ? <a href={item.href} target="_blank" rel="noreferrer">{item.body}</a> : item.body}
-              </p>
-            </article>
-          ))
-        }
+      <div class="research-copy">
+        <div class="section-heading sticky-heading" data-reveal>
+          <p class="section-kicker">Research</p>
+          <h2 id="research-title">研究与公开材料</h2>
+          <p>这里适合放论文、arXiv 链接、数据集说明、模型结构图、实验记录和部署报告。未补全的链接先保留位置。</p>
+        </div>
+        <div class="timeline">
+          {
+            researchItems.map((item) => (
+              <article class="timeline-item" data-reveal>
+                <span>{item.number}</span>
+                <h3>{item.title}</h3>
+                <p>
+                  {item.href ? <a href={item.href} target="_blank" rel="noreferrer">{item.body}</a> : item.body}
+                </p>
+              </article>
+            ))
+          }
+        </div>
       </div>
     </section>
 
     <section id="writing" class="section" aria-labelledby="writing-title">
-      <div class="section-banner" data-reveal>
-        <img src="/assets/banner-writing.jpg" alt="Pixel art research notes desk banner." loading="lazy" />
-        <div>
+      <div class="writing-lab" data-reveal>
+        <div class="writing-cover">
+          <img src="/assets/writing-desk-pixel.png" alt="Pixel art technical writing desk with article planning cards." loading="lazy" />
+        </div>
+        <div class="writing-copy">
           <span>Field Notes</span>
           <strong>把实验、部署和踩坑记录成可复用的文章。</strong>
+          <p>栏目会按主题沉淀，文章按时间更新；草稿保持隐藏，发布后自动进入首页。</p>
         </div>
       </div>
-      <div class="section-heading" data-reveal>
-        <p class="section-kicker">Writing</p>
-        <h2 id="writing-title">首批文章计划</h2>
+      <div class="section-heading section-heading-row" data-reveal>
+        <div>
+          <p class="section-kicker">Writing</p>
+          <h2 id="writing-title">最近更新的文章</h2>
+          <p>首页先保留最新修改的六篇，完整列表进入文章归档页查看。</p>
+        </div>
+        <a class="text-action" href="/posts/">查看全部文章</a>
       </div>
-      <div class="post-grid">
-        {
-          posts.map((post) => (
-            <a class="post-card" href={`/posts/${post.id}/`} data-reveal>
-              <span>{post.data.category}</span>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.description}</p>
-            </a>
-          ))
-        }
+      <div class="writing-board">
+        <aside class="column-shelf" aria-label="Writing columns" data-reveal>
+          <img src="/assets/content-studio-pixel.png" alt="Pixel art local content studio with markdown cards and checklist." loading="lazy" />
+          <div class="column-list">
+            {
+              writingColumns.map((column) => (
+                <a class:list={["column-card", `accent-${column.data.accent}`]} href={`/columns/${column.id}/`}>
+                  <span>{column.data.title}</span>
+                  <p>{column.data.description}</p>
+                  <em>Open column</em>
+                </a>
+              ))
+            }
+          </div>
+        </aside>
+        <div class="post-grid">
+          {
+            recentPosts.map((post) => (
+              <a class="post-card" href={`/posts/${post.id}/`} data-reveal>
+                <span>{post.data.category}</span>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                <time datetime={(post.data.updated ?? post.data.date).toISOString()}>
+                  更新 {formatPostDate(post.data.updated ?? post.data.date)}
+                </time>
+              </a>
+            ))
+          }
+        </div>
       </div>
     </section>
 
@@ -119,11 +189,52 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
       <div class="journal-shelf" data-reveal>
         {
           journalTopics.map((topic) => (
-            <div class="shelf-item">
+            <a class="shelf-item" href={`/columns/${journalColumnByTitle.get(topic.title)?.id ?? "horizon"}/`}>
               <span class:list={["shelf-pixel", topic.icon]}></span>
               <strong>{topic.title}</strong>
               <p>{topic.body}</p>
-            </div>
+              <em>Open column</em>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="diary" class="section diary-section" aria-labelledby="diary-title">
+      <div class="section-heading section-heading-row" data-reveal>
+        <div>
+          <p class="section-kicker">Diary</p>
+          <h2 id="diary-title">日记时间线</h2>
+          <p>首页只展示最新几条短记录，完整日记按具体时间在归档页查看。</p>
+        </div>
+        <a class="text-action" href="/diary/">查看全部日记</a>
+      </div>
+      <div class="diary-timeline" data-reveal>
+        {
+          recentDiaryItems.map(({ entry, Content }) => (
+            <article class="diary-entry" id={`diary-${entry.id}`}>
+              <time datetime={entry.data.datetime.toISOString()}>{formatDiaryDate(entry.data.datetime)}</time>
+              <div>
+                <h3>{entry.data.title}</h3>
+                <Content />
+                {entry.data.tags.length > 0 && (
+                  <ul class="diary-tags">
+                    {entry.data.tags.map((tag) => <li>{tag}</li>)}
+                  </ul>
+                )}
+                <div class="diary-actions">
+                  <EngagementBar
+                    threadId={`diary:${entry.id}`}
+                    title={entry.data.title}
+                    description={entry.body?.replace(/\s+/g, " ").trim().slice(0, 96) ?? ""}
+                    href={`/diary/#diary-${entry.id}`}
+                    type="日记"
+                    dateLabel={formatDiaryDate(entry.data.datetime)}
+                  />
+                  <CommentBox threadId={`diary:${entry.id}`} compact collapsed />
+                </div>
+              </div>
+            </article>
           ))
         }
       </div>
@@ -138,6 +249,7 @@ const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
       <div class="contact-links">
         <a href="https://github.com/mratgnothing" target="_blank" rel="noreferrer">GitHub / mratgnothing</a>
         <a href="https://x.com/A_T_G114514" target="_blank" rel="noreferrer">X / A_T_G114514</a>
+        <a href="https://music.163.com/#/user/home?id=12148050703" target="_blank" rel="noreferrer">NetEase Cloud Music / Mr.ATG</a>
         <a href="mailto:213240443@seu.edu.cn">213240443@seu.edu.cn</a>
       </div>
       <div class="friend-links" aria-label="Friends and collaborators">

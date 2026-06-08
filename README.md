@@ -2,18 +2,48 @@
 
 Astro version of the Mr.ATG pixel-style personal site.
 
-## Write A New Post
+## Write New Content
 
-Create a Markdown file in `src/content/posts/`:
+Use the local generator for articles:
+
+```bash
+npm run new:post -- --title "文章标题" --description "首页卡片摘要" --category "Tech Note" --column tech-note --tags "SDD-YOLO,Ascend"
+```
+
+It creates a draft Markdown file in `src/content/posts/`. The `column` value
+controls which `/columns/.../` archive page receives the article. Edit the file,
+then set `draft: false` or run with `--publish` when the article is ready.
+Update the `updated` field whenever you revise the article; the homepage uses it
+to choose the recent article cards.
+
+Create a new writing column:
+
+```bash
+npm run new:column -- --name "栏目名称" --description "栏目说明" --accent teal --group writing
+```
+
+Columns live in `src/content/columns/` and are shown on the homepage writing
+board or journal shelf. Current column slugs include `tech-note`, `deployment`,
+`team-log`, `research-diary`, `games`, `music`, `travel`, and `horizon`.
+
+For a Horizon journal entry:
+
+```bash
+npm run new:post -- --title "健身半学期，引体终于做了16个" --slug "pull-up-16-half-semester" --description "半学期健身记录：从引体向上吃力到一次做满 16 个。" --category "Horizon" --column horizon --tags "Fitness,Life" --publish
+```
+
+Articles still use normal Markdown frontmatter:
 
 ```md
 ---
 title: "文章标题"
 description: "首页卡片摘要"
 category: "Tech Note"
+column: "tech-note"
 tags:
   - "SDD-YOLO"
 date: "2026-06-08"
+updated: "2026-06-08T14:30:00+08:00"
 ---
 
 ## 小标题
@@ -21,7 +51,49 @@ date: "2026-06-08"
 正文内容。
 ```
 
-The homepage automatically lists non-draft posts in newest-first order.
+The homepage automatically lists the most recently updated non-draft posts. The
+full archive is available at `/posts/`.
+
+Create a short diary item:
+
+```bash
+npm run new:diary -- --title "今天的小记录" --datetime "2026-06-08T21:40:00+08:00" --tags "Life,Campus"
+```
+
+Diary files live in `src/content/diary/`. They are shown together on the
+homepage timeline by exact time, so they are best for a few sentences rather
+than full articles.
+
+## Add Images To Articles
+
+Put article images under `public/assets/posts/`, then reference them with a root
+path:
+
+```md
+<figure class="article-figure">
+  <img src="/assets/posts/example.jpg" alt="Describe the image." loading="lazy" />
+  <figcaption>这里写图片说明。</figcaption>
+</figure>
+```
+
+Do not use local absolute paths such as `C:\...` or `D:\...` in Markdown,
+because they will not work after deployment.
+
+For NetEase Cloud Music playlists, use the official outchain player:
+
+```md
+<div class="music-embed">
+  <iframe title="网易云音乐歌单播放器" src="https://music.163.com/outchain/player?type=0&id=PLAYLIST_ID&auto=0&height=430" width="100%" height="450" frameborder="0" allow="encrypted-media"></iframe>
+  <p><a href="https://music.163.com/#/playlist?id=PLAYLIST_ID" target="_blank" rel="noreferrer">打开网易云歌单</a></p>
+</div>
+```
+
+## Comments
+
+Every article and diary entry has a comment box. The current implementation is
+client-side and stores comments in the visitor's browser `localStorage`; it is
+good for local preview and personal notes. To share comments across visitors
+after deployment, connect a backend, database, or hosted comment service.
 
 ## Local Commands
 

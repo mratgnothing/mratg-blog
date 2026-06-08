@@ -1,0 +1,31 @@
+---
+interface Props {
+  threadId: string;
+  title: string;
+  description: string;
+  href: string;
+  type?: string;
+  dateLabel?: string;
+}
+
+const { threadId, title, description, href, type = "文章", dateLabel = "" } = Astro.props;
+---
+
+<div
+  class="engagement-bar"
+  data-engagement
+  data-thread-id={threadId}
+  data-share-title={title}
+  data-share-description={description}
+  data-share-href={href}
+  data-share-type={type}
+  data-share-date={dateLabel}
+>
+  <button class="engagement-button like-button" type="button" data-like-button aria-pressed="false">
+    <span>点赞</span>
+    <strong data-like-count>0</strong>
+  </button>
+  <button class="engagement-button share-button" type="button" data-share-button>
+    <span>转发</span>
+  </button>
+</div>

@@ -1,0 +1,89 @@
+---
+interface Props {
+  threadId: string;
+  compact?: boolean;
+  collapsed?: boolean;
+}
+
+const { threadId, compact = false, collapsed = false } = Astro.props;
+---
+
+<section class:list={["comment-box", compact && "comment-box-compact", collapsed && "comment-box-collapsed"]} data-comment-box data-thread-id={threadId}>
+  {
+    collapsed ? (
+      <details class="comment-details" data-comment-details>
+        <summary>
+          <span>评论</span>
+          <strong data-comment-count>0 条</strong>
+        </summary>
+        <div class="comment-panel">
+          <form class="comment-form" data-comment-form>
+            <div class="comment-fields">
+              <label>
+                <span>用户名</span>
+                <input name="name" type="text" autocomplete="name" maxlength="32" required />
+              </label>
+              <label>
+                <span>邮箱</span>
+                <input name="email" type="email" autocomplete="email" maxlength="96" required />
+              </label>
+            </div>
+            <label>
+              <span>评论内容</span>
+              <textarea name="message" rows={compact ? 3 : 4} maxlength="1200" placeholder="写文字、emoji 都可以。" required></textarea>
+            </label>
+            <div class="comment-tools">
+              <label class="image-picker">
+                <input name="image" type="file" accept="image/*" data-comment-image />
+                <span>添加图片</span>
+              </label>
+              <div class="comment-preview" data-comment-preview hidden></div>
+              <button type="submit">发布评论</button>
+            </div>
+            <p class="comment-note">当前版本评论保存在本机浏览器；公开共享评论需要后端服务。</p>
+          </form>
+
+          <div class="comment-list" data-comment-list></div>
+        </div>
+      </details>
+    ) : (
+      <>
+        <div class="comment-head">
+          <div>
+            <p class="section-kicker">Comments</p>
+            <h2>评论</h2>
+          </div>
+          <span data-comment-count>0 条</span>
+        </div>
+
+        <form class="comment-form" data-comment-form>
+          <div class="comment-fields">
+            <label>
+              <span>用户名</span>
+              <input name="name" type="text" autocomplete="name" maxlength="32" required />
+            </label>
+            <label>
+              <span>邮箱</span>
+              <input name="email" type="email" autocomplete="email" maxlength="96" required />
+            </label>
+          </div>
+          <label>
+            <span>评论内容</span>
+            <textarea name="message" rows={compact ? 3 : 4} maxlength="1200" placeholder="写文字、emoji 都可以。" required></textarea>
+          </label>
+          <div class="comment-tools">
+            <label class="image-picker">
+              <input name="image" type="file" accept="image/*" data-comment-image />
+              <span>添加图片</span>
+            </label>
+            <div class="comment-preview" data-comment-preview hidden></div>
+            <button type="submit">发布评论</button>
+          </div>
+          <p class="comment-note">当前版本评论保存在本机浏览器；公开共享评论需要后端服务。</p>
+        </form>
+
+        <div class="comment-list" data-comment-list></div>
+      </>
+    )
+  }
+</section>

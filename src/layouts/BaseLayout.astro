@@ -21,12 +21,13 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="icon" type="image/png" href="/assets/avatar.png" />
     <link rel="preload" as="image" href="/assets/pixel-lab-hero.jpg" />
   </head>
   <body class:list={[article && "article-page"]}>
     <div class="cursor-glow" aria-hidden="true"></div>
     <canvas class="starfield" aria-hidden="true"></canvas>
     <slot />
-    <script src="/script.js"></script>
+    <script is:inline src="/script.js"></script>
   </body>
 </html>

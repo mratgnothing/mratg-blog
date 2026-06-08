@@ -2,11 +2,13 @@
 title: "8 人 AI 工程竞赛团队如何做 Git 和 CI"
 description: "从分支、代码审查、Docker 到项目周报。"
 category: "Team Log"
+column: "team-log"
 tags:
   - "WAVE-cloud"
   - "Engineering"
   - "CI"
 date: "2026-06-05"
+updated: "2026-06-08T12:02:00+08:00"
 ---
 
 ## 竞赛项目最怕“每个人都在本地做了很多”

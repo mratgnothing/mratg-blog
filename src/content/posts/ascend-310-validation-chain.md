@@ -2,16 +2,18 @@
 title: "Ascend 310: PyTorch 到 OM 的验证链"
 description: "记录导出、转换、算子兼容和性能测试。"
 category: "Deployment"
+column: "deployment"
 tags:
   - "Ascend 310"
   - "WAVE"
   - "Edge AI"
 date: "2026-06-06"
+updated: "2026-06-08T14:10:00+08:00"
 ---
 
 ## 先做原理验证，再做平台接入
 
-对边缘 AI 项目来说，最容易犯的错误是先做一个漂亮的“部署页面”，然后假设模型已经能在设备上稳定跑。我更倾向于反过来：先把模型导出、转换、推理和 benchmark 跑通，再把这些结果接进 WAVE-cloud 的任务系统。
+对边缘 AI 项目来说，很多人是先做一个漂亮的“部署页面”，然后假设模型已经能在设备上稳定跑。我更倾向于反过来：先把模型导出、转换、推理和 benchmark 跑通，再把这些结果接进 WAVE-cloud 的任务系统。
 
 这条验证链可以拆成下面几个节点。每一步都应该保留日志、输入样例、输出结果和性能数据。
 
@@ -33,6 +35,11 @@ date: "2026-06-06"
   <strong>我会记录的指标：</strong>
   mAP / AP-small、单张延迟、FPS、模型体积、算子不兼容列表、量化前后精度差、典型失败样本。
 </div>
+<figure class="article-figure">
+  <img src="/assets/posts/ascend-310-atlas-200i-dk-a2.png" alt="Huawei Atlas 200I DK A2 development board used for Ascend 310 edge AI validation." loading="lazy" />
+  <figcaption>Ascend 310 边缘 AI 开发板。</figcaption>
+</figure>
+
 
 ## WAVE-cloud 中的产品化入口
 

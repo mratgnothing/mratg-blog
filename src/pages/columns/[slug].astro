@@ -1,0 +1,78 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+
+export async function getStaticPaths() {
+  const columns = await getCollection("columns", ({ data }) => !data.draft);
+  const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
+    (a, b) => (b.data.updated ?? b.data.date).valueOf() - (a.data.updated ?? a.data.date).valueOf()
+  );
+
+  return columns.map((column) => ({
+    params: { slug: column.id },
+    props: {
+      column,
+      posts: posts.filter((post) => post.data.column === column.id),
+    },
+  }));
+}
+
+const { column, posts } = Astro.props;
+const { Content } = await render(column);
+const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
+  month: "2-digit",
+  day: "2-digit",
+  timeZone: "Asia/Shanghai",
+});
+const formatDate = (date: Date) => dateFormatter.format(date);
+---
+
+<BaseLayout title={`${column.data.title} | Mr.ATG`} description={column.data.description}>
+  <SiteHeader />
+
+  <main class="column-page">
+    <section class:list={["column-hero", `accent-${column.data.accent}`]} data-reveal>
+      <a href="/#writing">Back Home</a>
+      <p class="section-kicker">{column.data.group === "journal" ? "Journal" : "Writing"}</p>
+      <h1>{column.data.title}</h1>
+      <p>{column.data.description}</p>
+      <div class="column-intro">
+        <Content />
+      </div>
+    </section>
+
+    <section class="column-posts" aria-labelledby="column-posts-title">
+      <div class="section-heading" data-reveal>
+        <p class="section-kicker">Archive</p>
+        <h2 id="column-posts-title">专栏文章</h2>
+      </div>
+      {
+        posts.length ? (
+          <div class="post-grid column-post-grid">
+            {
+              posts.map((post) => (
+                <a class="post-card" href={`/posts/${post.id}/`} data-reveal>
+                  <span>{post.data.category}</span>
+                  <h3>{post.data.title}</h3>
+                  <p>{post.data.description}</p>
+                  <time datetime={(post.data.updated ?? post.data.date).toISOString()}>
+                    更新 {formatDate(post.data.updated ?? post.data.date)}
+                  </time>
+                </a>
+              ))
+            }
+          </div>
+        ) : (
+          <div class="empty-state" data-reveal>
+            <strong>这个专栏还在整理中。</strong>
+            <p>后续新增文章只要在 frontmatter 里写入 <code>column: "{column.id}"</code>，就会自动出现在这里。</p>
+          </div>
+        )
+      }
+    </section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

@@ -2,9 +2,11 @@
 title: "新文章标题"
 description: "这里写一句会显示在首页卡片上的摘要。"
 category: "Draft"
+column: "tech-note"
 tags:
   - "Tag"
 date: "2026-06-08"
+updated: "2026-06-08T10:00:00+08:00"
 draft: true
 ---
 

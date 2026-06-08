@@ -1,0 +1,79 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import CommentBox from "../../components/CommentBox.astro";
+import EngagementBar from "../../components/EngagementBar.astro";
+
+const diaryEntries = (await getCollection("diary", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.datetime.valueOf() - a.data.datetime.valueOf()
+);
+const diaryItems = await Promise.all(
+  diaryEntries.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { entry, Content };
+  })
+);
+const diaryDateFormatter = new Intl.DateTimeFormat("zh-CN", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+  timeZone: "Asia/Shanghai",
+});
+const formatDiaryDate = (date: Date) => diaryDateFormatter.format(date);
+---
+
+<BaseLayout title="全部日记 | Mr.ATG" description="Mr.ATG Pixel Lab 的全部短日记，按具体时间排列。">
+  <SiteHeader />
+
+  <main class="archive-page diary-page">
+    <section class="archive-hero diary-hero" data-reveal>
+      <a href="/#diary">Back Home</a>
+      <p class="section-kicker">Diary</p>
+      <h1>全部日记</h1>
+      <p>日记只记录几句话，按具体时间倒序排列。文章写完整观点，日记保存当天状态。</p>
+    </section>
+
+    <section class="archive-posts" aria-labelledby="diary-archive-title">
+      <div class="section-heading" data-reveal>
+        <p class="section-kicker">Timeline</p>
+        <h2 id="diary-archive-title">时间线</h2>
+      </div>
+      <div class="diary-timeline" data-reveal>
+        {
+          diaryItems.map(({ entry, Content }) => (
+            <article class="diary-entry" id={`diary-${entry.id}`}>
+              <time datetime={entry.data.datetime.toISOString()}>{formatDiaryDate(entry.data.datetime)}</time>
+              <div>
+                <h3>{entry.data.title}</h3>
+                <Content />
+                {entry.data.tags.length > 0 && (
+                  <ul class="diary-tags">
+                    {entry.data.tags.map((tag) => <li>{tag}</li>)}
+                  </ul>
+                )}
+                <div class="diary-actions">
+                  <EngagementBar
+                    threadId={`diary:${entry.id}`}
+                    title={entry.data.title}
+                    description={entry.body?.replace(/\s+/g, " ").trim().slice(0, 96) ?? ""}
+                    href={`/diary/#diary-${entry.id}`}
+                    type="日记"
+                    dateLabel={formatDiaryDate(entry.data.datetime)}
+                  />
+                  <CommentBox threadId={`diary:${entry.id}`} compact collapsed />
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

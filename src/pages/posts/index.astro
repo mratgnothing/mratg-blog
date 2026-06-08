@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+
+const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
+  (a, b) => (b.data.updated ?? b.data.date).valueOf() - (a.data.updated ?? a.data.date).valueOf()
+);
+const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  timeZone: "Asia/Shanghai",
+});
+const formatDate = (date: Date) => dateFormatter.format(date);
+---
+
+<BaseLayout title="全部文章 | Mr.ATG" description="Mr.ATG Pixel Lab 的全部文章归档，按最近修改时间排序。">
+  <SiteHeader />
+
+  <main class="archive-page">
+    <section class="archive-hero" data-reveal>
+      <a href="/#writing">Back Home</a>
+      <p class="section-kicker">Archive</p>
+      <h1>全部文章</h1>
+      <p>这里按最近修改时间排列所有已发布文章。主页只展示最近更新的几篇，完整内容在这里查找。</p>
+    </section>
+
+    <section class="archive-posts" aria-labelledby="archive-title">
+      <div class="section-heading" data-reveal>
+        <p class="section-kicker">Updated Notes</p>
+        <h2 id="archive-title">最近修改</h2>
+      </div>
+      <div class="post-grid archive-post-grid">
+        {
+          posts.map((post) => (
+            <a class="post-card" href={`/posts/${post.id}/`} data-reveal>
+              <span>{post.data.category}</span>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <time datetime={(post.data.updated ?? post.data.date).toISOString()}>
+                更新 {formatDate(post.data.updated ?? post.data.date)}
+              </time>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
