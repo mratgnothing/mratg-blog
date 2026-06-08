@@ -1,6 +1,6 @@
 ---
 title: "像素游戏的 UI 为什么经常让人放松"
-description: "不是因为像素低保真，而是它把信息密度和情绪边界控制得很好。"
+description: "像素风格总能把信息密度和情绪边界控制得很好。"
 category: "Games"
 column: "games"
 tags:

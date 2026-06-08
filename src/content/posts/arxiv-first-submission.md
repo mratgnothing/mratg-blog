@@ -1,5 +1,5 @@
 ---
-title: "第一次 arXiv 投稿应该准备什么"
+title: "水一篇看起来有点唬人的论文"
 description: "LaTeX、.bbl、endorsement、版本更新和公开叙述。"
 category: "Research Diary"
 column: "research-diary"
@@ -11,9 +11,9 @@ date: "2026-06-04"
 updated: "2026-06-08T12:16:00+08:00"
 ---
 
-## 第一次写论文，但其实挺简单
+## 第一次写论文，纯水精灵请多包涵
 
-我的 SDD-YOLO 论文已经公开在 arXiv：[arXiv:2603.25218](https://arxiv.org/abs/2603.25218)。对第一次投稿的人来说，真正耗时间的往往不是上传页面本身，而是提前准备好 LaTeX 源码、参考文献、图片、类别选择和公开表述。
+我的 SDD-YOLO 纯水论文已经公开在 arXiv：[arXiv:2603.25218](https://arxiv.org/abs/2603.25218)。
 
 ## LaTeX 源码要能脱离本地环境编译
 
@@ -25,5 +25,6 @@ arXiv 不会继承你本地的 Overleaf 状态，也不会自动理解所有路�
 
 <div class="article-callout">
   <strong>下一步：</strong>
-  我会把论文摘要、方法图、实验表格和代码链接整理成一个单独的 SDD-YOLO project page。
+  也许我会把论文摘要、方法图、实验表格和代码链接整理成一个单独的 SDD-YOLO project page。
 </div>
+

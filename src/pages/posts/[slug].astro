@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
 import CommentBox from "../../components/CommentBox.astro";
 import EngagementBar from "../../components/EngagementBar.astro";
 
@@ -26,6 +28,8 @@ const formatDate = (date: Date) => dateFormatter.format(date);
 ---
 
 <BaseLayout title={`${post.data.title} | Mr.ATG`} description={post.data.description} article>
+  <SiteHeader />
+
   <main class="article-shell">
     <header class="article-hero" data-reveal>
       <a href={column ? `/columns/${column.id}/` : "/#writing"}>{column ? `Back to ${column.data.title}` : "Back to Writing"}</a>
@@ -56,4 +60,6 @@ const formatDate = (date: Date) => dateFormatter.format(date);
 
     <CommentBox threadId={`post:${post.id}`} />
   </main>
+
+  <SiteFooter />
 </BaseLayout>

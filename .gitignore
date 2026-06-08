@@ -1,3 +1,4 @@
+# --- 你原来的规则，全部保留 ---
 node_modules/
 dist/
 .astro/
@@ -6,3 +7,37 @@ dist/
 *.log
 .edge-qa*/
 src/content/posts/image-*
+
+# --- 补充关键修复规则 ---
+# 1. 核心修复：忽略整个output目录（解决卡死的根本原因）
+output/
+
+# 2. 系统文件（Windows/Mac自动生成，完全不需要提交）
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# 3. 编辑器本地配置（不影响项目，也不需要提交）
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 4. 环境变量文件（包含敏感信息，绝对不能提交）
+.env
+.env.local
+.env.*.local
+
+# 5. 包管理器缓存/临时文件（避免仓库膨胀）
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# 6. 其他临时文件/缓存
+*.tmp
+*.temp
+.cache/

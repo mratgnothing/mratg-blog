@@ -1246,7 +1246,7 @@ h1 {
 
 .article-shell {
   width: min(860px, calc(100% - 32px));
-  margin: 120px auto 64px;
+  margin: 42px auto 64px;
 }
 
 .article-hero {
@@ -1366,9 +1366,28 @@ h1 {
 .article-figure img {
   display: block;
   width: 100%;
-  max-height: 560px;
+  max-height: 460px;
   object-fit: cover;
   border: 2px solid var(--ink);
+}
+
+.article-figure.compact {
+  max-width: min(560px, 100%);
+  margin-inline: auto;
+}
+
+.article-figure.portrait {
+  max-width: min(430px, 100%);
+  margin-inline: auto;
+}
+
+.article-figure.wide img {
+  max-height: 360px;
+}
+
+.article-figure.contain img {
+  object-fit: contain;
+  background: rgba(255, 244, 215, 0.72);
 }
 
 .article-figure figcaption {
@@ -1380,10 +1399,82 @@ h1 {
 
 .article-body > img {
   display: block;
-  width: 100%;
+  width: min(620px, 100%);
+  max-height: 420px;
   margin: 28px 0;
   border: 2px solid var(--ink);
   box-shadow: 5px 5px 0 rgba(32, 24, 39, 0.2);
+  object-fit: contain;
+}
+
+.article-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 28px 0;
+}
+
+.article-gallery.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.article-gallery figure {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 10px;
+  background: var(--paper-2);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 rgba(32, 24, 39, 0.18);
+}
+
+.article-gallery img {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border: 2px solid var(--ink);
+}
+
+.article-gallery .tall img {
+  height: 300px;
+}
+
+.article-gallery figcaption {
+  color: rgba(32, 24, 39, 0.72);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.travel-route {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.travel-route li {
+  padding: 6px 10px;
+  background: rgba(217, 240, 226, 0.86);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 rgba(32, 24, 39, 0.16);
+  font-family: var(--pixel-font);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.travel-note {
+  margin: 24px 0;
+  padding: 16px 18px;
+  background:
+    linear-gradient(90deg, rgba(132, 195, 216, 0.28), rgba(255, 230, 173, 0.64)),
+    var(--paper-2);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 rgba(32, 24, 39, 0.18);
 }
 
 .music-embed {
@@ -1423,15 +1514,34 @@ h1 {
 }
 
 .diary-actions {
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
   gap: 10px;
   margin-top: 16px;
+  max-width: 430px;
 }
 
 .diary-actions .engagement-bar {
+  display: contents;
   margin-top: 0;
+}
+
+.diary-actions .comment-box-collapsed {
+  display: contents;
+}
+
+.diary-actions .comment-details {
+  min-width: 0;
+}
+
+.diary-actions .comment-details[open] {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.diary-actions .comment-details > summary {
+  width: 100%;
 }
 
 .engagement-button,
@@ -1451,6 +1561,14 @@ h1 {
   font-weight: 900;
   cursor: pointer;
   transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.diary-actions .engagement-button,
+.diary-actions .comment-details > summary {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  white-space: nowrap;
 }
 
 .engagement-button:hover,
@@ -2412,6 +2530,8 @@ h1 {
   .site-header {
     align-items: flex-start;
     flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
     position: relative;
     top: auto;
     width: calc(100% - 20px);
@@ -2440,9 +2560,10 @@ h1 {
 
   .site-search {
     order: 3;
+    flex: 0 0 auto;
     width: 100%;
     max-width: none;
-    margin: 4px 0 0;
+    margin: 0;
   }
 
   .nav {
@@ -2635,6 +2756,7 @@ h1 {
 
   .site-header {
     padding: 8px;
+    gap: 7px;
   }
 
   .brand {
@@ -2681,6 +2803,7 @@ h1 {
     gap: 2px;
     flex-wrap: wrap;
     overflow-x: visible;
+    padding-bottom: 0;
   }
 
   .nav a {
@@ -2691,6 +2814,18 @@ h1 {
   .site-search input {
     min-height: 38px;
     font-size: 0.9rem;
+  }
+
+  .diary-actions {
+    gap: 8px;
+    max-width: none;
+  }
+
+  .diary-actions .engagement-button,
+  .diary-actions .comment-details > summary {
+    min-height: 40px;
+    padding: 6px 7px;
+    font-size: clamp(0.72rem, 3.2vw, 0.86rem);
   }
 
   .search-results {
@@ -2963,6 +3098,17 @@ h1 {
   .article-hero,
   .article-body {
     padding: 18px;
+  }
+
+  .article-gallery,
+  .article-gallery.three {
+    grid-template-columns: 1fr;
+  }
+
+  .article-gallery img,
+  .article-gallery .tall img {
+    height: auto;
+    max-height: 360px;
   }
 
   .music-embed iframe {

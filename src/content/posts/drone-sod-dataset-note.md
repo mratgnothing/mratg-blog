@@ -1,6 +1,6 @@
 ---
 title: "DroneSOD-30K 数据集说明应该写什么"
-description: "公开数据集不只是放下载链接，还要把来源、清洗和边界讲清楚。"
+description: "公开数据集要让人信服，需要把来源、清洗和边界讲清楚。"
 category: "Research Diary"
 column: "research-diary"
 tags:

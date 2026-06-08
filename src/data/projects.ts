@@ -75,7 +75,7 @@ export const projects = [
     ],
   },
   {
-    title: "seuphyx",
+    title: "PhyX Platform",
     label: "Side Project",
     icon: "flask",
     image: "/assets/project-seuphyx.jpg",
