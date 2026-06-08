@@ -1390,6 +1390,19 @@ h1 {
   background: rgba(255, 244, 215, 0.72);
 }
 
+.article-figure.pull-up-full-image {
+  width: min(520px, calc(100vw - 72px));
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.article-figure.pull-up-full-image img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+}
+
 .article-figure figcaption {
   margin-top: 10px;
   color: rgba(32, 24, 39, 0.72);

@@ -16,7 +16,10 @@ featured: true
 
 桃园操场的引体向上辅助练习器械什么时候才能修啊。已经坏了两年多了。。
 
-<figure class="article-figure">      <img      src="/assets/posts/muscle1.jpg"      alt="目前状态"      loading="lazy"     style="width: 720px; height: auto;"    />   <figcaption>什么时候能练成鬼背呢。</figcaption> </figure>
+<figure class="article-figure pull-up-full-image">
+  <img src="/assets/posts/muscle1.jpg" alt="目前状态" loading="lazy" />
+  <figcaption>什么时候能练成鬼背呢。</figcaption>
+</figure>
 
 
 ## 下一步
