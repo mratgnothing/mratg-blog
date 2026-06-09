@@ -1,6 +1,6 @@
 ---
 title: "Team Log"
-description: "竞赛团队协作、周报、代码审查和项目复盘。"
+description: "协作、周报、代码审查和复盘。"
 accent: "gold"
 group: "writing"
 order: 30

@@ -4,8 +4,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import PostCard from "../components/PostCard.astro";
 import CommentBox from "../components/CommentBox.astro";
 import EngagementBar from "../components/EngagementBar.astro";
+import TagLink from "../components/TagLink.astro";
 import { journalTopics, projects, researchItems } from "../data/projects";
 
 const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
@@ -55,7 +57,10 @@ const formatDiaryDate = (date: Date) => diaryDateFormatter.format(date);
       <div class="hero-shade" aria-hidden="true"></div>
       <div class="hero-content" data-reveal>
         <p class="eyebrow">Chien-Shiung Wu College, Southeast University / INFJ / Builder</p>
-        <h1 id="hero-title">Building computer vision systems, one pixel at a time.</h1>
+        <h1 id="hero-title" class="hero-title">
+          <span class="hero-title-main">Computer vision,</span>
+          <span class="hero-title-script">crafted pixel by pixel.</span>
+        </h1>
         <p class="hero-copy">
           我是 ATG，东南大学吴健雄学院本科生，关注小目标检测、边缘 AI 与 AI 工程化系统。这里也记录游戏、音乐、旅行和那些让我保持好奇的事情。
         </p>
@@ -166,16 +171,7 @@ const formatDiaryDate = (date: Date) => diaryDateFormatter.format(date);
         </aside>
         <div class="post-grid">
           {
-            recentPosts.map((post) => (
-              <a class="post-card" href={`/posts/${post.id}/`} data-reveal>
-                <span>{post.data.category}</span>
-                <h3>{post.data.title}</h3>
-                <p>{post.data.description}</p>
-                <time datetime={(post.data.updated ?? post.data.date).toISOString()}>
-                  更新 {formatPostDate(post.data.updated ?? post.data.date)}
-                </time>
-              </a>
-            ))
+            recentPosts.map((post) => <PostCard post={post} dateLabel={formatPostDate(post.data.updated ?? post.data.date)} />)
           }
         </div>
       </div>
@@ -223,7 +219,7 @@ const formatDiaryDate = (date: Date) => diaryDateFormatter.format(date);
                 <Content />
                 {entry.data.tags.length > 0 && (
                   <ul class="diary-tags">
-                    {entry.data.tags.map((tag) => <li>{tag}</li>)}
+                    {entry.data.tags.map((tag) => <li><TagLink tag={tag} /></li>)}
                   </ul>
                 )}
                 <div class="diary-actions">

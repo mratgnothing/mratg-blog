@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from "astro:content";
+import TagLink from "./TagLink.astro";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+  dateLabel: string;
+}
+
+const { post, dateLabel } = Astro.props;
+const displayDate = post.data.updated ?? post.data.date;
+---
+
+<article class="post-card" data-reveal>
+  <span>{post.data.category}</span>
+  <h3><a href={`/posts/${post.id}/`}>{post.data.title}</a></h3>
+  <p>{post.data.description}</p>
+  {post.data.tags.length > 0 && (
+    <ul class="tag-list post-tags">
+      {post.data.tags.map((tag) => <li><TagLink tag={tag} /></li>)}
+    </ul>
+  )}
+  <time datetime={displayDate.toISOString()}>更新 {dateLabel}</time>
+</article>

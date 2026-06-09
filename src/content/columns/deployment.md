@@ -1,6 +1,6 @@
 ---
 title: "Deployment"
-description: "Ascend、ONNX、OM、Docker、CI 和边缘设备验证链路。"
+description: "Ascend、ONNX、Docker 与边缘验证。"
 accent: "teal"
 group: "writing"
 order: 20

@@ -1,7 +1,7 @@
 const revealItems = document.querySelectorAll("[data-reveal]");
 const glow = document.querySelector(".cursor-glow");
 const canvas = document.querySelector(".starfield");
-const context = canvas.getContext("2d");
+const context = canvas?.getContext("2d");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const revealObserver = new IntersectionObserver(
@@ -33,6 +33,7 @@ let height = 0;
 let animationFrame = 0;
 
 function resizeCanvas() {
+  if (!canvas || !context) return;
   const ratio = Math.min(window.devicePixelRatio || 1, 2);
   width = window.innerWidth;
   height = window.innerHeight;
@@ -42,29 +43,41 @@ function resizeCanvas() {
   canvas.style.height = `${height}px`;
   context.setTransform(ratio, 0, 0, ratio, 0, 0);
 
-  const starLimit = width < 760 ? 36 : 80;
-  const starCount = Math.floor(Math.min(starLimit, Math.max(28, width / 18)));
+  const starLimit = width < 760 ? 20 : 42;
+  const starCount = Math.floor(Math.min(starLimit, Math.max(16, width / 34)));
   stars = Array.from({ length: starCount }, () => ({
     x: Math.random() * width,
     y: Math.random() * height,
-    size: Math.random() > 0.82 ? 3 : 2,
-    speed: 0.04 + Math.random() * 0.1,
+    size: Math.random() > 0.78 ? 4 : 3,
+    speed: 0.018 + Math.random() * 0.045,
+    drift: Math.random() > 0.5 ? 0.035 : -0.035,
     phase: Math.random() * Math.PI * 2,
+    color: ["255, 244, 215", "244, 184, 75", "132, 195, 216", "217, 240, 226"][Math.floor(Math.random() * 4)],
   }));
 }
 
 function drawStars(time = 0) {
+  if (!canvas || !context) return;
   context.clearRect(0, 0, width, height);
   stars.forEach((star) => {
-    const twinkle = 0.4 + Math.sin(time * 0.0015 + star.phase) * 0.28;
-    context.fillStyle = `rgba(255, 244, 215, ${twinkle})`;
-    context.fillRect(Math.round(star.x), Math.round(star.y), star.size, star.size);
+    const twinkle = 0.34 + Math.sin(time * 0.0012 + star.phase) * 0.26;
+    const x = Math.round(star.x / 2) * 2;
+    const y = Math.round(star.y / 2) * 2;
+    context.fillStyle = `rgba(${star.color}, ${twinkle})`;
+    context.fillRect(x, y, star.size, star.size);
+    if (star.size > 3 && twinkle > 0.48) {
+      context.fillStyle = `rgba(32, 24, 39, ${twinkle * 0.18})`;
+      context.fillRect(x + star.size, y + star.size, 2, 2);
+    }
     if (!prefersReducedMotion) {
       star.y += star.speed;
+      star.x += Math.sin(time * 0.0006 + star.phase) * star.drift;
       if (star.y > height + 4) {
         star.y = -4;
         star.x = Math.random() * width;
       }
+      if (star.x < -8) star.x = width + 8;
+      if (star.x > width + 8) star.x = -8;
     }
   });
 
@@ -73,9 +86,11 @@ function drawStars(time = 0) {
   }
 }
 
-resizeCanvas();
-drawStars();
-window.addEventListener("resize", resizeCanvas);
+if (canvas && context) {
+  resizeCanvas();
+  drawStars();
+  window.addEventListener("resize", resizeCanvas);
+}
 
 document.querySelectorAll(".post-card").forEach((card) => {
   card.addEventListener("mouseenter", () => {
@@ -89,6 +104,44 @@ document.querySelectorAll(".post-card").forEach((card) => {
     );
   });
 });
+
+const burstTargets = document.querySelectorAll(
+  ".button, .text-action, .tag-button, .engagement-button, .card-actions a, .contact-links a, .friend-links a, .column-card, .shelf-item"
+);
+
+burstTargets.forEach((target) => {
+  target.addEventListener("click", (event) => {
+    createPixelBurst(event.clientX, event.clientY);
+    target.classList.remove("pixel-triggered");
+    void target.offsetWidth;
+    target.classList.add("pixel-triggered");
+  });
+});
+
+function createPixelBurst(x, y) {
+  if (prefersReducedMotion) return;
+
+  const palette = ["#f4b84b", "#84c3d8", "#b95768", "#5f9c63", "#fff4d7"];
+  const burst = document.createElement("span");
+  burst.className = "pixel-burst";
+  burst.style.transform = `translate(${x}px, ${y}px)`;
+
+  for (let index = 0; index < 10; index += 1) {
+    const bit = document.createElement("span");
+    const angle = (Math.PI * 2 * index) / 10;
+    const distance = 18 + (index % 3) * 8;
+    bit.className = "pixel-bit";
+    bit.style.setProperty("--dx", `${Math.round(Math.cos(angle) * distance)}px`);
+    bit.style.setProperty("--dy", `${Math.round(Math.sin(angle) * distance)}px`);
+    bit.style.setProperty("--pixel-color", palette[index % palette.length]);
+    bit.style.left = `${index % 2 ? -3 : 3}px`;
+    bit.style.top = `${index % 3 ? -4 : 2}px`;
+    burst.append(bit);
+  }
+
+  document.body.append(burst);
+  window.setTimeout(() => burst.remove(), 620);
+}
 
 const searchInput = document.querySelector("[data-search-input]");
 const searchResults = document.querySelector("[data-search-results]");

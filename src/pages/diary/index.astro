@@ -5,6 +5,7 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import CommentBox from "../../components/CommentBox.astro";
 import EngagementBar from "../../components/EngagementBar.astro";
+import TagLink from "../../components/TagLink.astro";
 
 const diaryEntries = (await getCollection("diary", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.datetime.valueOf() - a.data.datetime.valueOf()
@@ -53,7 +54,7 @@ const formatDiaryDate = (date: Date) => diaryDateFormatter.format(date);
                 <Content />
                 {entry.data.tags.length > 0 && (
                   <ul class="diary-tags">
-                    {entry.data.tags.map((tag) => <li>{tag}</li>)}
+                    {entry.data.tags.map((tag) => <li><TagLink tag={tag} /></li>)}
                   </ul>
                 )}
                 <div class="diary-actions">

@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
+import PostCard from "../../components/PostCard.astro";
 
 export async function getStaticPaths() {
   const columns = await getCollection("columns", ({ data }) => !data.draft);
@@ -52,16 +53,7 @@ const formatDate = (date: Date) => dateFormatter.format(date);
         posts.length ? (
           <div class="post-grid column-post-grid">
             {
-              posts.map((post) => (
-                <a class="post-card" href={`/posts/${post.id}/`} data-reveal>
-                  <span>{post.data.category}</span>
-                  <h3>{post.data.title}</h3>
-                  <p>{post.data.description}</p>
-                  <time datetime={(post.data.updated ?? post.data.date).toISOString()}>
-                    更新 {formatDate(post.data.updated ?? post.data.date)}
-                  </time>
-                </a>
-              ))
+              posts.map((post) => <PostCard post={post} dateLabel={formatDate(post.data.updated ?? post.data.date)} />)
             }
           </div>
         ) : (

@@ -1,0 +1,13 @@
+---
+import { tagHref } from "../lib/tags";
+
+interface Props {
+  tag: string;
+  class?: string;
+}
+
+const { tag } = Astro.props;
+const className = Astro.props.class;
+---
+
+<a class:list={["tag-button", className]} href={tagHref(tag)}>{tag}</a>

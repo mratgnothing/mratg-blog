@@ -5,6 +5,7 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import CommentBox from "../../components/CommentBox.astro";
 import EngagementBar from "../../components/EngagementBar.astro";
+import TagLink from "../../components/TagLink.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
@@ -39,9 +40,10 @@ const formatDate = (date: Date) => dateFormatter.format(date);
         <time datetime={(post.data.updated ?? post.data.date).toISOString()}>修改 {formatDate(post.data.updated ?? post.data.date)}</time>
       </div>
       <ul class="article-meta">
-        <li>{post.data.category}</li>
-        {column && <li>{column.data.title}</li>}
-        {post.data.tags.map((tag) => <li>{tag}</li>)}
+        <li class="article-tag-item">
+          <a class="meta-pill" href={column ? `/columns/${column.id}/` : "/posts/"}>{column?.data.title ?? post.data.category}</a>
+        </li>
+        {post.data.tags.map((tag) => <li class="article-tag-item"><TagLink tag={tag} /></li>)}
       </ul>
     </header>
 

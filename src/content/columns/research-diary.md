@@ -1,6 +1,6 @@
 ---
 title: "Research Diary"
-description: "arXiv 投稿、数据集公开、实验面板和研究阶段记录。"
+description: "投稿、数据集、实验面板和研究记录。"
 accent: "violet"
 group: "writing"
 order: 40

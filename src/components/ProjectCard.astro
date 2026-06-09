@@ -1,4 +1,7 @@
 ---
+import TagLink from "./TagLink.astro";
+import { itemSlug } from "../lib/tags";
+
 interface LinkItem {
   label: string;
   href?: string;
@@ -21,7 +24,7 @@ interface Props {
 const { project } = Astro.props;
 ---
 
-<article class:list={["project-card", project.className]} data-reveal>
+<article id={`project-${itemSlug(project.title)}`} class:list={["project-card", project.className]} data-reveal>
   <div class="card-media">
     <img src={project.image} alt={project.alt} loading="lazy" />
   </div>
@@ -32,7 +35,7 @@ const { project } = Astro.props;
   <h3>{project.title}</h3>
   <p>{project.description}</p>
   <ul class="tag-list">
-    {project.tags.map((tag) => <li>{tag}</li>)}
+    {project.tags.map((tag) => <li><TagLink tag={tag} /></li>)}
   </ul>
   <div class="card-actions">
     {

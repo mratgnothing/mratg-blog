@@ -1,6 +1,6 @@
 ---
 title: "Tech Note"
-description: "小目标检测、模型结构、训练细节和论文阅读笔记。"
+description: "模型结构、训练细节和论文笔记。"
 accent: "berry"
 group: "writing"
 order: 10
