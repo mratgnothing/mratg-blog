@@ -26,7 +26,7 @@ const { project } = Astro.props;
 
 <article id={`project-${itemSlug(project.title)}`} class:list={["project-card", project.className]} data-reveal>
   <div class="card-media">
-    <img src={project.image} alt={project.alt} loading="lazy" />
+    <img src={project.image} alt={project.alt} loading="lazy" decoding="async" />
   </div>
   <div class="card-top">
     <span class:list={["pixel-icon", project.icon]}></span>

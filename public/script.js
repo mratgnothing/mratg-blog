@@ -21,11 +21,16 @@ revealItems.forEach((item, index) => {
   revealObserver.observe(item);
 });
 
+// 使用 requestAnimationFrame 优化鼠标跟随效果，减少重绘频率
+let pointerTimeout;
 document.addEventListener("pointermove", (event) => {
   if (!glow || prefersReducedMotion || window.innerWidth < 760) return;
-  glow.style.setProperty("--x", `${event.clientX}px`);
-  glow.style.setProperty("--y", `${event.clientY}px`);
-});
+  if (pointerTimeout) window.cancelAnimationFrame(pointerTimeout);
+  pointerTimeout = window.requestAnimationFrame(() => {
+    glow.style.setProperty("--x", `${event.clientX}px`);
+    glow.style.setProperty("--y", `${event.clientY}px`);
+  });
+}, { passive: true });
 
 let stars = [];
 let width = 0;
@@ -88,8 +93,13 @@ function drawStars(time = 0) {
 
 if (canvas && context) {
   resizeCanvas();
-  drawStars();
-  window.addEventListener("resize", resizeCanvas);
+  // 使用 requestIdleCallback 延迟启动非关键的星空背景动画
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(() => drawStars());
+  } else {
+    setTimeout(drawStars, 1000);
+  }
+  window.addEventListener("resize", resizeCanvas, { passive: true });
 }
 
 document.querySelectorAll(".post-card").forEach((card) => {

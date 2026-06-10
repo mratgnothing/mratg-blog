@@ -22,12 +22,16 @@ const {
     <meta name="description" content={description} />
     <title>{title}</title>
     <link rel="icon" type="image/png" href="/assets/avatar.png" />
-    <link rel="preload" as="image" href="/assets/pixel-lab-hero.jpg" />
+    <!-- 预加载关键字体以减少布局偏移和 FCP 时间 -->
+    <link rel="preload" href="/fonts/IdeaFonts-XiangSuZhiCheng.ttf" as="font" type="font/truetype" crossorigin />
+    <!-- 优化 LCP 图片预加载：使用 fetchpriority="high" 提升优先级 -->
+    <link rel="preload" as="image" href="/assets/pixel-lab-hero.jpg" fetchpriority="high" />
   </head>
   <body class:list={[article && "article-page"]}>
     <div class="cursor-glow" aria-hidden="true"></div>
     <canvas class="starfield" aria-hidden="true"></canvas>
     <slot />
-    <script is:inline src="/script.js"></script>
+    <!-- 使用 defer 异步加载脚本，避免阻塞主线程渲染 -->
+    <script is:inline defer src="/script.js"></script>
   </body>
 </html>
