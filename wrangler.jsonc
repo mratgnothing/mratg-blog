@@ -1,0 +1,21 @@
+{
+  "name": "mratg-pixel-blog",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-06-12",
+  "kv_namespaces": [
+    {
+      "binding": "MRATG_ENGAGEMENT",
+      "id": "06e590dd149b40f68a1531991cdef9e3"
+    }
+  ],
+  "env": {
+    "preview": {
+      "kv_namespaces": [
+        {
+          "binding": "MRATG_ENGAGEMENT",
+          "id": "4e6f62530e75411682373b6eb428cf54"
+        }
+      ]
+    }
+  }
+}
