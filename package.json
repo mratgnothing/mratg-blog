@@ -6,19 +6,23 @@
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
     "build": "astro build",
-    "preview": "astro preview --host 127.0.0.1",
+    "preview": "npm run build && wrangler dev",
     "import:inbox": "node scripts/import-inbox.mjs",
     "new:post": "node scripts/new-content.mjs post",
     "new:column": "node scripts/new-content.mjs column",
-    "new:diary": "node scripts/new-content.mjs diary"
+    "new:diary": "node scripts/new-content.mjs diary",
+    "deploy": "npm run build && wrangler deploy",
+    "cf-typegen": "wrangler types"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "12",
     "@netlify/blobs": "^10.7.9",
     "@netlify/functions": "^5.3.0",
     "astro": "^5.8.0"
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "wrangler": "^4.100.0"
   }
 }
