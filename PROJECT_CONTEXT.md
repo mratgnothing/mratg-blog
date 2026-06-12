@@ -8,7 +8,7 @@ This file is the project-wide context document for Codex and future maintainers.
 
 `mratg-pixel-blog-astro` is a static Astro 5 personal site for Mr.ATG. It presents a pixel-style portfolio/blog around computer vision, edge AI, AI engineering systems, and personal topics such as games, music, travel, campus life, and fitness.
 
-The deployed site target is `https://mratg.netlify.app`. The build output is static HTML in `dist/`, and Netlify publishes that directory after `npm run build`.
+The deployed site target is `https://mra-t-g-blog.cn`. The primary deployment target is Cloudflare Pages project `mratg-pixel-blog-git`, connected to GitHub repository `mratgnothing/mratg-blog` on the `main` branch. Netlify site `https://mratg.netlify.app` and the old direct-upload Pages project `mratg-pixel-blog` are kept as legacy fallbacks during migration. The build output is static HTML in `dist/`, and Cloudflare Pages publishes that directory after `npm run build`.
 
 ## Tech Stack
 
@@ -17,10 +17,12 @@ The deployed site target is `https://mratg.netlify.app`. The build output is sta
 - Styling: one global stylesheet at `src/styles.css`
 - Content: Astro content collections using Markdown files under `src/content/`
 - Runtime JavaScript: `public/script.js`
-- Backend API: Netlify Functions under `netlify/functions/`
-- Shared engagement storage: Netlify Blobs store `mratg-engagement-v1`
-- Deployment: Netlify static hosting
-- Node version on Netlify: `20`
+- Backend API: Cloudflare Pages Functions under `functions/api/`
+- Shared engagement storage: Cloudflare KV binding `MRATG_ENGAGEMENT`
+- Legacy backend API: Netlify Functions under `netlify/functions/`
+- Legacy shared engagement storage: Netlify Blobs store `mratg-engagement-v1`
+- Deployment: Cloudflare Pages static hosting with Pages Functions
+- Legacy deployment: Netlify static hosting, Node version `20`
 
 ## Required Codex Workflow
 
@@ -37,7 +39,8 @@ Before answering or changing this project, Codex should:
 ```text
 .
 ├─ astro.config.mjs          Astro static-site config and production site URL.
-├─ netlify.toml              Netlify build command and publish directory.
+├─ wrangler.jsonc            Cloudflare Pages project, output directory, and KV bindings.
+├─ netlify.toml              Legacy Netlify build command and publish directory.
 ├─ package.json              npm scripts and dependencies.
 ├─ PUBLISHING.md             Publishing and content authoring workflow.
 ├─ README.md                 Short project usage guide.
@@ -47,7 +50,8 @@ Before answering or changing this project, Codex should:
 │  ├─ script.js              Client-side animation, search, engagement, comments.
 │  ├─ assets/                Site and article images.
 │  └─ fonts/                 Pixel display font files.
-├─ netlify/functions/        Netlify API endpoints for comments, likes, annotations.
+├─ functions/api/            Cloudflare Pages API endpoints for comments, likes, annotations.
+├─ netlify/functions/        Legacy Netlify API endpoints for comments, likes, annotations.
 ├─ content-inbox/            Paste-in folders for Markdown and images before import.
 ├─ scripts/
 │  ├─ import-inbox.mjs       Imports pasted Markdown/image folders into content collections.
@@ -128,7 +132,8 @@ Current state: 4 published diary entries. Diary entries render on the homepage t
 
 ## Routes
 
-- `/` uses `src/pages/index.astro`. It builds the hero, project grid, research timeline, writing board, journal shelf, diary preview, and contact panel.
+- `/` uses `src/pages/index.astro`. It builds the hero, clickable public-topic ticker, project grid, research timeline, writing board, journal shelf, diary preview, and contact panel.
+- `/projects/[slug]/` renders detailed static pages for homepage projects from `src/data/projects.ts`, including project summaries, key metrics, resource links, sharing, and comments.
 - `/posts/` lists all non-draft posts.
 - `/posts/[slug]/` renders one post with tags, dates, engagement, and comments.
 - `/columns/[slug]/` renders a column and all posts whose `column` matches the column slug.
@@ -141,11 +146,11 @@ Current state: 4 published diary entries. Diary entries render on the homepage t
 - `BaseLayout.astro`: HTML shell, metadata, global stylesheet, favicon, font preload, LCP image preload, starfield canvas, and `/script.js`.
 - `SiteHeader.astro`: global navigation and search entry.
 - `GlobalSearch.astro`: builds a client-side JSON search index from posts and diary entries.
-- `ProjectCard.astro`: renders project metadata from `src/data/projects.ts`.
+- `ProjectCard.astro`: renders clickable project metadata from `src/data/projects.ts`.
 - `PostCard.astro`: shared post preview card.
 - `TagLink.astro`: tag link component using tag slug helpers.
 - `EngagementBar.astro`: local engagement controls wired through client script.
-- `CommentBox.astro`: public comment UI backed by Netlify Functions and Blobs, with browser fallback.
+- `CommentBox.astro`: public comment UI backed by Cloudflare Pages Functions and KV on the primary deployment, with browser fallback.
 - `SiteFooter.astro`: footer.
 
 ## Client-Side Behavior
@@ -160,7 +165,7 @@ Current state: 4 published diary entries. Diary entries render on the homepage t
 - public comments, likes, and annotations through `/api/thread`, `/api/comment`, `/api/like`, and `/api/annotation`
 - browser `localStorage` fallback when the backend is unavailable
 
-The comment, like, and annotation system is shared across visitors on Netlify through Netlify Functions and the site-scoped Blobs store `mratg-engagement-v1`. Non-production deploy contexts use deploy-scoped storage.
+The comment, like, and annotation system is shared across visitors on Cloudflare Pages through Pages Functions and the `MRATG_ENGAGEMENT` KV binding. Preview deployments use a separate KV namespace. The legacy Netlify deployment still uses Netlify Functions and the site-scoped Blobs store `mratg-engagement-v1`.
 
 ## Visual Direction
 
@@ -221,35 +226,41 @@ Astro routes and root-relative assets should be checked through a local server, 
 
 ## Deployment
 
-Netlify settings:
+Cloudflare Pages settings:
 
 - Build command: `npm run build`
-- Publish directory: `dist`
-- Node version: `20`
+- Build output directory: `dist`
+- Project name: `mratg-pixel-blog-git`
+- GitHub source: `mratgnothing/mratg-blog`, production branch `main`
+- Production KV binding: `MRATG_ENGAGEMENT` -> `06e590dd149b40f68a1531991cdef9e3`
+- Preview KV binding: `MRATG_ENGAGEMENT` -> `4e6f62530e75411682373b6eb428cf54`
 
 Config locations:
 
 - `astro.config.mjs`: `site`, `output: "static"`, and Vite watch ignore for `.edge-qa`.
-- `netlify.toml`: Netlify build settings.
+- `wrangler.jsonc`: Cloudflare Pages project and KV bindings.
+- `netlify.toml`: legacy Netlify build settings.
 
 ## Current Progress Snapshot
 
 As of this review:
 
 - Static Astro site structure is implemented.
-- Homepage has hero, projects, research, writing, journal, diary, and contact sections.
+- Homepage has hero, clickable public-topic links, projects, research, writing, journal, diary, and contact sections.
 - Content collections are configured and populated.
-- Dynamic post, column, diary, and tag routes are implemented.
+- Dynamic post, project, column, diary, and tag routes are implemented.
+- Six project detail pages exist for SDD-YOLO, WAVE-cloud, EdgeDistillDet, Physics Experiment Agent, Molecule Studio, and SEUPhyX Platform.
 - Search, public comments, engagement UI, and visual animations exist.
 - Homepage, tag archive, and post pages now include richer pixel-game polish: generated voxel scene assets, transparent voxel sticker decorations, a featured tag blackboard constrained to a readable safe area, three-column article pages, local view counts, local text annotations, platform-aware share actions, and local comments.
-- Netlify static deployment config exists.
+- Cloudflare Pages deployment config exists, including Pages Functions and KV-backed engagement APIs.
+- Netlify static deployment config remains as a legacy fallback.
 - Image/font optimization helper scripts exist.
 - `output/` contains local browser verification artifacts and should stay ignored.
 
 ## Known Constraints And Risks
 
-- Comments, likes, and article annotations use Netlify Functions plus Netlify Blobs, with `localStorage` only as a fallback.
-- The Netlify Blobs implementation is a lightweight flat-file store. It is suitable for this personal site, but high-traffic moderation, complex queries, or strict concurrent writes should move to a relational database.
+- Comments, likes, and article annotations use Cloudflare Pages Functions plus KV on the primary deployment, with `localStorage` only as a fallback.
+- The Cloudflare KV implementation stores one JSON document per thread. It is suitable for this personal site, but high-traffic moderation, complex queries, or strict concurrent writes should move to D1 or another relational/stronger-consistency store.
 - Large image/font assets can affect performance; use the optimization helpers before publishing new large media.
 - The repo can contain many generated browser profile files under `output/`; do not scan that folder as source.
 - There are existing local modifications in the working tree. Do not assume a clean Git state.

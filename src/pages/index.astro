@@ -47,6 +47,16 @@ const diaryDateFormatter = new Intl.DateTimeFormat("zh-CN", {
 });
 const formatPostDate = (date: Date) => postDateFormatter.format(date);
 const formatDiaryDate = (date: Date) => diaryDateFormatter.format(date);
+const publicTopicLinks = [
+  { label: "SDD-YOLO experiments", href: "/projects/sdd-yolo/" },
+  { label: "WAVE-cloud progress", href: "/projects/wave-cloud/" },
+  { label: "arXiv notes", href: "/posts/arxiv-first-submission/" },
+  { label: "AI Agent logs", href: "/tags/agent/" },
+  { label: "PhyX platform", href: "/projects/seuphyx/" },
+  { label: "Fitness routine", href: "/posts/pull-up-16-half-semester/" },
+  { label: "Daily gaming", href: "/columns/games/" },
+  { label: "Recent Music", href: "/columns/music/" },
+];
 ---
 
 <BaseLayout>
@@ -80,17 +90,11 @@ const formatDiaryDate = (date: Date) => diaryDateFormatter.format(date);
     <section class="section intro-band" data-reveal>
       <div>
         <p class="section-kicker">Now Public</p>
-        <h2>这里会公开记录什么</h2>
+        <h2>这里会</h2>
+        <h2>公开记录什么</h2>
       </div>
       <div class="ticker" aria-label="Public topics">
-        <span>SDD-YOLO experiments</span>
-        <span>WAVE-cloud progress</span>
-        <span>arXiv notes</span>
-        <span>AI Agent logs</span>
-        <span>PhyX platform</span>
-        <span>Fitness routine</span>
-        <span>Daily gaming</span>
-        <span>Recent Music</span>
+        {publicTopicLinks.map((item) => <a href={item.href}>{item.label}</a>)}
       </div>
     </section>
 
@@ -100,8 +104,9 @@ const formatDiaryDate = (date: Date) => diaryDateFormatter.format(date);
       </div>
       <div class="village-motion-copy">
         <p class="section-kicker">Pixel Route</p>
-        <h2>让页面不只是方框</h2>
-        <p>把项目、文章和日记之间的空白做成一条会呼吸的像素小路：桌面端保留更多动态，移动端保留轻量场景。</p>
+        <h2>路漫漫</h2>
+        <h2>其修远兮</h2>
+        <p>每个人皆是西西弗斯，要在本质荒谬的生活中活出花样来。</p>
       </div>
     </section>
 

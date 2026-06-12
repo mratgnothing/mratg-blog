@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://mratg.netlify.app",
+  site: "https://mra-t-g-blog.cn",
   output: "static",
   vite: {
     server: {

@@ -142,7 +142,7 @@ Deploy manually after building:
 
 ```bash
 npm run build
-npx wrangler pages deploy dist --project-name=mratg-pixel-blog
+npx wrangler pages deploy dist --project-name=mratg-pixel-blog-git
 ```
 
 ## Netlify Legacy

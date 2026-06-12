@@ -1,0 +1,161 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import TagLink from "../../components/TagLink.astro";
+import EngagementBar from "../../components/EngagementBar.astro";
+import CommentBox from "../../components/CommentBox.astro";
+import { projectHref, projects, type ProjectLink } from "../../data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const relatedProjects = projects.filter((item) => item.slug !== project.slug).slice(0, 5);
+const isExternal = (link: ProjectLink) => Boolean(link.href?.startsWith("http"));
+---
+
+<BaseLayout title={`${project.title} | Mr.ATG Projects`} description={project.description} article>
+  <SiteHeader />
+
+  <main class="article-shell article-shell-three project-detail-shell">
+    <div class="article-layout article-layout-three">
+      <aside class="article-rail article-rail-left" aria-label="项目辅助信息" data-reveal>
+        <section class="sidebar-panel project-source-panel">
+          <h2>项目信息</h2>
+          <dl class="article-stat-grid">
+            <div>
+              <dt>角色</dt>
+              <dd>{project.detail.role}</dd>
+            </div>
+            <div>
+              <dt>阶段</dt>
+              <dd>{project.detail.period}</dd>
+            </div>
+            <div>
+              <dt>仓库</dt>
+              <dd>{project.detail.repository}</dd>
+            </div>
+          </dl>
+          <p>{project.detail.sourceNote}</p>
+        </section>
+
+        <section class="sidebar-panel">
+          <h2>关键指标</h2>
+          <dl class="article-stat-grid">
+            {project.detail.stats.map((stat) => (
+              <div>
+                <dt>{stat.label}</dt>
+                <dd>{stat.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      </aside>
+
+      <div class="article-main-stack">
+        <header class="article-hero project-detail-hero" data-reveal>
+          <a href="/#projects">Back to Projects</a>
+          <div class="article-top-metrics" aria-label="项目分类">
+            <span>{project.label}</span>
+            <span>{project.detail.period}</span>
+            <span>{project.detail.repository}</span>
+          </div>
+          <h1>{project.title}</h1>
+          <p>{project.description}</p>
+          <ul class="article-meta">
+            {project.tags.map((tag) => <li class="article-tag-item"><TagLink tag={tag} /></li>)}
+          </ul>
+        </header>
+
+        <article class="article-body project-detail-body" data-reveal>
+          <figure class="article-figure project-detail-cover">
+            <img src={project.image} alt={project.alt} loading="lazy" decoding="async" />
+            <figcaption>{project.label} / {project.detail.role}</figcaption>
+          </figure>
+
+          {project.detail.sections.map((section) => (
+            <section>
+              <h2>{section.title}</h2>
+              <p>{section.body}</p>
+              {section.bullets && (
+                <ul>
+                  {section.bullets.map((item) => <li>{item}</li>)}
+                </ul>
+              )}
+            </section>
+          ))}
+
+          <section>
+            <h2>相关资料</h2>
+            <p>这里保留项目仓库、论文、文档和本站相关文章入口，方便从主页卡片继续追踪原始资料。</p>
+            <ul class="project-resource-list">
+              {project.detail.resources.map((link) => (
+                <li>
+                  {link.href ? (
+                    <a href={link.href} target={isExternal(link) ? "_blank" : undefined} rel={isExternal(link) ? "noreferrer" : undefined}>
+                      {link.label}
+                    </a>
+                  ) : (
+                    <span>{link.label}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        </article>
+
+        <section class="article-share-block" data-reveal>
+          <div>
+            <p class="section-kicker">Project</p>
+            <h2>分享这个项目页</h2>
+            <p>项目页会随主页项目资料一起维护。</p>
+          </div>
+          <EngagementBar
+            threadId={`project:${project.slug}`}
+            title={project.title}
+            description={project.description}
+            href={projectHref(project)}
+            type="项目"
+            dateLabel={project.detail.period}
+          />
+        </section>
+
+        <CommentBox threadId={`project:${project.slug}`} compact collapsed />
+      </div>
+
+      <aside class="article-rail article-rail-right" aria-label="项目索引" data-reveal>
+        <section class="sidebar-panel project-links-panel">
+          <h2>项目链接</h2>
+          <ul class="sidebar-post-list">
+            {project.links.map((link) => (
+              <li>
+                {link.href ? (
+                  <a href={link.href} target={isExternal(link) ? "_blank" : undefined} rel={isExternal(link) ? "noreferrer" : undefined}>
+                    {link.label}
+                  </a>
+                ) : (
+                  <span>{link.label}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="sidebar-panel">
+          <h2>其他项目</h2>
+          <ul class="sidebar-post-list">
+            {relatedProjects.map((item) => <li><a href={projectHref(item)}>{item.title}</a></li>)}
+          </ul>
+        </section>
+        <img class="article-side-empty-decor" src="/assets/decor-turtle.png" alt="" loading="lazy" decoding="async" aria-hidden="true" />
+      </aside>
+
+      <SiteFooter />
+    </div>
+  </main>
+</BaseLayout>
