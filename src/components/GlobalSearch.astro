@@ -25,7 +25,10 @@ const searchPayload = JSON.stringify([...posts, ...diaries]).replace(/</g, "\\u0
 <search class="site-search" role="search">
   <label class="sr-only" for="global-search-input">搜索文章和日记</label>
   <div class="search-input-wrap">
-    <img class="search-icon" src="/assets/search-icon.png" alt="" width="18" height="18" aria-hidden="true" />
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
     <input id="global-search-input" type="search" placeholder="搜索文章 / 日记" autocomplete="off" data-search-input />
   </div>
   <div class="search-results" data-search-results hidden></div>

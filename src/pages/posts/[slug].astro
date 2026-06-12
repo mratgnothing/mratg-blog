@@ -6,6 +6,7 @@ import SiteFooter from "../../components/SiteFooter.astro";
 import CommentBox from "../../components/CommentBox.astro";
 import EngagementBar from "../../components/EngagementBar.astro";
 import TagLink from "../../components/TagLink.astro";
+import { tagHref } from "../../lib/tags";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
@@ -17,8 +18,15 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const allPosts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
+  (a, b) => (b.data.updated ?? b.data.date).valueOf() - (a.data.updated ?? a.data.date).valueOf()
+);
+const diaryEntries = (await getCollection("diary", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.datetime.valueOf() - a.data.datetime.valueOf()
+);
 const columns = await getCollection("columns", ({ data }) => !data.draft);
 const column = post.data.column ? columns.find((item) => item.id === post.data.column) : undefined;
+const columnByTitle = new Map(columns.map((item) => [item.data.title, item.id]));
 const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
   year: "numeric",
   month: "2-digit",
@@ -26,42 +34,187 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
   timeZone: "Asia/Shanghai",
 });
 const formatDate = (date: Date) => dateFormatter.format(date);
+const dateKeyFormatter = new Intl.DateTimeFormat("en-CA", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  timeZone: "Asia/Shanghai",
+});
+const countWords = (body: string | undefined) => {
+  const countSource = (body ?? "")
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/[#[\]*_>`~|{}()[\]-]/g, " ");
+  const chineseCount = countSource.match(/\p{Script=Han}/gu)?.length ?? 0;
+  const latinTokenCount = countSource.match(/[A-Za-z0-9][A-Za-z0-9_-]*/g)?.length ?? 0;
+  return Math.max(1, chineseCount + latinTokenCount);
+};
+const wordCount = countWords(post.body);
+const readMinutes = Math.max(1, Math.ceil(wordCount / 380));
+const categoryCounts = Array.from(
+  allPosts.reduce((stats, item) => {
+    const current = stats.get(item.data.category) ?? 0;
+    stats.set(item.data.category, current + 1);
+    return stats;
+  }, new Map<string, number>())
+)
+  .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "zh-CN"))
+  .slice(0, 4)
+  .map(([category, count]) => ({
+    category,
+    count,
+    href: columnByTitle.has(category) ? `/columns/${columnByTitle.get(category)}/` : tagHref(category),
+  }));
+const relatedPosts = allPosts.filter((item) => item.id !== post.id).slice(0, 3);
+const calendarMap = new Map<string, { date: Date; entries: { title: string; href: string; type: string }[] }>();
+const addCalendarEntry = (date: Date, entry: { title: string; href: string; type: string }) => {
+  const key = dateKeyFormatter.format(date);
+  const current = calendarMap.get(key) ?? { date, entries: [] };
+  current.entries.push(entry);
+  calendarMap.set(key, current);
+};
+allPosts.forEach((item) => {
+  addCalendarEntry(item.data.date, { title: item.data.title, href: `/posts/${item.id}/`, type: "文章" });
+});
+diaryEntries.forEach((entry) => {
+  addCalendarEntry(entry.data.datetime, { title: entry.data.title, href: `/diary/#diary-${entry.id}`, type: "日记" });
+});
+const currentDateKey = dateKeyFormatter.format(post.data.date);
+const calendarMonth = new Date(post.data.date.getFullYear(), post.data.date.getMonth(), 1);
+const calendarMonthLabel = new Intl.DateTimeFormat("zh-CN", {
+  year: "numeric",
+  month: "long",
+  timeZone: "Asia/Shanghai",
+}).format(calendarMonth);
+const firstWeekday = (calendarMonth.getDay() + 6) % 7;
+const daysInMonth = new Date(post.data.date.getFullYear(), post.data.date.getMonth() + 1, 0).getDate();
+const monthCells = [
+  ...Array.from({ length: firstWeekday }, () => null),
+  ...Array.from({ length: daysInMonth }, (_, index) => {
+    const day = index + 1;
+    const date = new Date(post.data.date.getFullYear(), post.data.date.getMonth(), day);
+    const key = dateKeyFormatter.format(date);
+    return { day, key, entries: calendarMap.get(key)?.entries ?? [] };
+  }),
+];
+const updatedDate = post.data.updated ?? post.data.date;
+const hasUpdatedDate = updatedDate.valueOf() !== post.data.date.valueOf();
 ---
 
 <BaseLayout title={`${post.data.title} | Mr.ATG`} description={post.data.description} article>
   <SiteHeader />
 
-  <main class="article-shell">
-    <header class="article-hero" data-reveal>
-      <a href={column ? `/columns/${column.id}/` : "/#writing"}>{column ? `Back to ${column.data.title}` : "Back to Writing"}</a>
-      <h1>{post.data.title}</h1>
-      <div class="article-dates" aria-label="文章时间">
-        <time datetime={post.data.date.toISOString()}>发布 {formatDate(post.data.date)}</time>
-        <time datetime={(post.data.updated ?? post.data.date).toISOString()}>修改 {formatDate(post.data.updated ?? post.data.date)}</time>
+  <main class="article-shell article-shell-three">
+    <div class="article-layout article-layout-three">
+      <aside class="article-rail article-rail-left" aria-label="文章辅助信息" data-reveal>
+        <section class="sidebar-panel category-panel">
+          <h2>分类</h2>
+          <ul class="metric-list compact-list">
+            {categoryCounts.map(({ category, count, href }) => (
+              <li>
+                <a href={href}>{category}</a>
+                <strong>{count}</strong>
+              </li>
+            ))}
+          </ul>
+          <a class="more-link" href="/posts/">更多</a>
+        </section>
+
+        <section class="sidebar-panel annotation-panel" data-annotation-panel data-annotation-thread={`post:${post.id}`}>
+          <h2>边读边批注</h2>
+          <p class="annotation-selection" data-annotation-selected>选中正文里的句子或段落后，可以在这里写批注。</p>
+          <textarea data-annotation-input rows="3" maxlength="360" placeholder="写下这段文字旁边的想法。"></textarea>
+          <button class="annotation-add" type="button" data-annotation-add>批注选中文本</button>
+        </section>
+      </aside>
+
+      <div class="article-main-stack">
+        <header class="article-hero" data-reveal>
+          <a href={column ? `/columns/${column.id}/` : "/#writing"}>{column ? `Back to ${column.data.title}` : "Back to Writing"}</a>
+          <div class="article-top-metrics" aria-label="文章阅读统计">
+            <span>{wordCount.toLocaleString("zh-CN")} 字</span>
+            <span>{readMinutes} 分钟</span>
+            <span><strong data-view-counter data-view-key={`post:${post.id}`}>0</strong> 次浏览</span>
+          </div>
+          <h1>{post.data.title}</h1>
+          <div class="article-date-meta" aria-label="文章日期">
+            <span>发布日期 <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time></span>
+            {hasUpdatedDate && <span>修改日期 <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time></span>}
+          </div>
+          <ul class="article-meta">
+            <li class="article-tag-item">
+              <a class="meta-pill" href={column ? `/columns/${column.id}/` : "/posts/"}>{column?.data.title ?? post.data.category}</a>
+            </li>
+            {post.data.tags.map((tag) => <li class="article-tag-item"><TagLink tag={tag} /></li>)}
+          </ul>
+        </header>
+
+        <article class="article-body" data-reveal data-annotatable data-annotation-thread={`post:${post.id}`}>
+          <Content />
+        </article>
+
+        <section class="article-share-block" data-reveal>
+          <div>
+            <p class="section-kicker">Share</p>
+            <h2>转发这篇文章</h2>
+            <p>可以生成海报，或按平台打开/复制链接。</p>
+          </div>
+          <EngagementBar
+            threadId={`post:${post.id}`}
+            title={post.data.title}
+            description={post.data.description}
+            href={`/posts/${post.id}/`}
+            type="文章"
+            dateLabel={formatDate(post.data.updated ?? post.data.date)}
+          />
+        </section>
+
+        <CommentBox threadId={`post:${post.id}`} />
       </div>
-      <ul class="article-meta">
-        <li class="article-tag-item">
-          <a class="meta-pill" href={column ? `/columns/${column.id}/` : "/posts/"}>{column?.data.title ?? post.data.category}</a>
-        </li>
-        {post.data.tags.map((tag) => <li class="article-tag-item"><TagLink tag={tag} /></li>)}
-      </ul>
-    </header>
 
-    <article class="article-body" data-reveal>
-      <Content />
-    </article>
+      <aside class="article-rail article-rail-right" aria-label="文章索引" data-reveal>
+        <section class="sidebar-panel month-calendar-panel">
+          <header>
+            <h2>{calendarMonthLabel}</h2>
+            <span aria-hidden="true">‹ ›</span>
+          </header>
+          <div class="month-weekdays" aria-hidden="true">
+            {["一", "二", "三", "四", "五", "六", "日"].map((day) => <span>{day}</span>)}
+          </div>
+          <div class="month-grid">
+            {monthCells.map((cell) => (
+              cell ? (
+                cell.entries.length > 0 ? (
+                  <details class:list={["month-day", "has-entry", cell.key === currentDateKey && "is-current"]}>
+                    <summary>{cell.day}</summary>
+                    <ul>
+                      {cell.entries.map((item) => <li><a href={item.href}>{item.type} / {item.title}</a></li>)}
+                    </ul>
+                  </details>
+                ) : (
+                  <span class:list={["month-day", cell.key === currentDateKey && "is-current"]}>{cell.day}</span>
+                )
+              ) : (
+                <span class="month-day is-empty"></span>
+              )
+            ))}
+          </div>
+        </section>
 
-    <EngagementBar
-      threadId={`post:${post.id}`}
-      title={post.data.title}
-      description={post.data.description}
-      href={`/posts/${post.id}/`}
-      type="文章"
-      dateLabel={formatDate(post.data.updated ?? post.data.date)}
-    />
+        {relatedPosts.length > 0 && (
+          <section class="sidebar-panel">
+            <h2>继续阅读</h2>
+            <ul class="sidebar-post-list">
+              {relatedPosts.map((item) => (
+                <li><a href={`/posts/${item.id}/`}>{item.data.title}</a></li>
+              ))}
+            </ul>
+          </section>
+        )}
+        <img class="article-side-empty-decor" src="/assets/decor-fox.png" alt="" loading="lazy" decoding="async" aria-hidden="true" />
+      </aside>
 
-    <CommentBox threadId={`post:${post.id}`} />
+      <SiteFooter />
+    </div>
   </main>
-
-  <SiteFooter />
 </BaseLayout>

@@ -30,6 +30,7 @@ const diaryItems = await Promise.all(
   })
 );
 const recentDiaryItems = diaryItems.slice(0, 3);
+const diaryDecorImages = ["/assets/decor-cat.png", "/assets/decor-fox.png", "/assets/decor-villager.png"];
 const postDateFormatter = new Intl.DateTimeFormat("zh-CN", {
   month: "2-digit",
   day: "2-digit",
@@ -90,6 +91,17 @@ const formatDiaryDate = (date: Date) => diaryDateFormatter.format(date);
         <span>Fitness routine</span>
         <span>Daily gaming</span>
         <span>Recent Music</span>
+      </div>
+    </section>
+
+    <section class="section village-motion-band" aria-label="Pixel village route">
+      <div class="village-panorama" aria-hidden="true">
+        <img src="/assets/village-lab-panorama.png" alt="" loading="lazy" decoding="async" />
+      </div>
+      <div class="village-motion-copy">
+        <p class="section-kicker">Pixel Route</p>
+        <h2>让页面不只是方框</h2>
+        <p>把项目、文章和日记之间的空白做成一条会呼吸的像素小路：桌面端保留更多动态，移动端保留轻量场景。</p>
       </div>
     </section>
 
@@ -211,8 +223,9 @@ const formatDiaryDate = (date: Date) => diaryDateFormatter.format(date);
       </div>
       <div class="diary-timeline" data-reveal>
         {
-          recentDiaryItems.map(({ entry, Content }) => (
+          recentDiaryItems.map(({ entry, Content }, index) => (
             <article class="diary-entry" id={`diary-${entry.id}`}>
+              <img class="diary-empty-decor" src={diaryDecorImages[index % diaryDecorImages.length]} alt="" loading="lazy" decoding="async" aria-hidden="true" />
               <time datetime={entry.data.datetime.toISOString()}>{formatDiaryDate(entry.data.datetime)}</time>
               <div>
                 <h3>{entry.data.title}</h3>
@@ -246,6 +259,7 @@ const formatDiaryDate = (date: Date) => diaryDateFormatter.format(date);
         <h2 id="contact-title">一起交流项目、游戏和车兵生活</h2>
         <p>如果你对War Thunder/MC/文明VI/星露谷/地平线、小目标检测/AI Agent/昇腾部署、弦乐/电音/纯音乐 感兴趣，可以从这里找到我。</p>
       </div>
+      <img class="contact-empty-decor" src="/assets/decor-villager.png" alt="" loading="lazy" decoding="async" aria-hidden="true" />
       <div class="contact-links">
         <a href="https://github.com/mratgnothing" target="_blank" rel="noreferrer">GitHub / mratgnothing</a>
         <a href="https://x.com/A_T_G114514" target="_blank" rel="noreferrer">X / A_T_G114514</a>

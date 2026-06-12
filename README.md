@@ -4,6 +4,21 @@ Astro version of the Mr.ATG pixel-style personal site.
 
 ## Write New Content
 
+最快的方式是把 Markdown 和图片放进 `content-inbox/`，然后一次导入：
+
+```bash
+npm run import:inbox
+```
+
+文章放在 `content-inbox/posts/任意文件夹/index.md`，日记放在
+`content-inbox/diary/任意文件夹/index.md`。图片可以和 Markdown 放在同一个
+文件夹，正文里用 `./image.jpg` 这样的相对路径即可；导入脚本会复制图片到
+`public/assets/posts/对应-slug/`，并把链接改成 `/assets/posts/...`。
+
+文章缺少 `date` 或 `updated` 时会自动使用当前日期/时间；日记缺少
+`datetime` 时会自动使用当前时间。导入后的非草稿内容会自动进入首页最近文章
+或日记时间线。
+
 Use the local generator for articles:
 
 ```bash

@@ -22,6 +22,7 @@ interface Props {
 }
 
 const { project } = Astro.props;
+const isFeatured = project.className.includes("featured");
 ---
 
 <article id={`project-${itemSlug(project.title)}`} class:list={["project-card", project.className]} data-reveal>
@@ -48,4 +49,5 @@ const { project } = Astro.props;
       )
     }
   </div>
+  {isFeatured && <img class="card-empty-decor card-empty-decor-turtle" src="/assets/decor-turtle.png" alt="" loading="lazy" decoding="async" aria-hidden="true" />}
 </article>

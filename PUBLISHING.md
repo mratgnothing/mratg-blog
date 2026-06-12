@@ -17,6 +17,19 @@ Netlify will run `npm install` and `npm run build` on every GitHub push.
 
 ## Add A New Article
 
+最快导入方式：
+
+```bash
+npm run import:inbox
+```
+
+把每篇文章放到 `content-inbox/posts/文章文件夹/index.md`，把每条日记放到
+`content-inbox/diary/日记文件夹/index.md`。同文件夹里的图片可以在 Markdown
+中用相对路径引用，例如 `![图](./photo.jpg)`；脚本会复制图片到
+`public/assets/posts/对应-slug/`，并把链接重写成部署可用的
+`/assets/posts/...`。文章会自动补 `date` 和 `updated`，日记会自动补
+`datetime`，所以导入后首页最近内容会在重新构建时自动刷新。
+
 Run the content generator:
 
 ```bash

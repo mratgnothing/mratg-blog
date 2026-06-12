@@ -116,7 +116,7 @@ document.querySelectorAll(".post-card").forEach((card) => {
 });
 
 const burstTargets = document.querySelectorAll(
-  ".button, .text-action, .tag-button, .engagement-button, .card-actions a, .contact-links a, .friend-links a, .column-card, .shelf-item"
+  ".button, .text-action, .tag-button, .engagement-button, .card-actions a, .contact-links a, .friend-links a, .column-card, .shelf-item, .metric-list a"
 );
 
 burstTargets.forEach((target) => {
@@ -218,6 +218,203 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+document.querySelectorAll("[data-view-counter]").forEach((counter) => {
+  const viewKey = counter.dataset.viewKey;
+  if (!viewKey) return;
+  const storageKey = `mratg-views:${viewKey}`;
+  const nextCount = Number(localStorage.getItem(storageKey) || "0") + 1;
+  localStorage.setItem(storageKey, String(nextCount));
+  counter.textContent = String(nextCount);
+});
+
+const annotationRoot = document.querySelector("[data-annotatable]");
+const annotationPanel = document.querySelector("[data-annotation-panel]");
+
+if (annotationRoot && annotationPanel) {
+  const threadId = annotationPanel.dataset.annotationThread || annotationRoot.dataset.annotationThread || "article";
+  const storageKey = `mratg-annotations:${threadId}`;
+  const selectedPreview = annotationPanel.querySelector("[data-annotation-selected]");
+  const input = annotationPanel.querySelector("[data-annotation-input]");
+  const addButton = annotationPanel.querySelector("[data-annotation-add]");
+  let selectedText = "";
+  let selectedRange = null;
+
+  function readAnnotations() {
+    try {
+      return JSON.parse(localStorage.getItem(storageKey) || "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function writeAnnotations(items) {
+    localStorage.setItem(storageKey, JSON.stringify(items));
+  }
+
+  function updateSelectionPreview() {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return;
+    const range = selection.getRangeAt(0);
+    const text = selection.toString().replace(/\s+/g, " ").trim();
+    if (!text || !annotationRoot.contains(range.commonAncestorContainer)) return;
+    selectedText = text.slice(0, 260);
+    selectedRange = range.cloneRange();
+    if (selectedPreview) {
+      selectedPreview.textContent = `已选中：${selectedText}`;
+    }
+  }
+
+  document.addEventListener("selectionchange", updateSelectionPreview);
+
+  function createAnnotationMark(text, note, id) {
+    const mark = document.createElement("span");
+    mark.className = "article-annotation";
+    mark.dataset.annotationId = id;
+    mark.dataset.note = note;
+    mark.dataset.text = text;
+    mark.textContent = text;
+    return mark;
+  }
+
+  function wrapRange(text, note, id) {
+    if (!selectedRange || !annotationRoot.contains(selectedRange.commonAncestorContainer)) return false;
+    const mark = createAnnotationMark(text, note, id);
+    try {
+      selectedRange.surroundContents(mark);
+      window.getSelection()?.removeAllRanges();
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function wrapFirstOccurrence(text, note, id) {
+    const walker = document.createTreeWalker(annotationRoot, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue?.includes(text)) return NodeFilter.FILTER_REJECT;
+        if (node.parentElement?.closest(".article-annotation, script, style, textarea, button")) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    });
+
+    const node = walker.nextNode();
+    if (!node || !node.nodeValue) return false;
+    const index = node.nodeValue.indexOf(text);
+    if (index < 0) return false;
+    const range = document.createRange();
+    range.setStart(node, index);
+    range.setEnd(node, index + text.length);
+    const mark = createAnnotationMark(text, note, id);
+    range.surroundContents(mark);
+    return true;
+  }
+
+  function restoreAnnotations() {
+    readAnnotations().forEach((item) => {
+      wrapFirstOccurrence(item.text, item.note, item.id);
+    });
+  }
+
+  function closeAnnotationPopovers(exceptMark = null) {
+    annotationRoot.querySelectorAll(".article-annotation.is-open").forEach((item) => {
+      if (item !== exceptMark) {
+        item.classList.remove("is-open");
+        item.querySelector(".article-annotation-popover")?.remove();
+      }
+    });
+  }
+
+  function openAnnotationPopover(mark) {
+    const existingPopover = mark.querySelector(".article-annotation-popover");
+    closeAnnotationPopovers(mark);
+    if (existingPopover) {
+      mark.classList.remove("is-open");
+      existingPopover.remove();
+      return;
+    }
+    const popover = document.createElement("span");
+    popover.className = "article-annotation-popover";
+    popover.setAttribute("role", "note");
+    popover.innerHTML = `
+      <span>${escapeHtml(mark.dataset.note || "")}</span>
+      <button type="button" data-annotation-delete-inline="${escapeHtml(mark.dataset.annotationId || "")}">删除</button>
+    `;
+    mark.append(popover);
+    mark.classList.add("is-open");
+  }
+
+  function deleteAnnotation(id) {
+    if (!id) return;
+    const next = readAnnotations().filter((item) => item.id !== id);
+    writeAnnotations(next);
+    annotationRoot.querySelectorAll(`[data-annotation-id="${CSS.escape(id)}"]`).forEach((mark) => {
+      mark.replaceWith(document.createTextNode(mark.dataset.text || mark.firstChild?.textContent || ""));
+    });
+  }
+
+  addButton?.addEventListener("click", () => {
+    const note = String(input?.value || "").trim();
+    if (!selectedText || !note) return;
+    const id = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`;
+    const cleanText = selectedText.slice(0, 260);
+    const cleanNote = note.slice(0, 360);
+    wrapRange(cleanText, cleanNote, id) || wrapFirstOccurrence(cleanText, cleanNote, id);
+    const annotations = readAnnotations();
+    annotations.unshift({ id, text: cleanText, note: cleanNote, createdAt: new Date().toISOString() });
+    writeAnnotations(annotations);
+    if (input) input.value = "";
+    selectedText = "";
+    selectedRange = null;
+    if (selectedPreview) selectedPreview.textContent = "选中正文里的句子或段落后，可以在这里写批注。";
+  });
+
+  annotationRoot.addEventListener("click", (event) => {
+    const deleteButton = event.target.closest("[data-annotation-delete-inline]");
+    if (deleteButton) {
+      event.stopPropagation();
+      deleteAnnotation(deleteButton.dataset.annotationDeleteInline);
+      return;
+    }
+    const mark = event.target.closest(".article-annotation");
+    if (!mark) return;
+    event.stopPropagation();
+    openAnnotationPopover(mark);
+  });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.closest(".article-annotation")) return;
+    closeAnnotationPopovers();
+  });
+
+  restoreAnnotations();
+}
+
+const monthEntryDays = document.querySelectorAll(".month-day.has-entry");
+
+monthEntryDays.forEach((day) => {
+  day.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+
+  day.addEventListener("toggle", () => {
+    if (!day.open) return;
+    monthEntryDays.forEach((item) => {
+      if (item !== day) item.open = false;
+    });
+  });
+});
+
+if (monthEntryDays.length) {
+  document.addEventListener("click", (event) => {
+    if (event.target.closest(".month-day.has-entry")) return;
+    monthEntryDays.forEach((day) => {
+      day.open = false;
+    });
+  });
 }
 
 document.querySelectorAll("[data-comment-box]").forEach((box) => {
@@ -392,7 +589,7 @@ document.querySelectorAll("[data-engagement]").forEach((bar) => {
 
 function openShareModal(item) {
   const modal = ensureShareModal();
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(item.href)}`;
+  const qrUrl = createShareCode(item.href);
   modal.querySelector("[data-share-type-label]").textContent = item.type;
   modal.querySelector("[data-share-date-label]").textContent = item.date || "Pixel Lab";
   modal.querySelector("[data-share-title-label]").textContent = item.title;
@@ -401,6 +598,7 @@ function openShareModal(item) {
   modal.querySelector("[data-share-qr]").src = qrUrl;
   modal.querySelector("[data-copy-link]").onclick = () => copyShareLink(item.href, modal);
   modal.querySelector("[data-save-poster]").onclick = () => saveSharePoster(item, qrUrl);
+  renderShareTargets(modal, item);
   modal.hidden = false;
   document.body.classList.add("share-open");
 }
@@ -438,6 +636,7 @@ function ensureShareModal() {
         <button type="button" data-copy-link>复制链接</button>
         <button type="button" data-save-poster>保存海报</button>
       </div>
+      <div class="share-socials" data-share-socials aria-label="选择转发平台"></div>
       <p class="share-status" data-share-status aria-live="polite"></p>
     </section>
   `;
@@ -450,6 +649,52 @@ function ensureShareModal() {
   });
   document.body.append(modal);
   return modal;
+}
+
+function createShareCode(href) {
+  let hash = 0;
+  for (let index = 0; index < href.length; index += 1) {
+    hash = (hash * 31 + href.charCodeAt(index)) >>> 0;
+  }
+  const cells = [];
+  for (let y = 0; y < 9; y += 1) {
+    for (let x = 0; x < 9; x += 1) {
+      const edge = x < 2 && y < 2 || x > 6 && y < 2 || x < 2 && y > 6;
+      const bit = (hash >> ((x + y * 9) % 24)) & 1;
+      if (edge || bit) {
+        cells.push(`<rect x="${18 + x * 14}" y="${18 + y * 14}" width="10" height="10" fill="#201827"/>`);
+      }
+    }
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180"><rect width="180" height="180" fill="#fff4d7"/><rect x="8" y="8" width="164" height="164" fill="none" stroke="#201827" stroke-width="6"/>${cells.join("")}<rect x="54" y="146" width="72" height="10" fill="#5f9c63"/></svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
+function renderShareTargets(modal, item) {
+  const socials = modal.querySelector("[data-share-socials]");
+  if (!socials) return;
+  const encodedUrl = encodeURIComponent(item.href);
+  const encodedText = encodeURIComponent(item.title);
+  const targets = [
+    { label: "微信", mode: "copy" },
+    { label: "QQ", url: `https://connect.qq.com/widget/shareqq/index.html?url=${encodedUrl}&title=${encodedText}&summary=${encodeURIComponent(item.description || "")}` },
+    { label: "X", url: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}` },
+    { label: "bilibili", mode: "copy" },
+    { label: "Facebook", url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
+    { label: "Instagram", mode: "copy" },
+  ];
+
+  socials.innerHTML = targets.map((target) => `<button type="button" data-share-target="${escapeHtml(target.label)}">${escapeHtml(target.label)}</button>`).join("");
+  socials.querySelectorAll("[data-share-target]").forEach((button) => {
+    const target = targets.find((item) => item.label === button.dataset.shareTarget);
+    button.addEventListener("click", () => {
+      if (target?.url) {
+        window.open(target.url, "_blank", "noopener,noreferrer,width=720,height=560");
+        return;
+      }
+      copyShareLink(item.href, modal);
+    });
+  });
 }
 
 async function copyShareLink(href, modal) {

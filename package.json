@@ -7,6 +7,7 @@
     "dev": "astro dev --host 127.0.0.1",
     "build": "astro build",
     "preview": "astro preview --host 127.0.0.1",
+    "import:inbox": "node scripts/import-inbox.mjs",
     "new:post": "node scripts/new-content.mjs post",
     "new:column": "node scripts/new-content.mjs column",
     "new:diary": "node scripts/new-content.mjs diary"

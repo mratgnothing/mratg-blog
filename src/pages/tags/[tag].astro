@@ -47,15 +47,23 @@ const taggedPosts = posts.filter((post) => post.data.tags.some((tag) => tagSlug(
 const taggedProjects = projects.filter((project) => project.tags.some((tag) => tagSlug(tag) === currentSlug));
 const taggedDiary = diaryEntries.filter((entry) => entry.data.tags.some((tag) => tagSlug(tag) === currentSlug));
 const totalCount = taggedPosts.length + taggedProjects.length + taggedDiary.length;
-const allTags = Array.from(
-  new Map(
-    [
-      ...posts.flatMap((post) => post.data.tags),
-      ...projects.flatMap((project) => project.tags),
-      ...diaryEntries.flatMap((entry) => entry.data.tags),
-    ].map((tag) => [tagSlug(tag), tag])
-  ).values()
-).sort((a, b) => a.localeCompare(b, "zh-CN"));
+const tagStats = Array.from(
+  [
+    ...posts.flatMap((post) => post.data.tags.map((tag) => ({ tag, type: "post" }))),
+    ...projects.flatMap((project) => project.tags.map((tag) => ({ tag, type: "project" }))),
+    ...diaryEntries.flatMap((entry) => entry.data.tags.map((tag) => ({ tag, type: "diary" }))),
+  ].reduce((stats, item) => {
+    const slug = tagSlug(item.tag);
+    const current = stats.get(slug) ?? { tag: item.tag, posts: 0, projects: 0, diary: 0, total: 0 };
+    if (item.type === "post") current.posts += 1;
+    if (item.type === "project") current.projects += 1;
+    if (item.type === "diary") current.diary += 1;
+    current.total += 1;
+    stats.set(slug, current);
+    return stats;
+  }, new Map<string, { tag: string; posts: number; projects: number; diary: number; total: number }>())
+).sort((a, b) => b[1].posts - a[1].posts || b[1].total - a[1].total || a[1].tag.localeCompare(b[1].tag, "zh-CN"));
+const featuredTags = tagStats.slice(0, 18).map(([, stat]) => stat);
 
 const postDateFormatter = new Intl.DateTimeFormat("zh-CN", {
   year: "numeric",
@@ -131,11 +139,17 @@ const excerpt = (body: string | undefined) => body?.replace(/\s+/g, " ").trim().
 
     <section class="archive-posts tag-index" aria-labelledby="tag-index-title">
       <div class="section-heading" data-reveal>
-        <p class="section-kicker">All Tags</p>
+        <p class="section-kicker">Featured Tags</p>
         <h2 id="tag-index-title">标签索引</h2>
+        <p>只展示覆盖文章最多的标签，避免未来标签越来越多时把索引变成清单墙。</p>
       </div>
       <ul class="tag-list tag-cloud" data-reveal>
-        {allTags.map((tag) => <li><TagLink tag={tag} /></li>)}
+        {featuredTags.map((item) => (
+          <li>
+            <TagLink tag={item.tag} />
+            <span class="tag-count">{item.posts} 篇</span>
+          </li>
+        ))}
       </ul>
     </section>
   </main>
