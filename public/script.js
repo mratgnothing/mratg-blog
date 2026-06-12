@@ -158,6 +158,59 @@ const searchResults = document.querySelector("[data-search-results]");
 const searchIndexNode = document.querySelector("[data-search-index]");
 let searchIndex = [];
 const COMMENT_IMAGE_LIMIT = 2 * 1024 * 1024;
+const ENGAGEMENT_API = {
+  thread: "/api/thread",
+  comment: "/api/comment",
+  like: "/api/like",
+  annotation: "/api/annotation",
+};
+const threadRequests = new Map();
+
+function getVisitorId() {
+  const key = "mratg-visitor-id";
+  let visitorId = localStorage.getItem(key);
+  if (!visitorId) {
+    visitorId = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`;
+    localStorage.setItem(key, visitorId);
+  }
+  return visitorId;
+}
+
+async function fetchThreadData(threadId, options = {}) {
+  const refresh = Boolean(options.refresh);
+  const cacheKey = `${threadId}:${getVisitorId()}`;
+  if (!refresh && threadRequests.has(cacheKey)) {
+    return threadRequests.get(cacheKey);
+  }
+
+  const request = fetch(`${ENGAGEMENT_API.thread}?threadId=${encodeURIComponent(threadId)}&visitorId=${encodeURIComponent(getVisitorId())}`, {
+    headers: { accept: "application/json" },
+  }).then(async (response) => {
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || "Thread request failed");
+    return data;
+  });
+
+  threadRequests.set(cacheKey, request);
+  return request;
+}
+
+async function postJson(url, payload, method = "POST") {
+  const response = await fetch(url, {
+    method,
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      ...payload,
+      visitorId: getVisitorId(),
+    }),
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.error || "Request failed");
+  return data;
+}
 
 if (searchInput && searchResults && searchIndexNode) {
   try {
@@ -240,6 +293,8 @@ if (annotationRoot && annotationPanel) {
   const addButton = annotationPanel.querySelector("[data-annotation-add]");
   let selectedText = "";
   let selectedRange = null;
+  let annotations = [];
+  let backendAnnotations = false;
 
   function readAnnotations() {
     try {
@@ -250,6 +305,7 @@ if (annotationRoot && annotationPanel) {
   }
 
   function writeAnnotations(items) {
+    annotations = items;
     localStorage.setItem(storageKey, JSON.stringify(items));
   }
 
@@ -268,19 +324,20 @@ if (annotationRoot && annotationPanel) {
 
   document.addEventListener("selectionchange", updateSelectionPreview);
 
-  function createAnnotationMark(text, note, id) {
+  function createAnnotationMark(text, note, id, owned = true) {
     const mark = document.createElement("span");
     mark.className = "article-annotation";
     mark.dataset.annotationId = id;
     mark.dataset.note = note;
     mark.dataset.text = text;
+    mark.dataset.owned = String(owned);
     mark.textContent = text;
     return mark;
   }
 
-  function wrapRange(text, note, id) {
+  function wrapRange(text, note, id, owned = true) {
     if (!selectedRange || !annotationRoot.contains(selectedRange.commonAncestorContainer)) return false;
-    const mark = createAnnotationMark(text, note, id);
+    const mark = createAnnotationMark(text, note, id, owned);
     try {
       selectedRange.surroundContents(mark);
       window.getSelection()?.removeAllRanges();
@@ -290,7 +347,7 @@ if (annotationRoot && annotationPanel) {
     }
   }
 
-  function wrapFirstOccurrence(text, note, id) {
+  function wrapFirstOccurrence(text, note, id, owned = true) {
     const walker = document.createTreeWalker(annotationRoot, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
         if (!node.nodeValue?.includes(text)) return NodeFilter.FILTER_REJECT;
@@ -308,15 +365,27 @@ if (annotationRoot && annotationPanel) {
     const range = document.createRange();
     range.setStart(node, index);
     range.setEnd(node, index + text.length);
-    const mark = createAnnotationMark(text, note, id);
+    const mark = createAnnotationMark(text, note, id, owned);
     range.surroundContents(mark);
     return true;
   }
 
   function restoreAnnotations() {
-    readAnnotations().forEach((item) => {
-      wrapFirstOccurrence(item.text, item.note, item.id);
+    annotations.forEach((item) => {
+      wrapFirstOccurrence(item.text, item.note, item.id, item.owned !== false);
     });
+  }
+
+  async function loadAnnotations() {
+    annotations = readAnnotations();
+    try {
+      const data = await fetchThreadData(threadId);
+      backendAnnotations = true;
+      writeAnnotations(data.annotations || []);
+    } catch {
+      backendAnnotations = false;
+    }
+    restoreAnnotations();
   }
 
   function closeAnnotationPopovers(exceptMark = null) {
@@ -339,33 +408,55 @@ if (annotationRoot && annotationPanel) {
     const popover = document.createElement("span");
     popover.className = "article-annotation-popover";
     popover.setAttribute("role", "note");
+    const deleteButton = mark.dataset.owned === "false" ? "" : `<button type="button" data-annotation-delete-inline="${escapeHtml(mark.dataset.annotationId || "")}">删除</button>`;
     popover.innerHTML = `
       <span>${escapeHtml(mark.dataset.note || "")}</span>
-      <button type="button" data-annotation-delete-inline="${escapeHtml(mark.dataset.annotationId || "")}">删除</button>
+      ${deleteButton}
     `;
     mark.append(popover);
     mark.classList.add("is-open");
   }
 
-  function deleteAnnotation(id) {
+  async function deleteAnnotation(id) {
     if (!id) return;
-    const next = readAnnotations().filter((item) => item.id !== id);
+    let next = annotations.filter((item) => item.id !== id);
+    if (backendAnnotations) {
+      try {
+        const data = await postJson(ENGAGEMENT_API.annotation, { threadId, id }, "DELETE");
+        next = data.annotations || next;
+      } catch {
+        backendAnnotations = false;
+      }
+    }
     writeAnnotations(next);
     annotationRoot.querySelectorAll(`[data-annotation-id="${CSS.escape(id)}"]`).forEach((mark) => {
       mark.replaceWith(document.createTextNode(mark.dataset.text || mark.firstChild?.textContent || ""));
     });
   }
 
-  addButton?.addEventListener("click", () => {
+  addButton?.addEventListener("click", async () => {
     const note = String(input?.value || "").trim();
     if (!selectedText || !note) return;
     const id = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`;
     const cleanText = selectedText.slice(0, 260);
     const cleanNote = note.slice(0, 360);
-    wrapRange(cleanText, cleanNote, id) || wrapFirstOccurrence(cleanText, cleanNote, id);
-    const annotations = readAnnotations();
-    annotations.unshift({ id, text: cleanText, note: cleanNote, createdAt: new Date().toISOString() });
-    writeAnnotations(annotations);
+    let nextAnnotation = { id, text: cleanText, note: cleanNote, owned: true, createdAt: new Date().toISOString() };
+
+    if (backendAnnotations) {
+      try {
+        const data = await postJson(ENGAGEMENT_API.annotation, { threadId, text: cleanText, note: cleanNote });
+        nextAnnotation = (data.annotations || []).find((item) => item.text === cleanText && item.note === cleanNote) || nextAnnotation;
+        writeAnnotations(data.annotations || [nextAnnotation, ...annotations]);
+      } catch {
+        backendAnnotations = false;
+        writeAnnotations([nextAnnotation, ...annotations]);
+      }
+    } else {
+      writeAnnotations([nextAnnotation, ...annotations]);
+    }
+
+    wrapRange(nextAnnotation.text, nextAnnotation.note, nextAnnotation.id, nextAnnotation.owned !== false) ||
+      wrapFirstOccurrence(nextAnnotation.text, nextAnnotation.note, nextAnnotation.id, nextAnnotation.owned !== false);
     if (input) input.value = "";
     selectedText = "";
     selectedRange = null;
@@ -390,7 +481,7 @@ if (annotationRoot && annotationPanel) {
     closeAnnotationPopovers();
   });
 
-  restoreAnnotations();
+  loadAnnotations();
 }
 
 const monthEntryDays = document.querySelectorAll(".month-day.has-entry");
@@ -424,7 +515,10 @@ document.querySelectorAll("[data-comment-box]").forEach((box) => {
   const count = box.querySelector("[data-comment-count]");
   const imageInput = box.querySelector("[data-comment-image]");
   const preview = box.querySelector("[data-comment-preview]");
+  const note = box.querySelector("[data-comment-note]");
   let pendingImage = "";
+  let backendComments = false;
+  let comments = [];
 
   if (!threadId || !form || !list || !count) return;
 
@@ -439,11 +533,19 @@ document.querySelectorAll("[data-comment-box]").forEach((box) => {
   }
 
   function writeComments(comments) {
+    comments = comments.slice(0, 200);
     localStorage.setItem(storageKey, JSON.stringify(comments));
   }
 
-  function renderComments() {
-    const comments = readComments();
+  function setComments(nextComments, persist = true) {
+    comments = nextComments;
+    if (persist) {
+      localStorage.setItem(storageKey, JSON.stringify(nextComments));
+    }
+  }
+
+  function renderComments(nextComments = comments) {
+    setComments(nextComments, false);
     count.textContent = `${comments.length} 条`;
 
     if (!comments.length) {
@@ -468,6 +570,22 @@ document.querySelectorAll("[data-comment-box]").forEach((box) => {
         `
       )
       .join("");
+  }
+
+  async function loadComments() {
+    setComments(readComments(), false);
+    renderComments();
+    try {
+      const data = await fetchThreadData(threadId);
+      backendComments = true;
+      setComments(data.comments || []);
+      writeComments(comments);
+      renderComments();
+      if (note) note.textContent = "评论会公开保存到站点后端；邮箱仅用于去重和防刷，不会公开显示。";
+    } catch {
+      backendComments = false;
+      if (note) note.textContent = "评论暂时保存在本机浏览器；后端恢复后会重新启用公开评论。";
+    }
   }
 
   if (imageInput && preview) {
@@ -501,25 +619,41 @@ document.querySelectorAll("[data-comment-box]").forEach((box) => {
     });
   }
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
     const name = String(formData.get("name") || "").trim();
     const email = String(formData.get("email") || "").trim();
     const message = String(formData.get("message") || "").trim();
+    const website = String(formData.get("website") || "").trim();
 
+    if (website) return;
     if (!name || !email || !message) return;
 
-    const comments = readComments();
-    comments.unshift({
+    let nextComments = comments;
+    const localComment = {
       id: crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
       name,
-      email,
       message,
       image: pendingImage,
       createdAt: new Date().toISOString(),
-    });
-    writeComments(comments);
+    };
+
+    if (backendComments) {
+      try {
+        const data = await postJson(ENGAGEMENT_API.comment, { threadId, name, email, message, image: pendingImage, website });
+        nextComments = data.comments || [localComment, ...comments];
+        setComments(nextComments);
+      } catch {
+        backendComments = false;
+        nextComments = [localComment, ...comments];
+        setComments(nextComments);
+        if (note) note.textContent = "评论暂时保存在本机浏览器；后端恢复后会重新启用公开评论。";
+      }
+    } else {
+      nextComments = [localComment, ...comments];
+      setComments(nextComments);
+    }
 
     form.reset();
     pendingImage = "";
@@ -527,10 +661,10 @@ document.querySelectorAll("[data-comment-box]").forEach((box) => {
       preview.hidden = true;
       preview.innerHTML = "";
     }
-    renderComments();
+    renderComments(nextComments);
   });
 
-  renderComments();
+  loadComments();
 });
 
 function formatCommentTime(value) {
@@ -557,21 +691,58 @@ document.querySelectorAll("[data-engagement]").forEach((bar) => {
 
   const countKey = `mratg-likes:${threadId}`;
   const likedKey = `mratg-liked:${threadId}`;
+  let backendLikes = false;
+  let likeState = {
+    count: Number(localStorage.getItem(countKey) || "0"),
+    liked: localStorage.getItem(likedKey) === "true",
+  };
 
-  function renderLike() {
-    const count = Number(localStorage.getItem(countKey) || "0");
-    const liked = localStorage.getItem(likedKey) === "true";
-    likeCount.textContent = String(Math.max(0, count));
-    likeButton.setAttribute("aria-pressed", String(liked));
-    likeButton.classList.toggle("is-liked", liked);
+  function setLikeState(nextState, persist = true) {
+    likeState = {
+      count: Math.max(0, Number(nextState.count || 0)),
+      liked: Boolean(nextState.liked),
+    };
+    if (persist) {
+      localStorage.setItem(countKey, String(likeState.count));
+      localStorage.setItem(likedKey, String(likeState.liked));
+    }
   }
 
-  likeButton.addEventListener("click", () => {
-    const liked = localStorage.getItem(likedKey) === "true";
-    const current = Number(localStorage.getItem(countKey) || "0");
-    localStorage.setItem(likedKey, String(!liked));
-    localStorage.setItem(countKey, String(Math.max(0, current + (liked ? -1 : 1))));
+  function renderLike() {
+    likeCount.textContent = String(likeState.count);
+    likeButton.setAttribute("aria-pressed", String(likeState.liked));
+    likeButton.classList.toggle("is-liked", likeState.liked);
+  }
+
+  async function loadLike() {
     renderLike();
+    try {
+      const data = await fetchThreadData(threadId);
+      backendLikes = true;
+      setLikeState(data.likes || likeState);
+      renderLike();
+    } catch {
+      backendLikes = false;
+    }
+  }
+
+  likeButton.addEventListener("click", async () => {
+    const optimisticState = {
+      liked: !likeState.liked,
+      count: likeState.count + (likeState.liked ? -1 : 1),
+    };
+    setLikeState(optimisticState);
+    renderLike();
+
+    if (!backendLikes) return;
+
+    try {
+      const data = await postJson(ENGAGEMENT_API.like, { threadId, liked: optimisticState.liked });
+      setLikeState(data.likes || optimisticState);
+      renderLike();
+    } catch {
+      backendLikes = false;
+    }
   });
 
   shareButton.addEventListener("click", () => {
@@ -584,7 +755,7 @@ document.querySelectorAll("[data-engagement]").forEach((bar) => {
     });
   });
 
-  renderLike();
+  loadLike();
 });
 
 function openShareModal(item) {

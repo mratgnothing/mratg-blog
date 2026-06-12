@@ -118,10 +118,11 @@ NetEase Cloud Music playlists can be embedded with:
 
 ## Comments
 
-Article and diary comment boxes currently store comments in browser
-`localStorage`. They require a username and email, and support text, emoji, and
-one image under 2MB. For public shared comments on Netlify, add a backend or
-hosted comment service before relying on them in production.
+Article and diary comment boxes use Netlify Functions plus Netlify Blobs for
+public shared comments, likes, and article annotations. Comments require a
+username and email, support text, emoji, and one image under 2MB, and only store
+an email hash on the backend. The browser keeps `localStorage` as a fallback
+when the backend is unavailable.
 
 Use this workflow instead:
 

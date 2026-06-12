@@ -105,10 +105,10 @@ For NetEase Cloud Music playlists, use the official outchain player:
 
 ## Comments
 
-Every article and diary entry has a comment box. The current implementation is
-client-side and stores comments in the visitor's browser `localStorage`; it is
-good for local preview and personal notes. To share comments across visitors
-after deployment, connect a backend, database, or hosted comment service.
+Every article and diary entry has a comment box. Public comments, likes, and
+article annotations are served through Netlify Functions under `/api/...` and
+stored in Netlify Blobs. The browser keeps a local fallback copy so the UI still
+works during local preview or a temporary backend outage.
 
 ## Local Commands
 

@@ -17,6 +17,8 @@ The deployed site target is `https://mratg.netlify.app`. The build output is sta
 - Styling: one global stylesheet at `src/styles.css`
 - Content: Astro content collections using Markdown files under `src/content/`
 - Runtime JavaScript: `public/script.js`
+- Backend API: Netlify Functions under `netlify/functions/`
+- Shared engagement storage: Netlify Blobs store `mratg-engagement-v1`
 - Deployment: Netlify static hosting
 - Node version on Netlify: `20`
 
@@ -45,6 +47,7 @@ Before answering or changing this project, Codex should:
 │  ├─ script.js              Client-side animation, search, engagement, comments.
 │  ├─ assets/                Site and article images.
 │  └─ fonts/                 Pixel display font files.
+├─ netlify/functions/        Netlify API endpoints for comments, likes, annotations.
 ├─ content-inbox/            Paste-in folders for Markdown and images before import.
 ├─ scripts/
 │  ├─ import-inbox.mjs       Imports pasted Markdown/image folders into content collections.
@@ -142,7 +145,7 @@ Current state: 4 published diary entries. Diary entries render on the homepage t
 - `PostCard.astro`: shared post preview card.
 - `TagLink.astro`: tag link component using tag slug helpers.
 - `EngagementBar.astro`: local engagement controls wired through client script.
-- `CommentBox.astro`: local comment UI using browser `localStorage`.
+- `CommentBox.astro`: public comment UI backed by Netlify Functions and Blobs, with browser fallback.
 - `SiteFooter.astro`: footer.
 
 ## Client-Side Behavior
@@ -154,10 +157,10 @@ Current state: 4 published diary entries. Diary entries render on the homepage t
 - animated starfield canvas
 - pixel burst click effect
 - global search filtering from embedded JSON
-- comment storage and rendering through `localStorage`
-- lightweight engagement interactions
+- public comments, likes, and annotations through `/api/thread`, `/api/comment`, `/api/like`, and `/api/annotation`
+- browser `localStorage` fallback when the backend is unavailable
 
-The comment system is local-only. It is good for preview or personal notes, but it is not shared across visitors after deployment unless a backend or hosted comment service is added.
+The comment, like, and annotation system is shared across visitors on Netlify through Netlify Functions and the site-scoped Blobs store `mratg-engagement-v1`. Non-production deploy contexts use deploy-scoped storage.
 
 ## Visual Direction
 
@@ -237,7 +240,7 @@ As of this review:
 - Homepage has hero, projects, research, writing, journal, diary, and contact sections.
 - Content collections are configured and populated.
 - Dynamic post, column, diary, and tag routes are implemented.
-- Search, local comments, engagement UI, and visual animations exist.
+- Search, public comments, engagement UI, and visual animations exist.
 - Homepage, tag archive, and post pages now include richer pixel-game polish: generated voxel scene assets, transparent voxel sticker decorations, a featured tag blackboard constrained to a readable safe area, three-column article pages, local view counts, local text annotations, platform-aware share actions, and local comments.
 - Netlify static deployment config exists.
 - Image/font optimization helper scripts exist.
@@ -245,7 +248,8 @@ As of this review:
 
 ## Known Constraints And Risks
 
-- Comments and engagement are client-local only, backed by `localStorage`.
+- Comments, likes, and article annotations use Netlify Functions plus Netlify Blobs, with `localStorage` only as a fallback.
+- The Netlify Blobs implementation is a lightweight flat-file store. It is suitable for this personal site, but high-traffic moderation, complex queries, or strict concurrent writes should move to a relational database.
 - Large image/font assets can affect performance; use the optimization helpers before publishing new large media.
 - The repo can contain many generated browser profile files under `output/`; do not scan that folder as source.
 - There are existing local modifications in the working tree. Do not assume a clean Git state.
