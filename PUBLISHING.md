@@ -1,19 +1,34 @@
 # Publishing Workflow
 
-## Recommended GitHub + Netlify Flow
+## Recommended GitHub + Cloudflare Pages Flow
 
 1. Create or use a GitHub repository for this folder.
 2. Push the Astro source code.
-3. In Netlify, choose **Add new site > Import an existing project**.
-4. Select the GitHub repo.
+3. In Cloudflare Pages, create or open project `mratg-pixel-blog-git`.
+4. Connect the GitHub repo and production branch `main`.
 5. Use these build settings:
 
 ```text
 Build command: npm run build
-Publish directory: dist
+Build output directory: dist
 ```
 
-Netlify will run `npm install` and `npm run build` on every GitHub push.
+Cloudflare Pages will run `npm install` and `npm run build` on every GitHub push.
+
+## One-Click GitHub Push
+
+On Windows, double-click `publish-to-github.cmd` in the project root to commit
+all current local changes and push them to GitHub. The script shows `git status`,
+asks for confirmation, lets you enter a commit message, then runs:
+
+```bash
+git add -A
+git commit -m "your message"
+git push
+```
+
+Use this after checking the site locally. Cloudflare Pages deploys automatically
+from the GitHub `main` branch after the push.
 
 ## Add A New Article
 
@@ -118,8 +133,9 @@ NetEase Cloud Music playlists can be embedded with:
 
 ## Comments
 
-Article and diary comment boxes use Netlify Functions plus Netlify Blobs for
-public shared comments, likes, and article annotations. Comments require a
+Article and diary comment boxes use Cloudflare Pages Functions plus the
+`MRATG_ENGAGEMENT` KV binding for public shared comments, likes, and article
+annotations. Comments require a
 username and email, support text, emoji, and one image under 2MB, and only store
 an email hash on the backend. The browser keeps `localStorage` as a fallback
 when the backend is unavailable.
@@ -141,7 +157,8 @@ npm run preview
 ```
 
 Open the preview URL and check the homepage, project cards, images, and article
-routes. After that, commit and push to GitHub; Netlify will deploy the new build.
+routes. After that, commit and push to GitHub; Cloudflare Pages will deploy the
+new build.
 
 ## Drafts
 

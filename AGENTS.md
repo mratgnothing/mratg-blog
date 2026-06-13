@@ -29,4 +29,4 @@ This repository is an Astro static personal site. Before answering project-speci
 - Main homepage composition: `src/pages/index.astro`
 - Visual system: `src/styles.css`
 - Client behavior: `public/script.js`
-- Deployment: `astro.config.mjs` and `netlify.toml`
+- Deployment: `astro.config.mjs` and `wrangler.jsonc`

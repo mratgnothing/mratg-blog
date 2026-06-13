@@ -21,11 +21,16 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="icon" type="image/png" href="/assets/avatar.png" />
-    <!-- 预加载关键字体以减少布局偏移和 FCP 时间 -->
-    <link rel="preload" href="/fonts/IdeaFonts-XiangSuZhiCheng.woff2" as="font" type="font/woff2" crossorigin />
-    <!-- 优化 LCP 图片预加载：使用 fetchpriority="high" 提升优先级 -->
-    <link rel="preload" as="image" href="/assets/pixel-lab-hero.jpg" fetchpriority="high" />
+    <link rel="icon" type="image/png" href="/assets/avatar-96.png" />
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/pixel-lab-hero-960.avif"
+      imagesrcset="/assets/pixel-lab-hero-960.avif 960w, /assets/pixel-lab-hero-1536.avif 1536w"
+      imagesizes="100vw"
+      type="image/avif"
+      fetchpriority="high"
+    />
   </head>
   <body class:list={[article && "article-page"]}>
     <div class="cursor-glow" aria-hidden="true"></div>

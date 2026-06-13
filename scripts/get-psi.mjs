@@ -2,7 +2,7 @@
 
 async function run(strategy) {
   console.log(`Fetching PageSpeed Insights for ${strategy}...`);
-  const url = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://mratg.netlify.app/&strategy=${strategy}`;
+  const url = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://mra-t-g-blog.cn/&strategy=${strategy}`;
   try {
     const res = await fetch(url);
     if (!res.ok) {

@@ -64,7 +64,21 @@ const publicTopicLinks = [
 
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-art" aria-hidden="true"></div>
+      <div class="hero-art" aria-hidden="true">
+        <picture>
+          <source
+            type="image/avif"
+            srcset="/assets/pixel-lab-hero-960.avif 960w, /assets/pixel-lab-hero-1536.avif 1536w"
+            sizes="100vw"
+          />
+          <source
+            type="image/webp"
+            srcset="/assets/pixel-lab-hero-960.webp 960w, /assets/pixel-lab-hero-1536.webp 1536w"
+            sizes="100vw"
+          />
+          <img src="/assets/pixel-lab-hero.jpg" alt="" fetchpriority="high" decoding="async" />
+        </picture>
+      </div>
       <div class="hero-shade" aria-hidden="true"></div>
       <div class="hero-content" data-reveal>
         <p class="eyebrow">Chien-Shiung Wu College, Southeast University / INFJ / Builder</p>
@@ -100,7 +114,19 @@ const publicTopicLinks = [
 
     <section class="section village-motion-band" aria-label="Pixel village route">
       <div class="village-panorama" aria-hidden="true">
-        <img src="/assets/village-lab-panorama.png" alt="" loading="lazy" decoding="async" />
+        <picture>
+          <source
+            type="image/avif"
+            srcset="/assets/village-lab-panorama-768.avif 768w, /assets/village-lab-panorama-1120.avif 1120w, /assets/village-lab-panorama-1400.avif 1400w"
+            sizes="(max-width: 920px) calc(100vw - 32px), 1120px"
+          />
+          <source
+            type="image/webp"
+            srcset="/assets/village-lab-panorama-768.webp 768w, /assets/village-lab-panorama-1120.webp 1120w, /assets/village-lab-panorama-1400.webp 1400w"
+            sizes="(max-width: 920px) calc(100vw - 32px), 1120px"
+          />
+          <img src="/assets/village-lab-panorama.png" alt="" loading="lazy" decoding="async" />
+        </picture>
       </div>
       <div class="village-motion-copy">
         <p class="section-kicker">Pixel Route</p>

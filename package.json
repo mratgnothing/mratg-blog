@@ -13,8 +13,6 @@
     "new:diary": "node scripts/new-content.mjs diary"
   },
   "dependencies": {
-    "@netlify/blobs": "^10.7.9",
-    "@netlify/functions": "^5.3.0",
     "astro": "^5.8.0"
   },
   "devDependencies": {

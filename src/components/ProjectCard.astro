@@ -9,11 +9,33 @@ interface Props {
 const { project } = Astro.props;
 const isFeatured = project.className.includes("featured");
 const href = projectHref(project);
+const optimizedImageBase = project.image.match(/^\/assets\/project-[\w-]+\.jpg$/)
+  ? project.image.replace(/\.jpg$/, "")
+  : "";
+const imageSizes = "(max-width: 920px) calc(100vw - 64px), (max-width: 1180px) calc((100vw - 72px) / 2), 520px";
 ---
 
 <article id={`project-${project.slug}`} class:list={["project-card", project.className]} data-reveal>
   <a class="card-media card-media-link" href={href} aria-label={`查看 ${project.title} 项目详情`}>
-    <img src={project.image} alt={project.alt} loading="lazy" decoding="async" />
+    {
+      optimizedImageBase ? (
+        <picture>
+          <source
+            type="image/avif"
+            srcset={`${optimizedImageBase}-640.avif 640w, ${optimizedImageBase}-960.avif 960w, ${optimizedImageBase}-1280.avif 1280w`}
+            sizes={imageSizes}
+          />
+          <source
+            type="image/webp"
+            srcset={`${optimizedImageBase}-640.webp 640w, ${optimizedImageBase}-960.webp 960w, ${optimizedImageBase}-1280.webp 1280w`}
+            sizes={imageSizes}
+          />
+          <img src={project.image} alt={project.alt} loading="lazy" decoding="async" sizes={imageSizes} />
+        </picture>
+      ) : (
+        <img src={project.image} alt={project.alt} loading="lazy" decoding="async" />
+      )
+    }
   </a>
   <div class="card-top">
     <span class:list={["pixel-icon", project.icon]}></span>

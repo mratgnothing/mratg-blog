@@ -1,7 +1,6 @@
 @font-face {
   font-family: "IdeaFonts XiangSuZhiCheng";
-  src: url("/fonts/IdeaFonts-XiangSuZhiCheng.woff2") format("woff2"),
-       url("/fonts/IdeaFonts-XiangSuZhiCheng.ttf") format("truetype");
+  src: url("/fonts/IdeaFonts-XiangSuZhiCheng-subset.woff2") format("woff2");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -167,11 +166,17 @@ a {
   min-width: 176px;
 }
 
+.brand-picture {
+  display: block;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+}
+
 .brand-mark {
   width: 38px;
   height: 38px;
   display: block;
-  flex: 0 0 auto;
   background: var(--night);
   border: 2px solid var(--ink);
   box-shadow: inset -3px -3px 0 rgba(0, 0, 0, 0.18);
@@ -356,7 +361,6 @@ main,
     linear-gradient(var(--berry) 0 0) 18% 78% / 6px 6px no-repeat;
   filter: drop-shadow(3px 3px 0 rgba(32, 24, 39, 0.46));
   opacity: 0.62;
-  animation: pixelFloat 9s steps(5, end) infinite;
 }
 
 .hero::after {
@@ -366,7 +370,6 @@ main,
   background-size: 100% 6px, 48px 100%;
   opacity: 0.28;
   mix-blend-mode: soft-light;
-  animation: scanlineSlide 7s steps(7, end) infinite;
 }
 
 .hero-art,
@@ -378,12 +381,21 @@ main,
 .hero-art {
   width: 100%;
   height: 100%;
-  background-image: url("/assets/pixel-lab-hero.jpg");
-  background-size: cover;
-  background-position: center center;
+  overflow: hidden;
   image-rendering: auto;
   transform: scale(1.02);
-  animation: heroDrift 18s ease-in-out infinite alternate;
+}
+
+.hero-art picture,
+.hero-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-art img {
+  object-fit: cover;
+  object-position: center center;
 }
 
 .hero-shade {
@@ -666,7 +678,6 @@ h1 {
 .ticker a {
   color: var(--ink);
   text-decoration: none;
-  animation: tickerStep 5.6s steps(2, end) infinite;
 }
 
 .ticker span:nth-child(2n),
@@ -759,6 +770,14 @@ h1 {
 .card-media {
   aspect-ratio: 16 / 9;
   margin: -8px -8px 16px;
+}
+
+.card-media picture,
+.section-banner picture,
+.journal-cover picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .card-media img,
@@ -3145,6 +3164,12 @@ h1 {
   animation: villageDrift 22s cubic-bezier(0.45, 0.04, 0.2, 1) infinite alternate;
 }
 
+.village-panorama picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .village-panorama::before,
 .village-panorama::after {
   content: "";
@@ -4259,11 +4284,6 @@ h1 {
   }
 }
 
-.intro-band,
-.contact-panel {
-  animation: softGlow 8s ease-in-out infinite;
-}
-
 @media (max-width: 1180px) and (min-width: 921px) {
   .project-hero-card,
   .project-side-card,
@@ -4379,8 +4399,8 @@ h1 {
     border-bottom: 2px solid var(--ink);
   }
 
-  .hero-art {
-    background-position: 58% center;
+  .hero-art img {
+    object-position: 58% center;
     opacity: 0.86;
   }
 

@@ -107,10 +107,9 @@ For NetEase Cloud Music playlists, use the official outchain player:
 
 Every article and diary entry has a comment box. Public comments, likes, and
 article annotations are served through `/api/...`. The Cloudflare Pages
-deployment uses Pages Functions plus the `MRATG_ENGAGEMENT` KV namespace; the
-legacy Netlify deployment uses Netlify Functions plus Netlify Blobs. The browser
-keeps a local fallback copy so the UI still works during local preview or a
-temporary backend outage.
+deployment uses Pages Functions plus the `MRATG_ENGAGEMENT` KV namespace. The
+browser keeps a local fallback copy so the UI still works during local preview
+or a temporary backend outage.
 
 ## Local Commands
 
@@ -144,8 +143,3 @@ Deploy manually after building:
 npm run build
 npx wrangler pages deploy dist --project-name=mratg-pixel-blog-git
 ```
-
-## Netlify Legacy
-
-The old Netlify config is kept as a fallback while the domain migration is being
-verified. Netlify build command: `npm run build`; publish directory: `dist`.

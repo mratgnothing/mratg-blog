@@ -8,7 +8,7 @@ This file is the project-wide context document for Codex and future maintainers.
 
 `mratg-pixel-blog-astro` is a static Astro 5 personal site for Mr.ATG. It presents a pixel-style portfolio/blog around computer vision, edge AI, AI engineering systems, and personal topics such as games, music, travel, campus life, and fitness.
 
-The deployed site target is `https://mra-t-g-blog.cn`. The primary deployment target is Cloudflare Pages project `mratg-pixel-blog-git`, connected to GitHub repository `mratgnothing/mratg-blog` on the `main` branch. Netlify site `https://mratg.netlify.app` and the old direct-upload Pages project `mratg-pixel-blog` are kept as legacy fallbacks during migration. The build output is static HTML in `dist/`, and Cloudflare Pages publishes that directory after `npm run build`.
+The deployed site target is `https://mra-t-g-blog.cn`. The only deployment target is Cloudflare Pages project `mratg-pixel-blog-git`, connected to GitHub repository `mratgnothing/mratg-blog` on the `main` branch. The build output is static HTML in `dist/`, and Cloudflare Pages publishes that directory after `npm run build`.
 
 ## Tech Stack
 
@@ -19,10 +19,7 @@ The deployed site target is `https://mra-t-g-blog.cn`. The primary deployment ta
 - Runtime JavaScript: `public/script.js`
 - Backend API: Cloudflare Pages Functions under `functions/api/`
 - Shared engagement storage: Cloudflare KV binding `MRATG_ENGAGEMENT`
-- Legacy backend API: Netlify Functions under `netlify/functions/`
-- Legacy shared engagement storage: Netlify Blobs store `mratg-engagement-v1`
 - Deployment: Cloudflare Pages static hosting with Pages Functions
-- Legacy deployment: Netlify static hosting, Node version `20`
 
 ## Required Codex Workflow
 
@@ -40,7 +37,6 @@ Before answering or changing this project, Codex should:
 .
 ├─ astro.config.mjs          Astro static-site config and production site URL.
 ├─ wrangler.jsonc            Cloudflare Pages project, output directory, and KV bindings.
-├─ netlify.toml              Legacy Netlify build command and publish directory.
 ├─ package.json              npm scripts and dependencies.
 ├─ PUBLISHING.md             Publishing and content authoring workflow.
 ├─ README.md                 Short project usage guide.
@@ -51,7 +47,6 @@ Before answering or changing this project, Codex should:
 │  ├─ assets/                Site and article images.
 │  └─ fonts/                 Pixel display font files.
 ├─ functions/api/            Cloudflare Pages API endpoints for comments, likes, annotations.
-├─ netlify/functions/        Legacy Netlify API endpoints for comments, likes, annotations.
 ├─ content-inbox/            Paste-in folders for Markdown and images before import.
 ├─ scripts/
 │  ├─ import-inbox.mjs       Imports pasted Markdown/image folders into content collections.
@@ -165,7 +160,7 @@ Current state: 4 published diary entries. Diary entries render on the homepage t
 - public comments, likes, and annotations through `/api/thread`, `/api/comment`, `/api/like`, and `/api/annotation`
 - browser `localStorage` fallback when the backend is unavailable
 
-The comment, like, and annotation system is shared across visitors on Cloudflare Pages through Pages Functions and the `MRATG_ENGAGEMENT` KV binding. Preview deployments use a separate KV namespace. The legacy Netlify deployment still uses Netlify Functions and the site-scoped Blobs store `mratg-engagement-v1`.
+The comment, like, and annotation system is shared across visitors on Cloudflare Pages through Pages Functions and the `MRATG_ENGAGEMENT` KV binding. Preview deployments use a separate KV namespace.
 
 ## Visual Direction
 
@@ -239,7 +234,6 @@ Config locations:
 
 - `astro.config.mjs`: `site`, `output: "static"`, and Vite watch ignore for `.edge-qa`.
 - `wrangler.jsonc`: Cloudflare Pages project and KV bindings.
-- `netlify.toml`: legacy Netlify build settings.
 
 ## Current Progress Snapshot
 
@@ -253,7 +247,6 @@ As of this review:
 - Search, public comments, engagement UI, and visual animations exist.
 - Homepage, tag archive, and post pages now include richer pixel-game polish: generated voxel scene assets, transparent voxel sticker decorations, a featured tag blackboard constrained to a readable safe area, three-column article pages, local view counts, local text annotations, platform-aware share actions, and local comments.
 - Cloudflare Pages deployment config exists, including Pages Functions and KV-backed engagement APIs.
-- Netlify static deployment config remains as a legacy fallback.
 - Image/font optimization helper scripts exist.
 - `output/` contains local browser verification artifacts and should stay ignored.
 
