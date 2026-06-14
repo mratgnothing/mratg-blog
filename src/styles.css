@@ -1880,14 +1880,27 @@ h1 {
   line-height: 1.55;
 }
 
-.article-body > img {
-  display: block;
-  width: min(620px, 100%);
-  max-height: 420px;
+.article-body > p:has(> img:only-child) {
   margin: 28px 0;
+  line-height: 0;
+  text-align: center;
+}
+
+.article-body > img,
+.article-body > p > img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(70vh, 560px);
+  margin: 28px auto;
   border: 2px solid var(--ink);
   box-shadow: 5px 5px 0 rgba(32, 24, 39, 0.2);
   object-fit: contain;
+}
+
+.article-body > p > img {
+  margin: 0 auto;
 }
 
 .article-gallery {

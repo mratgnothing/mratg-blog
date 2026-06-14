@@ -19,6 +19,11 @@ if (revealItems.length && !prefersReducedMotion && "IntersectionObserver" in win
   );
 
   revealItems.forEach((item, index) => {
+    const itemHeight = item.getBoundingClientRect().height;
+    if (itemHeight > window.innerHeight * 1.25) {
+      item.classList.add("is-visible");
+      return;
+    }
     item.style.transitionDelay = `${Math.min(index * 35, 180)}ms`;
     revealObserver.observe(item);
   });
