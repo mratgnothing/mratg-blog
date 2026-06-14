@@ -5,8 +5,8 @@ category: "Tech Note"
 column: "tech-note"
 tags:
   - "SDD-YOLO"
-  - "Small Object Detection"
-  - "arXiv:2603.25218"
+  - "Edge AI"
+  - "Research"
 date: "2026-06-07"
 updated: "2026-06-08T13:04:00+08:00"
 featured: true

@@ -4,8 +4,8 @@ datetime: "2026-06-11T23:40:00+08:00"
 mood: "confused but shipped"
 tags:
   - "AI"
+  - "Agent"
   - "Workflow"
-  - "Codex"
 draft: false
 ---
 

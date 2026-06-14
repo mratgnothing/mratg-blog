@@ -5,8 +5,7 @@ category: "Travel"
 column: "travel"
 tags:
   - "Singapore"
-  - "Zoo"
-  - "Gardens by the Bay"
+  - "Travel"
 date: "2026-06-08"
 updated: "2026-06-08T20:54:00+08:00"
 ---

@@ -63,7 +63,7 @@ const tagStats = Array.from(
     return stats;
   }, new Map<string, { tag: string; posts: number; projects: number; diary: number; total: number }>())
 ).sort((a, b) => b[1].posts - a[1].posts || b[1].total - a[1].total || a[1].tag.localeCompare(b[1].tag, "zh-CN"));
-const featuredTags = tagStats.slice(0, 18).map(([, stat]) => stat);
+const featuredTags = tagStats.slice(0, 14).map(([, stat]) => stat);
 
 const postDateFormatter = new Intl.DateTimeFormat("zh-CN", {
   year: "numeric",
@@ -147,7 +147,7 @@ const excerpt = (body: string | undefined) => body?.replace(/\s+/g, " ").trim().
         {featuredTags.map((item) => (
           <li>
             <TagLink tag={item.tag} />
-            <span class="tag-count">{item.posts} 篇</span>
+            <span class="tag-count">{item.total} 条</span>
           </li>
         ))}
       </ul>

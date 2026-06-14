@@ -4,9 +4,8 @@ description: "LaTeX、.bbl、endorsement、版本更新和公开叙述。"
 category: "Research Diary"
 column: "research-diary"
 tags:
-  - "arXiv"
   - "SDD-YOLO"
-  - "LaTeX"
+  - "Research"
 date: "2026-06-04"
 updated: "2026-06-08T12:16:00+08:00"
 ---
@@ -27,4 +26,3 @@ arXiv 不会继承你本地的 Overleaf 状态，也不会自动理解所有路�
   <strong>下一步：</strong>
   也许我会把论文摘要、方法图、实验表格和代码链接整理成一个单独的 SDD-YOLO project page。
 </div>
-

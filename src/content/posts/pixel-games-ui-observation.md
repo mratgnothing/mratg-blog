@@ -4,8 +4,7 @@ description: "像素风格总能把信息密度和情绪边界控制得很好。
 category: "Games"
 column: "games"
 tags:
-  - "Pixel Art"
-  - "Game UI"
+  - "Games"
   - "Design"
 date: "2026-06-08"
 updated: "2026-06-08T12:44:00+08:00"

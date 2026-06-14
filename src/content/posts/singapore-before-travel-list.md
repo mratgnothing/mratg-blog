@@ -5,8 +5,7 @@ category: "Travel"
 column: "travel"
 tags:
   - "Singapore"
-  - "Citywalk"
-  - "Changi"
+  - "Travel"
 date: "2026-06-08"
 updated: "2026-06-08T20:50:00+08:00"
 ---

@@ -46,7 +46,7 @@ export const projects: Project[] = [
     className: "featured project-hero-card",
     description:
       "面向地对空反无人机场景的小目标检测框架，arXiv:2603.25218，关注 P2 高分辨率检测头、DFL-free / NMS-free 推理和边缘高效部署。",
-    tags: ["YOLO", "P2 Head", "Distillation", "Anti-UAV"],
+    tags: ["SDD-YOLO", "Edge AI", "Research"],
     links: [
       { label: "arXiv Paper", href: "https://arxiv.org/abs/2603.25218" },
       { label: "PDF", href: "https://arxiv.org/pdf/2603.25218" },
@@ -108,7 +108,7 @@ export const projects: Project[] = [
     className: "project-side-card",
     description:
       "华为挑战杯方向的视觉工程平台，面向数据、训练、部署与 Agent 协作，当前重点是云端平台和 Ascend 验证链路。",
-    tags: ["PM", "Agent", "Docker", "Ascend"],
+    tags: ["WAVE-cloud", "Agent", "Engineering"],
     links: [
       { label: "GitHub Repo", href: "https://github.com/Ascend-Computing-Visual-Platform/WAVE-cloud" },
       { label: "Org Project" },
@@ -170,7 +170,7 @@ export const projects: Project[] = [
     className: "project-small-card",
     description:
       "小目标检测训练、评估、知识蒸馏与边缘部署工作台，目标是把模型实验变成可复用的工程流程。",
-    tags: ["Evaluation", "FPS", "ONNX", "NPU"],
+    tags: ["Edge AI", "ONNX", "Engineering"],
     links: [
       { label: "GitHub Repo", href: "https://github.com/SDD-YOLO/EdgeDistillDet" },
       { label: "Org Project" },
@@ -232,7 +232,7 @@ export const projects: Project[] = [
     className: "project-small-card",
     description:
       "面向大学物理实验的数据分析与诊断 Agent，尝试把 RAG、代码执行、流式输出和可视化反馈接进实验学习。",
-    tags: ["LLM", "SSE", "Node.js", "Python"],
+    tags: ["AI", "Agent", "Physics"],
     links: [
       { label: "GitHub Repo", href: "https://github.com/mratgnothing/physics-ai-agent" },
       { label: "Public" },
@@ -295,7 +295,7 @@ export const projects: Project[] = [
     className: "project-small-card",
     description:
       "AI 驱动的 3D 分子可视化与智能检索系统，用 React、Three.js 和开放化学数据做轻量科学展示。",
-    tags: ["React", "Three.js", "PubChem", "Science"],
+    tags: ["AI", "Science"],
     links: [
       { label: "GitHub Repo", href: "https://github.com/mratgnothing/Molecule-Studio" },
       { label: "Public" },
@@ -357,7 +357,7 @@ export const projects: Project[] = [
     className: "project-wide-card",
     description:
       "东南大学物理实验数据处理工具，当前主线是密立根油滴实验的 AI 聚类、符号回归、报告生成和 Streamlit 公开部署。",
-    tags: ["Streamlit", "Physics", "Report", "Cloud"],
+    tags: ["SEUPhyX", "Physics", "AI"],
     links: [
       { label: "GitHub Repo", href: "https://github.com/mratgnothing/seuphyx" },
       { label: "Live App", href: "https://seuphyx-experimentcenterseu.streamlit.app/" },

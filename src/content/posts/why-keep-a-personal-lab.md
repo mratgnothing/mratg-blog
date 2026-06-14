@@ -5,7 +5,6 @@ category: "Horizon"
 column: "horizon"
 tags:
   - "Blog"
-  - "Personal Site"
   - "Reflection"
 date: "2026-06-07"
 updated: "2026-06-08T12:58:00+08:00"

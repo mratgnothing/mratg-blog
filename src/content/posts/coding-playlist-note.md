@@ -4,8 +4,7 @@ description: "对我来说，背景音乐最好能稳定节奏，而不是不断
 category: "Music"
 column: "music"
 tags:
-  - "Playlist"
-  - "Coding"
+  - "Music"
   - "Life"
 date: "2026-06-08"
 updated: "2026-06-08T14:22:00+08:00"

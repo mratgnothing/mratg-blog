@@ -5,7 +5,6 @@ category: "Horizon"
 column: "horizon"
 tags:
   - "Fitness"
-  - "Campus"
   - "Life"
 date: "2026-06-08"
 updated: "2026-06-08T14:34:00+08:00"

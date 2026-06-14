@@ -7,7 +7,6 @@ tags:
   - "AI"
   - "Agent"
   - "Workflow"
-  - "Codex"
 date: "2026-06-14"
 updated: "2026-06-14T11:19+08:00"
 draft: false

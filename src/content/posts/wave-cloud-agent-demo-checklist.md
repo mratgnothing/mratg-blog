@@ -6,7 +6,6 @@ column: "team-log"
 tags:
   - "WAVE-cloud"
   - "Agent"
-  - "Demo"
 date: "2026-06-08"
 updated: "2026-06-08T13:36:00+08:00"
 ---

@@ -6,7 +6,6 @@ column: "team-log"
 tags:
   - "WAVE-cloud"
   - "Engineering"
-  - "CI"
 date: "2026-06-05"
 updated: "2026-06-08T12:02:00+08:00"
 ---

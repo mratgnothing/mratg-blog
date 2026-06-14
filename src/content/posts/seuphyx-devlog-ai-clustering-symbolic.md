@@ -6,8 +6,7 @@ column: "research-diary"
 tags:
   - "SEUPhyX"
   - "Physics"
-  - "Machine Learning"
-  - "Streamlit"
+  - "AI"
 date: "2026-06-10"
 updated: "2026-06-10T23:30:00+08:00"
 draft: false

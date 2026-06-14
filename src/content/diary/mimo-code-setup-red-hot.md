@@ -5,7 +5,7 @@ mood: "red hot"
 tags:
   - "AI"
   - "Agent"
-  - "MiMo Code"
+  - "Workflow"
 draft: false
 ---
 

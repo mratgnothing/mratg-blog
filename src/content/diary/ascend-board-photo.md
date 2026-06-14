@@ -3,7 +3,7 @@ title: "给昇腾 310 文章补了插图"
 datetime: "2026-06-08T14:48:00+08:00"
 mood: "clear"
 tags:
-  - "Ascend 310"
+  - "Ascend"
   - "Edge AI"
 ---
 

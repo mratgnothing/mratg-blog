@@ -4,9 +4,8 @@ description: "公开数据集要让人信服，需要把来源、清洗和边界
 category: "Research Diary"
 column: "research-diary"
 tags:
-  - "DroneSOD-30K"
-  - "Dataset"
   - "SDD-YOLO"
+  - "Dataset"
 date: "2026-06-08"
 updated: "2026-06-08T11:48:00+08:00"
 ---
