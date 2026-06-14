@@ -4,22 +4,29 @@ const canvas = document.querySelector(".starfield");
 const context = canvas?.getContext("2d");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.14 }
-);
+if (revealItems.length && !prefersReducedMotion && "IntersectionObserver" in window) {
+  document.documentElement.classList.add("reveal-enhanced");
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting || entry.intersectionRatio > 0) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0, rootMargin: "0px 0px -8% 0px" }
+  );
 
-revealItems.forEach((item, index) => {
-  item.style.transitionDelay = `${Math.min(index * 35, 180)}ms`;
-  revealObserver.observe(item);
-});
+  revealItems.forEach((item, index) => {
+    item.style.transitionDelay = `${Math.min(index * 35, 180)}ms`;
+    revealObserver.observe(item);
+  });
+} else {
+  revealItems.forEach((item) => {
+    item.classList.add("is-visible");
+  });
+}
 
 // 使用 requestAnimationFrame 优化鼠标跟随效果，减少重绘频率
 let pointerTimeout;
