@@ -780,7 +780,7 @@ function openShareModal(item) {
   modal.querySelector("[data-share-url-label]").textContent = item.href;
   modal.querySelector("[data-share-qr]").src = qrUrl;
   modal.querySelector("[data-copy-link]").onclick = () => copyShareLink(item.href, modal);
-  modal.querySelector("[data-save-poster]").onclick = () => saveSharePoster(item, qrUrl);
+  modal.querySelector("[data-save-poster]").onclick = () => saveSharePoster(item, qrUrl, modal);
   renderShareTargets(modal, item);
   modal.hidden = false;
   document.body.classList.add("share-open");
@@ -796,8 +796,8 @@ function ensureShareModal() {
   modal.hidden = true;
   modal.innerHTML = `
     <div class="share-backdrop" data-share-close></div>
+    <div class="share-frame">
     <section class="share-dialog" role="dialog" aria-modal="true" aria-label="转发内容">
-      <button class="share-close" type="button" data-share-close aria-label="关闭">×</button>
       <article class="share-poster">
         <div class="share-poster-top">
           <span data-share-type-label>文章</span>
@@ -822,6 +822,8 @@ function ensureShareModal() {
       <div class="share-socials" data-share-socials aria-label="选择转发平台"></div>
       <p class="share-status" data-share-status aria-live="polite"></p>
     </section>
+    <button class="share-close" type="button" data-share-close aria-label="关闭">×</button>
+    </div>
   `;
 
   modal.querySelectorAll("[data-share-close]").forEach((button) => {
@@ -835,21 +837,19 @@ function ensureShareModal() {
 }
 
 function createShareCode(href) {
-  let hash = 0;
-  for (let index = 0; index < href.length; index += 1) {
-    hash = (hash * 31 + href.charCodeAt(index)) >>> 0;
-  }
-  const cells = [];
-  for (let y = 0; y < 9; y += 1) {
-    for (let x = 0; x < 9; x += 1) {
-      const edge = x < 2 && y < 2 || x > 6 && y < 2 || x < 2 && y > 6;
-      const bit = (hash >> ((x + y * 9) % 24)) & 1;
-      if (edge || bit) {
-        cells.push(`<rect x="${18 + x * 14}" y="${18 + y * 14}" width="10" height="10" fill="#201827"/>`);
+  const matrix = createQrMatrix(href);
+  const quiet = 4;
+  const cell = 5;
+  const size = matrix.length + quiet * 2;
+  const modules = [];
+  matrix.forEach((row, y) => {
+    row.forEach((value, x) => {
+      if (value) {
+        modules.push(`<rect x="${(x + quiet) * cell}" y="${(y + quiet) * cell}" width="${cell}" height="${cell}" fill="#201827"/>`);
       }
-    }
-  }
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180"><rect width="180" height="180" fill="#fff4d7"/><rect x="8" y="8" width="164" height="164" fill="none" stroke="#201827" stroke-width="6"/>${cells.join("")}<rect x="54" y="146" width="72" height="10" fill="#5f9c63"/></svg>`;
+    });
+  });
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size * cell}" height="${size * cell}" viewBox="0 0 ${size * cell} ${size * cell}"><rect width="${size * cell}" height="${size * cell}" fill="#fff4d7"/><rect x="${cell * 1.5}" y="${cell * 1.5}" width="${size * cell - cell * 3}" height="${size * cell - cell * 3}" fill="none" stroke="#201827" stroke-width="5"/>${modules.join("")}</svg>`;
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
@@ -859,15 +859,17 @@ function renderShareTargets(modal, item) {
   const encodedUrl = encodeURIComponent(item.href);
   const encodedText = encodeURIComponent(item.title);
   const targets = [
-    { label: "微信", mode: "copy" },
-    { label: "QQ", url: `https://connect.qq.com/widget/shareqq/index.html?url=${encodedUrl}&title=${encodedText}&summary=${encodeURIComponent(item.description || "")}` },
-    { label: "X", url: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}` },
-    { label: "bilibili", mode: "copy" },
-    { label: "Facebook", url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
-    { label: "Instagram", mode: "copy" },
+    { label: "微信", icon: shareIcon("wechat"), mode: "copy" },
+    { label: "QQ", icon: shareIcon("qq"), url: `https://connect.qq.com/widget/shareqq/index.html?url=${encodedUrl}&title=${encodedText}&summary=${encodeURIComponent(item.description || "")}` },
+    { label: "X", icon: shareIcon("x"), url: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}` },
+    { label: "bilibili", icon: shareIcon("bilibili"), mode: "copy" },
+    { label: "Facebook", icon: shareIcon("facebook"), url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
+    { label: "Instagram", icon: shareIcon("instagram"), mode: "copy" },
   ];
 
-  socials.innerHTML = targets.map((target) => `<button type="button" data-share-target="${escapeHtml(target.label)}">${escapeHtml(target.label)}</button>`).join("");
+  socials.innerHTML = targets
+    .map((target) => `<button type="button" data-share-target="${escapeHtml(target.label)}"><span class="share-social-icon" aria-hidden="true">${target.icon}</span><span>${escapeHtml(target.label)}</span></button>`)
+    .join("");
   socials.querySelectorAll("[data-share-target]").forEach((button) => {
     const target = targets.find((item) => item.label === button.dataset.shareTarget);
     button.addEventListener("click", () => {
@@ -878,6 +880,18 @@ function renderShareTargets(modal, item) {
       copyShareLink(item.href, modal);
     });
   });
+}
+
+function shareIcon(name) {
+  const icons = {
+    wechat: `<svg viewBox="0 0 32 32" focusable="false"><path d="M13.5 8C7.7 8 3 11.5 3 15.9c0 2.5 1.5 4.8 3.9 6.2l-.8 2.8 3.4-1.7c1.2.4 2.5.7 4 .7 5.8 0 10.5-3.5 10.5-7.9S19.3 8 13.5 8Zm-3.4 5.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Zm6.8 0a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z"/><path d="M19.5 15.8c4.9 0 8.5 2.9 8.5 6.4 0 1.9-1.1 3.7-2.9 4.8l.6 2.1-2.6-1.3c-1 .3-2.1.5-3.5.5-3.8 0-7.1-1.9-8.2-4.6.7.1 1.4.2 2.1.2 6.9 0 12.5-4.1 12.5-9.1v-.4c.9.4 1.7.8 2.4 1.4h-8.9Z"/></svg>`,
+    qq: `<svg viewBox="0 0 32 32" focusable="false"><path d="M16 3c-4 0-7 3.3-7 8.2 0 2-.8 4.2-2.4 6.8-.4.7-.2 1.5.5 1.8l2.1.9-1.7 4.5c-.3.8.5 1.5 1.2 1.1l3.9-2.1c1 .6 2.1.9 3.4.9s2.5-.3 3.5-.9l3.8 2.1c.7.4 1.5-.3 1.2-1.1l-1.7-4.5 2.1-.9c.7-.3.9-1.1.5-1.8-1.6-2.6-2.4-4.8-2.4-6.8C23 6.3 20 3 16 3Zm-2.4 8.4c-.7 0-1.3-.6-1.3-1.4s.6-1.4 1.3-1.4 1.3.6 1.3 1.4-.6 1.4-1.3 1.4Zm4.8 0c-.7 0-1.3-.6-1.3-1.4s.6-1.4 1.3-1.4 1.3.6 1.3 1.4-.6 1.4-1.3 1.4Z"/></svg>`,
+    x: `<svg viewBox="0 0 32 32" focusable="false"><path d="M4 5h6.3l6.1 8.1L23.5 5H28l-9.5 10.9L28.8 29h-6.3l-6.7-8.8L8.1 29H3.6l10.1-11.6L4 5Zm4.1 2.7 15.7 18.6h1L9.2 7.7H8.1Z"/></svg>`,
+    bilibili: `<svg viewBox="0 0 32 32" focusable="false"><path d="M10.2 4.2 14 8h4l3.8-3.8 2 2L21.9 8H23c3.3 0 6 2.7 6 6v8c0 3.3-2.7 6-6 6H9c-3.3 0-6-2.7-6-6v-8c0-3.3 2.7-6 6-6h1.1L8.2 6.2l2-2ZM9 11c-1.7 0-3 1.3-3 3v8c0 1.7 1.3 3 3 3h14c1.7 0 3-1.3 3-3v-8c0-1.7-1.3-3-3-3H9Zm2.8 5.2h2.4v4.6h-2.4v-4.6Zm6 0h2.4v4.6h-2.4v-4.6Z"/></svg>`,
+    facebook: `<svg viewBox="0 0 32 32" focusable="false"><path d="M18.7 29V17.6h3.8l.6-4.5h-4.4v-2.8c0-1.3.4-2.2 2.2-2.2h2.4v-4c-.4-.1-1.9-.2-3.5-.2-3.5 0-5.9 2.1-5.9 6v3.3h-4v4.5h4V29h4.8Z"/></svg>`,
+    instagram: `<svg viewBox="0 0 32 32" focusable="false"><path d="M10.2 4h11.6C25.2 4 28 6.8 28 10.2v11.6c0 3.4-2.8 6.2-6.2 6.2H10.2C6.8 28 4 25.2 4 21.8V10.2C4 6.8 6.8 4 10.2 4Zm0 3A3.2 3.2 0 0 0 7 10.2v11.6a3.2 3.2 0 0 0 3.2 3.2h11.6a3.2 3.2 0 0 0 3.2-3.2V10.2A3.2 3.2 0 0 0 21.8 7H10.2ZM16 11a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm6-3.8a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z"/></svg>`,
+  };
+  return icons[name] || "";
 }
 
 async function copyShareLink(href, modal) {
@@ -896,12 +910,20 @@ async function copyShareLink(href, modal) {
   }
 }
 
-function saveSharePoster(item, qrUrl) {
+async function saveSharePoster(item, qrUrl, modal) {
+  const status = modal?.querySelector("[data-share-status]");
+  if (status) status.textContent = "正在生成海报...";
   const titleLines = wrapText(item.title, 18).slice(0, 3);
   const descLines = wrapText(item.description, 26).slice(0, 3);
+  const fontFace = await getPosterFontFace();
   const svg = `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="760" height="960" viewBox="0 0 760 960">
   <defs>
+    <style>
+      ${fontFace}
+      .poster-display { font-family: "IdeaFonts XiangSuZhiCheng", "Microsoft YaHei", sans-serif; font-weight: 100; }
+      .poster-ui { font-family: "Microsoft YaHei UI", "Microsoft YaHei", sans-serif; }
+    </style>
     <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
       <path d="M24 0H0V24" fill="none" stroke="#201827" stroke-opacity="0.06" stroke-width="2"/>
     </pattern>
@@ -915,22 +937,22 @@ function saveSharePoster(item, qrUrl) {
   <rect x="24" y="24" width="712" height="190" fill="#ffe6ad" stroke="#201827" stroke-width="5"/>
   <rect x="560" y="42" width="128" height="128" fill="url(#pixel)" opacity="0.7" transform="rotate(12 624 106)"/>
   <rect x="64" y="78" width="96" height="76" fill="#1f2554" stroke="#201827" stroke-width="5"/>
-  <text x="112" y="126" text-anchor="middle" font-family="IdeaFonts XiangSuZhiCheng, Microsoft YaHei, Arial" font-size="34" font-weight="100" fill="#fff4d7">${escapeXml(item.type.slice(0, 2))}</text>
+  <text class="poster-display" x="112" y="126" text-anchor="middle" font-size="34" fill="#fff4d7">${escapeXml(item.type.slice(0, 2))}</text>
   <rect x="516" y="78" width="156" height="56" fill="#d9f0e2" stroke="#201827" stroke-width="5"/>
-  <text x="594" y="115" text-anchor="middle" font-family="IdeaFonts XiangSuZhiCheng, Microsoft YaHei, Arial" font-size="24" font-weight="100" fill="#2f644b">${escapeXml(item.date || "Pixel Lab")}</text>
-  ${titleLines.map((line, index) => `<text x="64" y="${300 + index * 50}" font-family="IdeaFonts XiangSuZhiCheng, Microsoft YaHei, Arial" font-size="40" font-weight="100" fill="#201827">${escapeXml(line)}</text>`).join("")}
+  <text class="poster-display" x="594" y="115" text-anchor="middle" font-size="24" fill="#2f644b">${escapeXml(item.date || "Pixel Lab")}</text>
+  ${titleLines.map((line, index) => `<text class="poster-display" x="64" y="${300 + index * 50}" font-size="40" fill="#201827">${escapeXml(line)}</text>`).join("")}
   <rect x="64" y="462" width="7" height="92" fill="#f4b84b"/>
-  ${descLines.map((line, index) => `<text x="92" y="${500 + index * 36}" font-family="IdeaFonts XiangSuZhiCheng, Microsoft YaHei, Arial" font-size="26" fill="#5d5765">${escapeXml(line)}</text>`).join("")}
+  ${descLines.map((line, index) => `<text class="poster-ui" x="92" y="${500 + index * 36}" font-size="26" fill="#5d5765">${escapeXml(line)}</text>`).join("")}
   <line x1="64" y1="650" x2="696" y2="650" stroke="#201827" stroke-opacity="0.18" stroke-width="4"/>
   <rect x="64" y="704" width="92" height="92" fill="#4f3b78" stroke="#201827" stroke-width="5"/>
-  <text x="110" y="764" text-anchor="middle" font-family="IdeaFonts XiangSuZhiCheng, Microsoft YaHei, Arial" font-size="42" font-weight="100" fill="#fff4d7">A</text>
-  <text x="184" y="724" font-family="IdeaFonts XiangSuZhiCheng, Microsoft YaHei, Arial" font-size="22" font-weight="100" fill="#2f644b">作者</text>
-  <text x="184" y="762" font-family="IdeaFonts XiangSuZhiCheng, Microsoft YaHei, Arial" font-size="34" font-weight="100" fill="#201827">Mr.ATG</text>
-  <text x="184" y="798" font-family="IdeaFonts XiangSuZhiCheng, Microsoft YaHei, Arial" font-size="26" font-weight="100" fill="#2f644b">Pixel Lab</text>
+  <text class="poster-display" x="110" y="764" text-anchor="middle" font-size="42" fill="#fff4d7">A</text>
+  <text class="poster-ui" x="184" y="724" font-size="22" fill="#2f644b">作者</text>
+  <text class="poster-display" x="184" y="762" font-size="34" fill="#201827">Mr.ATG</text>
+  <text class="poster-ui" x="184" y="798" font-size="26" fill="#2f644b">Pixel Lab</text>
   <rect x="520" y="690" width="166" height="166" fill="#fff4d7" stroke="#201827" stroke-width="5"/>
   <image x="532" y="702" width="142" height="142" href="${escapeXml(qrUrl)}"/>
   <rect x="640" y="824" width="96" height="96" fill="url(#pixel)" opacity="0.55" transform="rotate(12 688 872)"/>
-  <text x="64" y="900" font-family="IdeaFonts XiangSuZhiCheng, Microsoft YaHei, Arial" font-size="18" fill="#6f6876">${escapeXml(item.href)}</text>
+  <text class="poster-ui" x="64" y="900" font-size="18" fill="#6f6876">${escapeXml(item.href)}</text>
 </svg>`;
   const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
   const url = URL.createObjectURL(blob);
@@ -939,6 +961,184 @@ function saveSharePoster(item, qrUrl) {
   link.download = `${slugForFile(item.title)}-poster.svg`;
   link.click();
   URL.revokeObjectURL(url);
+  if (status) status.textContent = "海报已生成。";
+}
+
+async function getPosterFontFace() {
+  try {
+    const response = await fetch("/fonts/IdeaFonts-XiangSuZhiCheng.woff2");
+    const buffer = await response.arrayBuffer();
+    const bytes = new Uint8Array(buffer);
+    let binary = "";
+    bytes.forEach((byte) => {
+      binary += String.fromCharCode(byte);
+    });
+    return `@font-face { font-family: "IdeaFonts XiangSuZhiCheng"; src: url("data:font/woff2;base64,${btoa(binary)}") format("woff2"); font-weight: 100; font-style: normal; }`;
+  } catch {
+    return "";
+  }
+}
+
+function createQrMatrix(value) {
+  const version = 5;
+  const size = 17 + version * 4;
+  const matrix = Array.from({ length: size }, () => Array(size).fill(false));
+  const reserved = Array.from({ length: size }, () => Array(size).fill(false));
+  const setModule = (x, y, dark, reserve = true) => {
+    if (x < 0 || y < 0 || x >= size || y >= size) return;
+    matrix[y][x] = Boolean(dark);
+    if (reserve) reserved[y][x] = true;
+  };
+  const drawFinder = (x, y) => {
+    for (let dy = -1; dy <= 7; dy += 1) {
+      for (let dx = -1; dx <= 7; dx += 1) {
+        const xx = x + dx;
+        const yy = y + dy;
+        const isFinder = dx >= 0 && dx <= 6 && dy >= 0 && dy <= 6 && (dx === 0 || dx === 6 || dy === 0 || dy === 6 || (dx >= 2 && dx <= 4 && dy >= 2 && dy <= 4));
+        setModule(xx, yy, isFinder);
+      }
+    }
+  };
+  drawFinder(0, 0);
+  drawFinder(size - 7, 0);
+  drawFinder(0, size - 7);
+  for (let index = 8; index < size - 8; index += 1) {
+    setModule(index, 6, index % 2 === 0);
+    setModule(6, index, index % 2 === 0);
+  }
+  drawAlignment(matrix, reserved, 30, 30);
+  setModule(8, 4 * version + 9, true);
+  reserveFormatAreas(reserved, size);
+
+  const data = createQrDataCodewords(value, 108);
+  const ecc = createReedSolomonRemainder(data, 26);
+  const bits = [...data, ...ecc].flatMap((byte) => Array.from({ length: 8 }, (_, index) => ((byte >> (7 - index)) & 1) === 1));
+  let bitIndex = 0;
+  let upward = true;
+  for (let right = size - 1; right >= 1; right -= 2) {
+    if (right === 6) right -= 1;
+    for (let vertical = 0; vertical < size; vertical += 1) {
+      const y = upward ? size - 1 - vertical : vertical;
+      for (let col = 0; col < 2; col += 1) {
+        const x = right - col;
+        if (reserved[y][x]) continue;
+        const bit = bitIndex < bits.length ? bits[bitIndex] : false;
+        bitIndex += 1;
+        matrix[y][x] = bit !== ((x + y) % 2 === 0);
+      }
+    }
+    upward = !upward;
+  }
+  drawFormatBits(matrix, 0x77c4);
+  return matrix;
+}
+
+function drawAlignment(matrix, reserved, centerX, centerY) {
+  for (let dy = -2; dy <= 2; dy += 1) {
+    for (let dx = -2; dx <= 2; dx += 1) {
+      const distance = Math.max(Math.abs(dx), Math.abs(dy));
+      const x = centerX + dx;
+      const y = centerY + dy;
+      matrix[y][x] = distance !== 1;
+      reserved[y][x] = true;
+    }
+  }
+}
+
+function reserveFormatAreas(reserved, size) {
+  for (let index = 0; index < 9; index += 1) {
+    if (index !== 6) {
+      reserved[8][index] = true;
+      reserved[index][8] = true;
+    }
+  }
+  for (let index = 0; index < 8; index += 1) {
+    reserved[8][size - 1 - index] = true;
+    reserved[size - 1 - index][8] = true;
+  }
+}
+
+function drawFormatBits(matrix, bits) {
+  const size = matrix.length;
+  const bit = (index) => ((bits >> index) & 1) === 1;
+  for (let index = 0; index <= 5; index += 1) matrix[index][8] = bit(index);
+  matrix[7][8] = bit(6);
+  matrix[8][8] = bit(7);
+  matrix[8][7] = bit(8);
+  for (let index = 9; index < 15; index += 1) matrix[8][14 - index] = bit(index);
+  for (let index = 0; index < 8; index += 1) matrix[8][size - 1 - index] = bit(index);
+  for (let index = 8; index < 15; index += 1) matrix[size - 15 + index][8] = bit(index);
+}
+
+function createQrDataCodewords(value, capacity) {
+  const bytes = Array.from(new TextEncoder().encode(value));
+  const bitBuffer = [0, 1, 0, 0];
+  appendBits(bitBuffer, bytes.length, 8);
+  bytes.forEach((byte) => appendBits(bitBuffer, byte, 8));
+  const maxBits = capacity * 8;
+  appendBits(bitBuffer, 0, Math.min(4, maxBits - bitBuffer.length));
+  while (bitBuffer.length % 8) bitBuffer.push(0);
+  const codewords = [];
+  for (let index = 0; index < bitBuffer.length; index += 8) {
+    codewords.push(parseInt(bitBuffer.slice(index, index + 8).join(""), 2));
+  }
+  for (let pad = 0; codewords.length < capacity; pad += 1) {
+    codewords.push(pad % 2 === 0 ? 0xec : 0x11);
+  }
+  return codewords.slice(0, capacity);
+}
+
+function appendBits(buffer, value, length) {
+  for (let index = length - 1; index >= 0; index -= 1) {
+    buffer.push((value >> index) & 1);
+  }
+}
+
+function createReedSolomonRemainder(data, degree) {
+  const generator = createRsGenerator(degree);
+  const result = Array(degree).fill(0);
+  data.forEach((byte) => {
+    const factor = byte ^ result.shift();
+    result.push(0);
+    generator.forEach((coefficient, index) => {
+      result[index] ^= gfMultiply(coefficient, factor);
+    });
+  });
+  return result;
+}
+
+function createRsGenerator(degree) {
+  let result = [1];
+  for (let index = 0; index < degree; index += 1) {
+    const next = Array(result.length + 1).fill(0);
+    const factor = gfPow(2, index);
+    result.forEach((coefficient, coefficientIndex) => {
+      next[coefficientIndex] ^= coefficient;
+      next[coefficientIndex + 1] ^= gfMultiply(coefficient, factor);
+    });
+    result = next;
+  }
+  return result.slice(1);
+}
+
+function gfPow(value, power) {
+  let result = 1;
+  for (let index = 0; index < power; index += 1) {
+    result = gfMultiply(result, value);
+  }
+  return result;
+}
+
+function gfMultiply(a, b) {
+  let result = 0;
+  for (let index = 0; index < 8; index += 1) {
+    if ((b & 1) !== 0) result ^= a;
+    const carry = (a & 0x80) !== 0;
+    a = (a << 1) & 0xff;
+    if (carry) a ^= 0x1d;
+    b >>= 1;
+  }
+  return result;
 }
 
 function wrapText(value, maxLength) {

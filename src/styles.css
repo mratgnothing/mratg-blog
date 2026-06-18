@@ -2143,10 +2143,18 @@ h1 {
   backdrop-filter: blur(4px);
 }
 
-.share-dialog {
+.share-frame {
   position: relative;
   z-index: 1;
-  width: min(520px, 100%);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: min(568px, 100%);
+  max-height: calc(100vh - 40px);
+}
+
+.share-dialog {
+  width: min(520px, calc(100% - 44px));
   max-height: calc(100vh - 40px);
   overflow: auto;
   padding: 14px;
@@ -2161,13 +2169,11 @@ h1 {
 }
 
 .share-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 2;
   display: grid;
-  width: 32px;
-  height: 32px;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  margin-top: 18px;
   place-items: center;
   color: var(--ink);
   background: var(--paper-2);
@@ -4023,14 +4029,40 @@ h1 {
 .share-socials {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  margin: 12px 0;
+  gap: 10px;
+  margin: 14px 0 4px;
 }
 
 .share-socials button {
   min-width: 0;
-  background: var(--paper-2);
-  font-size: 0.78rem;
+  justify-content: flex-start;
+  gap: 8px;
+  min-height: 46px;
+  padding: 8px 10px;
+  background:
+    linear-gradient(rgba(255, 244, 215, 0.74), rgba(255, 244, 215, 0.74)),
+    var(--paper-2);
+  font-size: 0.74rem;
+  line-height: 1;
+}
+
+.share-social-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  color: var(--paper);
+  background: var(--night);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 rgba(32, 24, 39, 0.18);
+}
+
+.share-social-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
 .tag-index .section-heading {
@@ -5062,9 +5094,22 @@ h1 {
     padding: 10px;
   }
 
+  .share-frame {
+    width: 100%;
+    max-height: calc(100vh - 20px);
+    gap: 6px;
+  }
+
   .share-dialog {
+    width: calc(100% - 40px);
     max-height: calc(100vh - 20px);
     padding: 10px;
+  }
+
+  .share-close {
+    width: 34px;
+    height: 34px;
+    margin-top: 0;
   }
 
   .share-poster-top {
@@ -5137,7 +5182,7 @@ h1 {
   }
 
   .share-socials {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
   }
 
