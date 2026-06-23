@@ -4069,17 +4069,22 @@ h1 {
   max-width: 760px;
 }
 
-.tag-cloud {
-  align-content: center;
-  justify-content: center;
-  min-height: clamp(360px, 44vw, 580px);
-  gap: 9px 10px;
-  padding: clamp(132px, 12vw, 178px) clamp(168px, 16vw, 238px) clamp(152px, 13vw, 196px);
+.tag-index .tag-cloud {
+  position: relative;
+  display: block;
+  width: min(100%, 1120px);
+  aspect-ratio: 1672 / 941;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
   background:
-    linear-gradient(rgba(9, 34, 24, 0.1), rgba(9, 34, 24, 0.1)),
+    linear-gradient(rgba(9, 34, 24, 0.08), rgba(9, 34, 24, 0.08)),
     url("/assets/tag-blackboard-voxel.png") center / cover no-repeat;
   border: 0;
   box-shadow: none;
+  image-rendering: pixelated;
 }
 
 .tag-index .tag-cloud[data-reveal] {
@@ -4092,49 +4097,97 @@ h1 {
   display: none;
 }
 
-.tag-cloud li {
-  display: inline-grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 6px;
+.tag-index .tag-cloud li {
+  position: absolute;
+  left: var(--tag-x);
+  top: var(--tag-y);
+  z-index: 2;
+  display: block;
+  width: var(--tag-w);
+  filter: drop-shadow(5px 6px 0 rgba(0, 0, 0, 0.2));
+  transform: translate(-50%, -50%) rotate(var(--tag-tilt));
+  transition: filter 160ms ease, transform 160ms steps(2, end);
 }
 
-.tag-cloud .tag-button {
-  max-width: 168px;
-  min-height: 32px;
-  padding: 4px 10px 4px 24px;
+.tag-index .tag-cloud li .tag-button {
+  display: flex;
+  width: 100%;
+  min-height: clamp(60px, 6vw, 76px);
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 30px 18px;
   color: var(--paper);
-  background:
-    linear-gradient(rgba(255, 244, 215, 0.28) 0 0) 10px 50% / 8px 8px no-repeat,
-    rgba(6, 35, 27, 0.94);
-  border-color: rgba(255, 244, 215, 0.88);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.28);
-  font-size: clamp(0.68rem, 0.82vw, 0.82rem);
-  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+  background: url("/assets/tag-notice-sprites.png") var(--tag-sprite-x) var(--tag-sprite-y) / 400% 200% no-repeat;
+  border: 0;
+  box-shadow: none;
+  font-family: var(--pixel-font);
+  font-size: clamp(0.92rem, 1.05vw, 1.08rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  image-rendering: pixelated;
+  transition: none;
 }
 
-.tag-cloud li:nth-child(4n + 1) .tag-button,
-.tag-cloud li:nth-child(4n + 2) .tag-button,
-.tag-cloud li:nth-child(4n + 3) .tag-button {
-  color: var(--paper);
-  background:
-    linear-gradient(rgba(255, 244, 215, 0.3) 0 0) 10px 50% / 8px 8px no-repeat,
-    rgba(7, 42, 30, 0.96);
-  border-color: rgba(255, 244, 215, 0.88);
+.tag-index .tag-cloud li .tag-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.tag-count {
-  align-self: center;
-  padding: 3px 5px;
+.tag-index .tag-cloud li:nth-child(2) .tag-button,
+.tag-index .tag-cloud li:nth-child(5) .tag-button,
+.tag-index .tag-cloud li:nth-child(6) .tag-button,
+.tag-index .tag-cloud li:nth-child(11) .tag-button {
+  color: var(--ink);
+  text-shadow: 1px 1px 0 rgba(255, 244, 215, 0.55);
+}
+
+.tag-index .tag-cloud li .tag-button:hover,
+.tag-index .tag-cloud li .tag-button:focus-visible {
+  background: url("/assets/tag-notice-sprites.png") var(--tag-sprite-x) var(--tag-sprite-y) / 400% 200% no-repeat;
+  border: 0;
   color: var(--paper);
-  background: rgba(32, 24, 39, 0.74);
-  border: 2px solid rgba(255, 244, 215, 0.82);
+  box-shadow: none;
+  transform: none;
+}
+
+.tag-index .tag-cloud li:nth-child(2) .tag-button:hover,
+.tag-index .tag-cloud li:nth-child(2) .tag-button:focus-visible,
+.tag-index .tag-cloud li:nth-child(5) .tag-button:hover,
+.tag-index .tag-cloud li:nth-child(5) .tag-button:focus-visible,
+.tag-index .tag-cloud li:nth-child(6) .tag-button:hover,
+.tag-index .tag-cloud li:nth-child(6) .tag-button:focus-visible,
+.tag-index .tag-cloud li:nth-child(11) .tag-button:hover,
+.tag-index .tag-cloud li:nth-child(11) .tag-button:focus-visible {
+  color: var(--ink);
+}
+
+.tag-index .tag-cloud li:hover,
+.tag-index .tag-cloud li:focus-within {
+  z-index: 4;
+  filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, 0.24));
+  transform: translate(-50%, -50%) rotate(0deg) scale(1.04);
+}
+
+.tag-index .tag-cloud li .tag-count {
+  flex: 0 0 auto;
+  padding: 3px 6px;
+  color: currentColor;
+  background: rgba(255, 244, 215, 0.2);
+  border: 1px solid currentColor;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.16);
   font-family: var(--pixel-font);
-  font-size: 0.66rem;
+  font-size: 0.78rem;
   font-weight: 900;
+  text-shadow: inherit;
+  white-space: nowrap;
 }
 
 [data-reveal] {
@@ -4825,8 +4878,12 @@ h1 {
     font-size: 0.72rem;
   }
 
-  .tag-cloud {
-    gap: 8px;
+  .tag-index .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    aspect-ratio: auto;
     min-height: 0;
     padding: 18px 14px 20px;
     background:
@@ -4836,23 +4893,32 @@ h1 {
     box-shadow: 3px 3px 0 rgba(32, 24, 39, 0.28);
   }
 
-  .tag-cloud .tag-button {
-    max-width: none;
-    min-height: 31px;
-    padding: 4px 9px 4px 24px;
-    font-size: 0.8rem;
-    overflow-wrap: anywhere;
-    transform: none;
+  .tag-index .tag-cloud li {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: min(100%, var(--tag-w));
+    min-width: min(100%, 220px);
+    filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, 0.18));
+    transform: rotate(var(--tag-tilt));
   }
 
-  .tag-cloud li {
-    grid-template-columns: 1fr;
-    gap: 4px;
+  .tag-index .tag-cloud .tag-button {
+    min-height: 50px;
+    padding: 11px 20px 13px;
+    font-size: 0.82rem;
+    overflow-wrap: anywhere;
+  }
+
+  .tag-index .tag-cloud li:hover,
+  .tag-index .tag-cloud li:focus-within {
+    transform: rotate(0deg) scale(1.03);
   }
 
   .tag-count {
-    justify-self: start;
-    font-size: 0.66rem;
+    right: -5px;
+    bottom: -5px;
+    font-size: 0.68rem;
   }
 
   .ambient-decor {
