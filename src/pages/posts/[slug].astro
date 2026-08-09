@@ -231,4 +231,122 @@ const hasUpdatedDate = updatedDate.valueOf() !== post.data.date.valueOf();
       <SiteFooter />
     </div>
   </main>
+
+  <script>
+    document.querySelectorAll("[data-month-calendar]").forEach((calendar) => {
+      if (!(calendar instanceof HTMLElement)) return;
+
+      const label = calendar.querySelector("[data-calendar-label]");
+      const grid = calendar.querySelector("[data-calendar-grid]");
+      const previousButton = calendar.querySelector("[data-calendar-prev]");
+      const nextButton = calendar.querySelector("[data-calendar-next]");
+      const [initialYear, initialMonth] = (calendar.dataset.calendarMonth || "").split("-").map(Number);
+      const currentDateKey = calendar.dataset.currentDate || "";
+
+      if (
+        !(label instanceof HTMLElement) ||
+        !(grid instanceof HTMLElement) ||
+        !(previousButton instanceof HTMLButtonElement) ||
+        !(nextButton instanceof HTMLButtonElement) ||
+        !initialYear ||
+        !initialMonth
+      ) return;
+
+      let calendarEntries = [];
+      try {
+        calendarEntries = JSON.parse(calendar.dataset.calendarEntries || "[]");
+      } catch {
+        calendarEntries = [];
+      }
+
+      const entryMap = new Map(calendarEntries.map((item) => [item.date, item.entries || []]));
+      let visibleYear = initialYear;
+      let visibleMonth = initialMonth - 1;
+
+      const dateKey = (year, month, day) =>
+        `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+      const bindEntryDays = () => {
+        const entryDays = calendar.querySelectorAll(".month-day.has-entry");
+        entryDays.forEach((day) => {
+          if (!(day instanceof HTMLDetailsElement)) return;
+          day.addEventListener("click", (event) => event.stopPropagation());
+          day.addEventListener("toggle", () => {
+            if (!day.open) return;
+            entryDays.forEach((item) => {
+              if (item instanceof HTMLDetailsElement && item !== day) item.open = false;
+            });
+          });
+        });
+      };
+
+      const renderMonth = () => {
+        label.textContent = `${visibleYear}年${visibleMonth + 1}月`;
+        grid.replaceChildren();
+
+        const firstWeekday = (new Date(Date.UTC(visibleYear, visibleMonth, 1)).getUTCDay() + 6) % 7;
+        const daysInMonth = new Date(Date.UTC(visibleYear, visibleMonth + 1, 0)).getUTCDate();
+
+        for (let index = 0; index < firstWeekday; index += 1) {
+          const emptyCell = document.createElement("span");
+          emptyCell.className = "month-day is-empty";
+          grid.append(emptyCell);
+        }
+
+        for (let day = 1; day <= daysInMonth; day += 1) {
+          const key = dateKey(visibleYear, visibleMonth, day);
+          const entries = entryMap.get(key) || [];
+          const isCurrent = key === currentDateKey;
+
+          if (entries.length > 0) {
+            const details = document.createElement("details");
+            details.className = `month-day has-entry${isCurrent ? " is-current" : ""}`;
+            const summary = document.createElement("summary");
+            summary.textContent = String(day);
+            const list = document.createElement("ul");
+
+            entries.forEach((item) => {
+              const listItem = document.createElement("li");
+              const link = document.createElement("a");
+              link.href = item.href;
+              link.textContent = `${item.type} / ${item.title}`;
+              listItem.append(link);
+              list.append(listItem);
+            });
+
+            details.append(summary, list);
+            grid.append(details);
+          } else {
+            const dayCell = document.createElement("span");
+            dayCell.className = `month-day${isCurrent ? " is-current" : ""}`;
+            dayCell.textContent = String(day);
+            grid.append(dayCell);
+          }
+        }
+
+        bindEntryDays();
+      };
+
+      const moveMonth = (offset) => {
+        const target = new Date(Date.UTC(visibleYear, visibleMonth + offset, 1));
+        visibleYear = target.getUTCFullYear();
+        visibleMonth = target.getUTCMonth();
+        calendar.dataset.calendarMonth = `${visibleYear}-${String(visibleMonth + 1).padStart(2, "0")}`;
+        renderMonth();
+      };
+
+      previousButton.addEventListener("click", () => moveMonth(-1));
+      nextButton.addEventListener("click", () => moveMonth(1));
+
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (target instanceof Element && target.closest(".month-day.has-entry")) return;
+        calendar.querySelectorAll(".month-day.has-entry[open]").forEach((day) => {
+          if (day instanceof HTMLDetailsElement) day.open = false;
+        });
+      });
+
+      bindEntryDays();
+    });
+  </script>
 </BaseLayout>
