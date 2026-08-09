@@ -496,29 +496,119 @@ if (annotationRoot && annotationPanel) {
   loadAnnotations();
 }
 
-const monthEntryDays = document.querySelectorAll(".month-day.has-entry");
+document.querySelectorAll("[data-month-calendar]").forEach((calendar) => {
+  const label = calendar.querySelector("[data-calendar-label]");
+  const grid = calendar.querySelector("[data-calendar-grid]");
+  const previousButton = calendar.querySelector("[data-calendar-prev]");
+  const nextButton = calendar.querySelector("[data-calendar-next]");
+  const currentDateKey = calendar.dataset.currentDate || "";
+  const [initialYear, initialMonth] = (calendar.dataset.calendarMonth || "").split("-").map(Number);
 
-monthEntryDays.forEach((day) => {
-  day.addEventListener("click", (event) => {
-    event.stopPropagation();
+  if (!label || !grid || !previousButton || !nextButton || !initialYear || !initialMonth) return;
+
+  let calendarEntries = [];
+  try {
+    calendarEntries = JSON.parse(calendar.dataset.calendarEntries || "[]");
+  } catch {
+    calendarEntries = [];
+  }
+
+  const entryMap = new Map(calendarEntries.map((item) => [item.date, item.entries || []]));
+  const monthFormatter = new Intl.DateTimeFormat("zh-CN", {
+    year: "numeric",
+    month: "long",
+    timeZone: "Asia/Shanghai",
   });
+  let visibleYear = initialYear;
+  let visibleMonth = initialMonth - 1;
 
-  day.addEventListener("toggle", () => {
-    if (!day.open) return;
-    monthEntryDays.forEach((item) => {
-      if (item !== day) item.open = false;
+  function dateKey(year, month, day) {
+    return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+  }
+
+  function bindEntryDays() {
+    const entryDays = calendar.querySelectorAll(".month-day.has-entry");
+    entryDays.forEach((day) => {
+      day.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+
+      day.addEventListener("toggle", () => {
+        if (!day.open) return;
+        entryDays.forEach((item) => {
+          if (item !== day) item.open = false;
+        });
+      });
     });
-  });
-});
+  }
 
-if (monthEntryDays.length) {
+  function renderMonth() {
+    const monthDate = new Date(visibleYear, visibleMonth, 1);
+    label.textContent = monthFormatter.format(monthDate);
+    grid.replaceChildren();
+
+    const firstWeekday = (monthDate.getDay() + 6) % 7;
+    const daysInMonth = new Date(visibleYear, visibleMonth + 1, 0).getDate();
+
+    for (let index = 0; index < firstWeekday; index += 1) {
+      const emptyCell = document.createElement("span");
+      emptyCell.className = "month-day is-empty";
+      grid.append(emptyCell);
+    }
+
+    for (let day = 1; day <= daysInMonth; day += 1) {
+      const key = dateKey(visibleYear, visibleMonth, day);
+      const entries = entryMap.get(key) || [];
+      const isCurrent = key === currentDateKey;
+
+      if (entries.length > 0) {
+        const details = document.createElement("details");
+        details.className = `month-day has-entry${isCurrent ? " is-current" : ""}`;
+        const summary = document.createElement("summary");
+        summary.textContent = String(day);
+        const list = document.createElement("ul");
+
+        entries.forEach((item) => {
+          const listItem = document.createElement("li");
+          const link = document.createElement("a");
+          link.href = item.href;
+          link.textContent = `${item.type} / ${item.title}`;
+          listItem.append(link);
+          list.append(listItem);
+        });
+
+        details.append(summary, list);
+        grid.append(details);
+      } else {
+        const dayCell = document.createElement("span");
+        dayCell.className = `month-day${isCurrent ? " is-current" : ""}`;
+        dayCell.textContent = String(day);
+        grid.append(dayCell);
+      }
+    }
+
+    bindEntryDays();
+  }
+
+  function moveMonth(offset) {
+    const target = new Date(visibleYear, visibleMonth + offset, 1);
+    visibleYear = target.getFullYear();
+    visibleMonth = target.getMonth();
+    renderMonth();
+  }
+
+  previousButton.addEventListener("click", () => moveMonth(-1));
+  nextButton.addEventListener("click", () => moveMonth(1));
+
   document.addEventListener("click", (event) => {
     if (event.target.closest(".month-day.has-entry")) return;
-    monthEntryDays.forEach((day) => {
+    calendar.querySelectorAll(".month-day.has-entry[open]").forEach((day) => {
       day.open = false;
     });
   });
-}
+
+  bindEntryDays();
+});
 
 document.querySelectorAll("[data-comment-box]").forEach((box) => {
   const threadId = box.dataset.threadId;

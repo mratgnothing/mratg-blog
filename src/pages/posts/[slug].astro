@@ -97,6 +97,11 @@ const monthCells = [
     return { day, key, entries: calendarMap.get(key)?.entries ?? [] };
   }),
 ];
+const calendarEntries = Array.from(calendarMap.entries()).map(([date, value]) => ({
+  date,
+  entries: value.entries,
+}));
+const calendarMonthKey = `${calendarMonth.getFullYear()}-${String(calendarMonth.getMonth() + 1).padStart(2, "0")}`;
 const updatedDate = post.data.updated ?? post.data.date;
 const hasUpdatedDate = updatedDate.valueOf() !== post.data.date.valueOf();
 ---
@@ -173,15 +178,24 @@ const hasUpdatedDate = updatedDate.valueOf() !== post.data.date.valueOf();
       </div>
 
       <aside class="article-rail article-rail-right" aria-label="文章索引" data-reveal>
-        <section class="sidebar-panel month-calendar-panel">
+        <section
+          class="sidebar-panel month-calendar-panel"
+          data-month-calendar
+          data-calendar-month={calendarMonthKey}
+          data-current-date={currentDateKey}
+          data-calendar-entries={JSON.stringify(calendarEntries)}
+        >
           <header>
-            <h2>{calendarMonthLabel}</h2>
-            <span aria-hidden="true">‹ ›</span>
+            <h2 data-calendar-label>{calendarMonthLabel}</h2>
+            <div class="month-calendar-nav" aria-label="切换月份">
+              <button type="button" data-calendar-prev aria-label="上个月" title="上个月">‹</button>
+              <button type="button" data-calendar-next aria-label="下个月" title="下个月">›</button>
+            </div>
           </header>
           <div class="month-weekdays" aria-hidden="true">
             {["一", "二", "三", "四", "五", "六", "日"].map((day) => <span>{day}</span>)}
           </div>
-          <div class="month-grid">
+          <div class="month-grid" data-calendar-grid>
             {monthCells.map((cell) => (
               cell ? (
                 cell.entries.length > 0 ? (

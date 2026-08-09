@@ -3808,11 +3808,35 @@ h1 {
   margin: 0;
 }
 
-.month-calendar-panel header span {
+.month-calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.month-calendar-nav button {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
   color: rgba(32, 24, 39, 0.64);
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
   font-family: var(--pixel-font);
-  font-size: 0.86rem;
+  font-size: 1rem;
   font-weight: 900;
+  line-height: 1;
+}
+
+.month-calendar-nav button:hover,
+.month-calendar-nav button:focus-visible {
+  color: var(--ink);
+  background: rgba(217, 240, 226, 0.74);
+  border-color: rgba(47, 100, 75, 0.42);
+  outline: none;
 }
 
 .month-weekdays,
