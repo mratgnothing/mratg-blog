@@ -10,7 +10,7 @@ tags:
   - "LaTeX"
   - "MATLAB"
 date: "2026-07-18"
-updated: "2026-07-21T23:30:00+08:00"
+updated: "2026-09-02T10:47:00+08:00"
 draft: false
 ---
 
@@ -21,6 +21,13 @@ draft: false
 如果每一篇论文都重新提醒 Agent 一遍，这些经验就没有真正留下来。
 
 所以 7 月 18 日，我决定把反复踩过的坑直接写进 `math-modeling-paper-writer`，让它从一个“会写论文的提示词”变成一套带验收门槛的工作流。
+
+<div class="article-callout">
+  <strong>完整 Skill 已开放下载</strong>
+  <p>下载包包含 <code>SKILL.md</code>、论文规范与失败案例参考、证据账本和评分模板，以及 PDF 审计、字体预检、评分、参考论文分析和支撑材料打包脚本。</p>
+  <p><a class="button primary" href="/downloads/math-modeling-paper-writer-skill.zip" download>下载 math-modeling-paper-writer Skill (.zip)</a></p>
+  <p>解压后将整个 <code>math-modeling-paper-writer</code> 文件夹放入支持 Agent Skills 的技能目录即可；使用前建议先阅读包内的 <code>SKILL.md</code>。</p>
+</div>
 
 ## 先把别人的 Skill 拆开看，而不是直接装进去
 
