@@ -1,0 +1,16 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "mratg-gaoxiao-game",
+  "main": "index.js",
+  "compatibility_date": "2026-09-06",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "routes": [{ "pattern": "mra-t-g-blog.cn/api/gaoxiao/*", "zone_name": "mra-t-g-blog.cn" }],
+  "durable_objects": { "bindings": [
+    { "name": "MATCHMAKER", "class_name": "Matchmaker" },
+    { "name": "ROOMS", "class_name": "GameRoom" }
+  ]},
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Matchmaker", "GameRoom"] }],
+  "vars": { "MATCH_WAIT_MS": "20000", "TURN_MS": "90000", "AI_MS": "1000" },
+  "observability": { "enabled": true, "head_sampling_rate": 0.1 }
+}

@@ -1,211 +1,56 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SiteHeader from "../../components/SiteHeader.astro";
-import SiteFooter from "../../components/SiteFooter.astro";
----
-
-<BaseLayout title="高校风云 · 线上规则测试">
+<BaseLayout title="高校风云 · 真人匹配与 AI 对战" description="执掌一所高校，穿越六个时代。真人优先匹配，空位由策略 AI 补齐，也可立即开始 AI 练习。">
   <SiteHeader />
-  <main class="gxf-page">
-    <section class="gxf-hero">
-      <div>
-        <p class="gxf-kicker">高校风云 / GAOXIAO FENGYUN</p>
-        <h1>中国高校战略博弈<br /><span>1990 → 2050</span></h1>
-        <p>v0.5 线上规则测试台。完整加载 336 张卡牌数据，并提供单机三人局的第一版回合模拟。</p>
-      </div>
-      <div class="gxf-stamp" aria-label="prototype"><strong>规则测试</strong><span>PROTOTYPE · 0.1</span></div>
+  <main class="gxf-online">
+    <header class="gxf-hero"><div><p class="gxf-eyebrow">高校风云 / UNIVERSITY CHRONICLES</p><h1>下一所世界一流，<br/><span>由你执掌。</span></h1><p>从 1990 到 2050，在学科建设、人才竞争与国家工程之间，写下你的校史。</p></div><div class="gxf-seal" aria-hidden="true">高校<br/>风云<small>1990—2050</small></div></header>
+    <section class="gxf-lobby gxf-panel" id="lobby" aria-labelledby="lobby-title">
+      <div><p class="gxf-eyebrow">ONLINE PLAY · 快速对战</p><h2 id="lobby-title">和真人相遇，随时有 AI 同桌</h2><p>匹配等待 20 秒，优先邀请同时排队的真人；满桌立即开始，空位由 AI 补齐。</p></div>
+      <form id="match-form" class="gxf-form">
+        <label>你的昵称<input id="nickname" name="nickname" maxlength="16" required autocomplete="nickname" placeholder="例如：知行校长" /></label>
+        <label>选择高校<select id="school" name="school" required><option value="">正在载入高校…</option></select></label>
+        <label>同桌人数<select id="table-size" name="size"><option value="3">3 人</option><option value="4" selected>4 人 · 推荐</option><option value="5">5 人</option><option value="6">6 人</option></select></label>
+        <div class="gxf-buttons"><button id="match" type="submit" class="gxf-primary" disabled>开始匹配</button><button id="practice" type="button" disabled>与 AI 练习</button></div>
+      </form>
+      <p id="school-preview" class="gxf-muted"></p><p id="service-status" role="status" aria-live="polite">正在连接游戏服务…</p>
+      <details class="gxf-rules"><summary>开局须知 · 本次采用哪些规则？</summary>
+        <p>这是基于 v0.5 的线上快速对战。3–6 人、六个时代；先免费申报，再按生源顺序轮流使用每人 4 AP。AI 与真人共享院系和人才市场，执行同样的行动和资源校验。</p>
+        <p>已启用：院系建设、升级、科研、工科转型、定价招募、招生、智库、双向确认调档、工程前二分配、认证与评估。预算生源加成自动分配；工程主导奖励统一为匹配院系 +1 强度，协同牵头 +1🔬，第二名 +1🏛。</p>
+        <p>与实体规则的差异：人才使用定价招募；事件从已自动化的 24 张中抽取；政策牌、人才拍卖/挖角、联盟合标、合并/拆分及大部分高校独有技能尚未启用。完整 336 张卡牌仍可在下方查阅，档案里的全文不代表全部已自动执行。</p>
+        <p>每次操作限时 90 秒，超时由 AI 临时托管，可恢复操作；刷新网页可重连。离开对局会交给 AI，无法再加入这一局。匹配到相同高校时，后加入者会获分配另一所高校。</p>
+        <a href="/assets/games/gaoxiao-fengyun/data/高校风云-游戏规则-v0.5.md" target="_blank" rel="noopener">阅读实体 v0.5 规则全文 ↗</a>
+      </details>
     </section>
-
-    <section class="gxf-manifest" aria-label="卡牌系统">
-      <button class="manifest-chip active" data-filter="all">全部 <b id="count-all">336</b></button>
-      <button class="manifest-chip school" data-filter="school">高校 <b id="count-school">48</b></button>
-      <button class="manifest-chip faculty" data-filter="faculty">院系 <b id="count-faculty">96</b></button>
-      <button class="manifest-chip talent" data-filter="talent">人才 <b id="count-talent">36</b></button>
-      <button class="manifest-chip event" data-filter="event">事件 <b id="count-event">72</b></button>
-      <button class="manifest-chip project" data-filter="project">国家工程 <b id="count-project">60</b></button>
-      <button class="manifest-chip policy" data-filter="policy">政策 <b id="count-policy">24</b></button>
-    </section>
-
-    <section class="gxf-board" id="game-board">
-      <header class="board-topline">
-        <div><span>时代</span><strong id="era-label">1990s</strong></div>
-        <div><span>阶段</span><strong id="phase-label">准备</strong></div>
-        <div><span>行动点</span><strong id="ap-label">4 AP</strong></div>
-        <button id="new-game" class="gxf-button primary">开始新模拟</button>
-      </header>
-
-      <div class="board-grid">
-        <aside class="board-side">
-          <div class="panel-title"><span>校务委员会</span><b>YOUR UNIVERSITY</b></div>
-          <label class="school-picker">选择高校<select id="school-select"></select></label>
-          <article class="school-card card-shell" id="player-school-card">
-            <div class="card-top"><span class="card-type">高校牌</span><span class="tier-badge" id="school-tier">领跑档</span></div>
-            <div class="school-identity">
-              <div class="crest" id="school-crest"><span>校</span></div>
-              <div><h2 id="school-name">清华大学</h2><p id="school-meta">一线 · 核心：传统工科 / 新工科</p></div>
-            </div>
-            <div class="school-skill"><strong id="school-skill-title">自强不息</strong><p id="school-skill-text">加载牌库中…</p></div>
-          </article>
-          <div class="resource-grid">
-            <div><span>💰 经费</span><b id="money">6</b></div>
-            <div><span>🔬 科研</span><b id="science">2</b></div>
-            <div><span>🎓 生源</span><b id="students">4</b></div>
-            <div><span>🏛 政策</span><b id="policy">2</b></div>
-            <div class="wide"><span>⭐ 声望</span><b id="prestige">12</b></div>
-          </div>
-          <div class="action-stack">
-            <button data-action="research">科研攻关 <small>1 AP · +2🔬</small></button>
-            <button data-action="admissions">招生宣传 <small>1 AP · 2💰 → +2🎓</small></button>
-            <button data-action="thinktank">智库通道 <small>1 AP · 2🏛 → +1⭐</small></button>
-            <button data-action="end" class="end-era">结束本时代</button>
-          </div>
-        </aside>
-
-        <div class="board-center">
-          <section class="era-track" id="era-track"></section>
-          <section class="event-zone">
-            <div class="zone-label"><span>时代事件</span><small>ERA EVENTS</small></div>
-            <div class="event-cards" id="event-cards"><div class="empty-state">开始模拟后翻开时代事件</div></div>
-          </section>
-          <section class="project-zone">
-            <div class="zone-label"><span>国家重大工程</span><small>NATIONAL PROJECTS</small></div>
-            <div class="project-cards" id="project-cards"></div>
-          </section>
-          <section class="campus-zone">
-            <div class="zone-label"><span>你的院系</span><small>CAMPUS</small></div>
-            <div class="campus-grid" id="campus-grid"></div>
-          </section>
-          <section class="log-zone">
-            <div class="zone-label"><span>校史记录</span><small>GAME LOG</small></div>
-            <ol id="game-log"><li>牌库加载中…</li></ol>
-          </section>
+    <section id="queue" class="gxf-panel gxf-queue" hidden aria-label="匹配中"><span class="gxf-pulse" aria-hidden="true"></span><h2>正在寻找同桌校长</h2><p id="queue-summary" role="status" aria-live="polite"></p><p id="queue-names"></p><strong id="queue-timer"></strong><p>剩余席位将在倒计时结束后由 AI 补齐。</p><button id="cancel-match">取消匹配</button></section>
+    <p id="game-error" class="gxf-error" role="alert" hidden></p>
+    <section id="room" hidden aria-labelledby="room-title">
+      <header class="gxf-room-header gxf-panel"><div><p class="gxf-eyebrow" id="room-code"></p><h2 id="room-title">1990s · 初始申报</h2><p id="turn-status" role="status" aria-live="polite"></p></div><div class="gxf-room-tools"><strong id="turn-timer"></strong><button id="resume" hidden>恢复操作</button><button id="leave-room">离开对局</button></div></header>
+      <div id="players" class="gxf-players"></div>
+      <section id="results" class="gxf-panel" hidden><h2>校史终章 · 对局结果</h2><div id="result-table"></div><button id="play-again" class="gxf-primary">再来一局</button></section>
+      <div class="gxf-game-grid">
+        <aside class="gxf-panel gxf-actions" id="action-panel"><p class="gxf-eyebrow">YOUR DECISION</p><h2>校务决策</h2><p id="action-hint"></p><label>行动类别<select id="action-type"></select></label><label>选择行动<select id="action-choice"></select></label><p id="action-description"></p><button id="execute" class="gxf-primary" disabled>执行行动</button><button id="pass" disabled>结束本时代的行动</button><p class="gxf-muted">只展示当前可执行、且资源足够的行动。免费申报窗口关闭后不能补用。</p></aside>
+        <div class="gxf-table">
+          <section class="gxf-panel"><h2>时代风向</h2><div id="events" class="gxf-events"></div></section>
+          <section class="gxf-panel"><h2>国家重大工程 <small>每人最多参与 2 项</small></h2><div id="projects" class="gxf-projects"></div></section>
+          <section class="gxf-panel"><h2>我的校园</h2><div id="campus" class="gxf-campus"></div></section>
+          <section class="gxf-panel"><h2>共享市场</h2><h3>院系</h3><div id="faculty-market" class="gxf-market"></div><h3>人才 · 定价招募</h3><div id="talent-market" class="gxf-market"></div></section>
+          <section class="gxf-panel" id="transfers-panel" hidden><h2>跨校调档</h2><div id="transfers"></div></section>
+          <details class="gxf-panel" open><summary>校史记录</summary><ol id="game-log"></ol></details>
         </div>
-
-        <aside class="market-side">
-          <section>
-            <div class="panel-title"><span>院系市场</span><b>FACULTY</b></div>
-            <div class="market-list" id="faculty-market"></div>
-          </section>
-          <section>
-            <div class="panel-title"><span>人才市场</span><b>TALENT</b></div>
-            <div class="market-list" id="talent-market"></div>
-          </section>
-          <section>
-            <div class="panel-title"><span>政策市场</span><b>POLICY</b></div>
-            <div class="market-list" id="policy-market"></div>
-          </section>
-        </aside>
       </div>
     </section>
-
-    <section class="gxf-catalogue">
-      <div class="catalogue-heading">
-        <div><p class="gxf-kicker">CARD ARCHIVE</p><h2>完整卡牌档案</h2></div>
-        <label>搜索卡牌<input id="card-search" type="search" placeholder="学校 / AI / 航天 / 政策…" /></label>
-      </div>
-      <div class="catalogue-grid" id="catalogue-grid"></div>
+    <section class="gxf-archive gxf-panel" aria-labelledby="archive-title">
+      <div class="gxf-archive-header"><div><p class="gxf-eyebrow">CARD ARCHIVE</p><h2 id="archive-title">336 张卡牌，完整查阅</h2></div><p>高校 48 · 院系 96 · 人才 36<br/>事件 72 · 国家工程 60 · 政策 24</p></div>
+      <div class="gxf-archive-filters"><label>牌类<select id="archive-type"><option value="all">全部卡牌</option><option value="school">高校</option><option value="faculty">院系</option><option value="talent">人才</option><option value="event">事件</option><option value="project">国家工程</option><option value="policy">政策</option></select></label><label>搜索<input id="archive-search" type="search" placeholder="学校、门类、航天…"/></label></div>
+      <p id="archive-count" class="gxf-muted"></p><div id="archive-grid" class="gxf-archive-grid"></div><button id="more-cards">显示更多</button>
     </section>
-
-    <section class="design-notes">
-      <p class="gxf-kicker">VISUAL SYSTEM</p>
-      <h2>统一设计语言：国家档案 × 教育蓝图 × 科技工程</h2>
-      <div class="design-grid">
-        <article><b>高校牌 · 朱砂 / 象牙</b><p>校徽徽章位、核心门类色带、校史纸张纹理与招牌能力章。</p></article>
-        <article><b>政策牌 · 紫绀 / 金印</b><p>公文档案、批注、印章与执行时机标签，强调制度工具感。</p></article>
-        <article><b>国家工程 · 靛蓝 / 青图</b><p>工程蓝图、坐标网格、项目编号、门类协同与声望池。</p></article>
-        <article><b>时代事件 · 报刊 / 信号色</b><p>年代戳、新闻标题结构，利好绿、利空红、规则蓝。</p></article>
-        <article><b>院系牌 · 学科谱系</b><p>八门类各自辅色，等级、方向、成本、产出形成固定阅读顺序。</p></article>
-        <article><b>人才牌 · 学术肖像</b><p>人物肖像主视觉，讲席、杰青/长江、院士三个稀有度框架。</p></article>
-      </div>
-    </section>
+    <dialog id="card-dialog"><button id="close-card" aria-label="关闭卡牌详情">关闭 ×</button><div id="card-detail"></div></dialog>
+    <dialog id="leave-dialog"><h2>将本局交给 AI？</h2><p>退出后将由 AI 接替你完成这一局，你可以重新匹配。仅刷新网页可以重连，不必退出。</p><div class="gxf-buttons"><button id="keep-playing">继续游戏</button><button id="confirm-leave">退出并交给 AI</button></div></dialog>
   </main>
   <SiteFooter />
+  <link rel="stylesheet" href="/assets/games/gaoxiao-fengyun/online.css" />
+  <script is:inline type="module" src="/assets/games/gaoxiao-fengyun/online.js"></script>
 </BaseLayout>
-
-<script is:inline>
-(() => {
-  const BASE='/assets/games/gaoxiao-fengyun/data/';
-  const files={school:'高校风云-50校全案.md',faculty:'高校风云-院系牌全库.md',talent:'高校风云-人才牌全库.md',event:'高校风云-事件牌全库.md',project:'高校风云-国家重大工程牌全库.md',policy:'高校风云-政策牌全库.md'};
-  const eras=['1990s','2000s','2010s','2020s','2030s','2040s'];
-  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const clean=s=>String(s??'').replace(/\*\*/g,'').replace(/`/g,'').trim();
-  const shuffle=a=>[...a].sort(()=>Math.random()-.5);
-  const state={cards:[],decks:{},era:0,ap:4,started:false,players:[],me:null,markets:{faculty:[],talent:[],policy:[]},events:[],projects:[]};
-
-  function parseSchools(t){
-    const cards=[]; let tier='';
-    for(const raw of t.split(/\r?\n/)){
-      if(raw.startsWith('## 第二部分')) tier='领跑档';
-      if(raw.startsWith('## 第三部分')) tier='劲旅档';
-      if(raw.startsWith('## 第四部分')) tier='蓄力档';
-      const m=raw.match(/^\*\*([^*]+)\*\*\s*\|\s*([^|]+)\|\s*核心:([^|]+)\|\s*开局:(.+)$/);
-      if(!m) continue;
-      cards.push({type:'school',id:'S'+String(cards.length+1).padStart(2,'0'),name:m[1],tier,region:m[2].trim(),core:m[3].trim(),start:m[4].trim(),body:''});
-    }
-    for(const c of cards){
-      const idx=t.indexOf(`**${c.name}**`); const next=t.indexOf('\n**',idx+4); const chunk=t.slice(idx,next>idx?next:idx+900);
-      const sm=chunk.match(/【([^】]+)】([^\n]+)/); if(sm){c.skill=sm[1];c.body=clean(sm[2]);}
-    }
-    return cards;
-  }
-  function tableRows(t,re){const out=[]; for(const line of t.split(/\r?\n/)){if(!line.startsWith('|'))continue;const p=line.split('|').slice(1,-1).map(x=>x.trim());if(re.test(p[0]||''))out.push(p);}return out;}
-  function parseFaculties(t){return tableRows(t,/^(?:W|F|SCI|AGR|MED|BUS|ENG|NEW)\d{2}$/).map(p=>({type:'faculty',id:p[0],name:p[1],level:p[2],tags:p[3],body:`${p[2]} · ${p[3]}`}));}
-  function parseTalents(t){
-    const rows=tableRows(t,/^[LY]\d{2}$/).map(p=>({type:'talent',id:p[0],name:p[1],discipline:p[2],tags:p[3],body:p.slice(4).join(' · ')}));
-    for(const m of t.matchAll(/^###\s+(A\d{2})\s+(.+)$/gm)){const start=m.index,end=t.indexOf('\n---',start);const chunk=t.slice(start,end>0?end:start+700);rows.push({type:'talent',id:m[1],name:m[2],discipline:(chunk.match(/门类：([^｜\n]+)/)||[])[1]||'',tags:(chunk.match(/方向：([^｜\n]+)/)||[])[1]||'',body:clean(chunk.split('\n').slice(1).join(' ')).slice(0,220)});}return rows;
-  }
-  function parseEvents(t){const out=[];for(const line of t.split(/\r?\n/)){const m=line.match(/^\s*(\d+)\.\s*(🟢|🔴|🔵)\*\*「(.+?)」\*\*\|\s*([^|]+)\|\s*(.+)$/u);if(m)out.push({type:'event',id:'E'+m[1].padStart(2,'0'),tone:m[2],name:m[3],range:m[4].trim(),duration:clean(m[5]),body:''});else if(out.length&&/^\s{2,}\S/.test(line))out[out.length-1].body+=' '+clean(line);}return out;}
-  function parseProjects(t){const out=[];for(const m of t.matchAll(/^###\s+(P\d{2})\s+(.+)$/gm)){const start=m.index,end=t.indexOf('\n### ',start+4);const chunk=t.slice(start,end>0?end:start+900);out.push({type:'project',id:m[1],name:m[2],body:clean(chunk.split('\n').slice(1).join(' ')).slice(0,330)});}return out;}
-  function parsePolicies(t){const out=[];for(const m of t.matchAll(/^###\s+([GTRD]\d{2})\s+(.+)$/gm)){const start=m.index,end=t.indexOf('\n---',start);const chunk=t.slice(start,end>0?end:start+700);out.push({type:'policy',id:m[1],name:m[2],body:clean(chunk.split('\n').slice(1).join(' ')).slice(0,280)});}return out;}
-
-  async function load(){
-    const raw={}; await Promise.all(Object.entries(files).map(async([k,f])=>raw[k]=await fetch(BASE+encodeURIComponent(f)).then(r=>r.text())));
-    state.decks.school=parseSchools(raw.school); state.decks.faculty=parseFaculties(raw.faculty); state.decks.talent=parseTalents(raw.talent); state.decks.event=parseEvents(raw.event); state.decks.project=parseProjects(raw.project); state.decks.policy=parsePolicies(raw.policy);
-    state.cards=Object.values(state.decks).flat();
-    for(const k of Object.keys(files)){document.getElementById('count-'+k).textContent=state.decks[k].length;}
-    document.getElementById('count-all').textContent=state.cards.length;
-    setupPicker(); renderCatalogue(); renderEraTrack(); log(`牌库装载完成：${state.cards.length}/336 张。`);
-  }
-
-  function setupPicker(){const el=document.getElementById('school-select');el.innerHTML=state.decks.school.map((s,i)=>`<option value="${i}">${esc(s.name)} · ${esc(s.tier)}</option>`).join('');el.addEventListener('change',()=>showSchool(state.decks.school[+el.value]));showSchool(state.decks.school[0]);}
-  function initials(name){return name.replace(/大学|学院|中国|北京|上海|南京|香港/g,'').slice(0,2)||name.slice(0,2)}
-  function showSchool(s){if(!s)return;document.getElementById('school-name').textContent=s.name;document.getElementById('school-tier').textContent=s.tier;document.getElementById('school-meta').textContent=`${s.region} · 核心：${s.core}`;document.getElementById('school-skill-title').textContent=s.skill||'办学特色';document.getElementById('school-skill-text').textContent=s.body||s.start;document.getElementById('school-crest').innerHTML=`<span>${esc(initials(s.name))}</span>`;}
-
-  function cardHTML(c,compact=false){const icon={school:'校',faculty:'系',talent:'人',event:c.tone||'事',project:'国',policy:'策'}[c.type];const meta=c.type==='school'?`${c.tier} · ${c.region}`:c.type==='faculty'?`${c.id} · ${c.level} · ${c.tags}`:c.type==='talent'?`${c.id} · ${c.discipline} · ${c.tags}`:c.id;return `<article class="archive-card ${c.type}${compact?' compact':''}" data-kind="${c.type}" data-search="${esc((c.name+' '+meta+' '+c.body).toLowerCase())}"><header><span>${esc(icon)}</span><small>${esc(meta)}</small></header><h3>${esc(c.name)}</h3>${compact?'':`<p>${esc(c.body||c.core||'')}</p>`}</article>`;}
-  function renderCatalogue(){const q=(document.getElementById('card-search').value||'').toLowerCase();const active=document.querySelector('.manifest-chip.active')?.dataset.filter||'all';const list=state.cards.filter(c=>(active==='all'||c.type===active)&&(!q||(c.name+' '+c.body+' '+c.tags+' '+c.core).toLowerCase().includes(q)));document.getElementById('catalogue-grid').innerHTML=list.slice(0,336).map(c=>cardHTML(c)).join('')||'<div class="empty-state">没有匹配卡牌</div>';}
-  document.querySelectorAll('.manifest-chip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.manifest-chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderCatalogue();document.querySelector('.gxf-catalogue').scrollIntoView({behavior:'smooth'});}));
-  document.getElementById('card-search').addEventListener('input',renderCatalogue);
-
-  function initPlayer(s,human=false){const res=s.tier==='领跑档'?{prestige:12,money:6}:{prestige:s.tier==='蓄力档'?2:6,money:s.tier==='蓄力档'?4:5};const core=s.core.split(/[、/]/).map(x=>x.trim());return {school:s,human,prestige:res.prestige,money:res.money,science:2,students:4,policy:2,campus:core.slice(0,s.tier==='领跑档'?3:2).map((d,i)=>({name:d+'院系',discipline:d,level:i===0?2:1,strength:i===0?4:2})),projects:{}};}
-  function startGame(){const choice=state.decks.school[+document.getElementById('school-select').value||0];const rivals=shuffle(state.decks.school.filter(s=>s!==choice)).slice(0,2);state.players=[initPlayer(choice,true),...rivals.map(s=>initPlayer(s))];state.me=state.players[0];state.era=0;state.started=true;startEra(true);log(`新模拟开始：${choice.name} vs ${rivals.map(x=>x.name).join(' / ')}`);}
-  function startEra(first=false){state.ap=4;state.me.money+=state.me.school.region.includes('港澳')?5:3;state.me.policy+=1;const ev=state.decks.event.slice(state.era*12,state.era*12+12);state.events=shuffle(ev).slice(0,state.era===0?1:2);const pr=state.decks.project.filter(p=>+p.id.slice(1)>state.era*10&&+p.id.slice(1)<=state.era*10+10);state.projects=shuffle(pr).slice(0,4);state.markets.faculty=shuffle(state.decks.faculty.filter(f=>!f.id.startsWith('NEW')||state.era>=2)).slice(0,6);state.markets.talent=shuffle(state.decks.talent).slice(0,3);state.markets.policy=shuffle(state.decks.policy).slice(0,4);renderAll();if(!first)log(`进入 ${eras[state.era]}：预算到账，翻开 ${state.events.length} 张事件与 4 项国家工程。`);}
-  function renderEraTrack(){document.getElementById('era-track').innerHTML=eras.map((e,i)=>`<div class="era-node ${i===state.era?'current':''} ${i<state.era?'done':''}"><span>${i+1}</span><b>${e}</b></div>`).join('');}
-  function renderAll(){renderEraTrack();document.getElementById('era-label').textContent=eras[state.era];document.getElementById('phase-label').textContent='行动阶段';document.getElementById('ap-label').textContent=state.ap+' AP';for(const k of ['money','science','students','policy','prestige'])document.getElementById(k).textContent=state.me[k];showSchool(state.me.school);document.getElementById('event-cards').innerHTML=state.events.map(cardHTML).join('');document.getElementById('project-cards').innerHTML=state.projects.map(p=>`<div class="project-wrap">${cardHTML(p,true)}<button data-bid="${p.id}">申报 · 1🔬 / 1 AP <b>${state.me.projects[p.id]||0}点</b></button></div>`).join('');document.getElementById('campus-grid').innerHTML=state.me.campus.map((f,i)=>`<article class="campus-card"><span>院系 ${i+1}</span><h3>${esc(f.name)}</h3><p>${esc(f.discipline)} · 等级 ${'ⅠⅡⅢ'[f.level-1]} · 强度 ${f.strength}</p></article>`).join('');renderMarkets();document.querySelectorAll('[data-bid]').forEach(b=>b.onclick=()=>bid(b.dataset.bid));}
-  function renderMarkets(){document.getElementById('faculty-market').innerHTML=state.markets.faculty.map((c,i)=>`${cardHTML(c,true)}<button data-buy-fac="${i}">建设</button>`).join('');document.getElementById('talent-market').innerHTML=state.markets.talent.map((c,i)=>`${cardHTML(c,true)}<button data-buy-tal="${i}">招募</button>`).join('');document.getElementById('policy-market').innerHTML=state.markets.policy.map((c,i)=>`${cardHTML(c,true)}<button data-buy-pol="${i}">购买</button>`).join('');document.querySelectorAll('[data-buy-fac]').forEach(b=>b.onclick=()=>buyFaculty(+b.dataset.buyFac));document.querySelectorAll('[data-buy-tal]').forEach(b=>b.onclick=()=>buyTalent(+b.dataset.buyTal));document.querySelectorAll('[data-buy-pol]').forEach(b=>b.onclick=()=>buyPolicy(+b.dataset.buyPol));}
-  function spendAP(){if(!state.started)return false;if(state.ap<=0){log('本时代 AP 已用尽。');return false;}state.ap--;return true;}
-  function action(kind){if(kind==='end')return endEra();if(!spendAP())return;if(kind==='research'){state.me.science+=2;log('科研攻关：+2🔬。');}if(kind==='admissions'){if(state.me.money<2){state.ap++;return log('经费不足，无法招生宣传。');}state.me.money-=2;state.me.students+=2;log('招生宣传：2💰 → +2🎓。');}if(kind==='thinktank'){if(state.me.policy<2){state.ap++;return log('政策力不足，无法使用智库通道。');}state.me.policy-=2;state.me.prestige+=1;log('智库通道：2🏛 → +1⭐。');}renderAll();}
-  document.querySelectorAll('[data-action]').forEach(b=>b.onclick=()=>action(b.dataset.action));
-  function facultyCost(c){const lv=c.level==='Ⅱ'?2:1;const high=/^(SCI|MED|ENG)/.test(c.id),newg=c.id.startsWith('NEW');return lv===2?(newg?8:high?7:6):(newg?4:high?3:2);}
-  function disciplineFromId(id){if(id.startsWith('W'))return'文';if(id.startsWith('F'))return'法';if(id.startsWith('SCI'))return'理';if(id.startsWith('AGR'))return'农';if(id.startsWith('MED'))return'医';if(id.startsWith('BUS'))return'商';if(id.startsWith('ENG'))return'传统工科';return'新工科';}
-  function buyFaculty(i){const c=state.markets.faculty[i],cost=facultyCost(c);if(!spendAP())return;if(state.me.money<cost){state.ap++;return log(`建设 ${c.name} 需要 ${cost}💰。`);}if(state.me.campus.length>=6){state.ap++;return log('已达到基础院系上限 6。');}state.me.money-=cost;const level=c.level==='Ⅱ'?2:1;state.me.campus.push({name:c.name,discipline:disciplineFromId(c.id),level,strength:level===2?4:2});state.markets.faculty.splice(i,1,...shuffle(state.decks.faculty).slice(0,1));log(`建设 ${c.name}，支付 ${cost}💰。`);renderAll();}
-  function talentCost(c){return c.id.startsWith('A')?7:c.id.startsWith('Y')?4:2;}
-  function buyTalent(i){const c=state.markets.talent[i],cost=talentCost(c);if(!spendAP())return;if(state.me.money<cost){state.ap++;return log(`招募 ${c.name} 至少需要 ${cost} 资源。`);}state.me.money-=cost;state.me.prestige+=c.id.startsWith('A')?2:0;if(state.me.campus[0])state.me.campus[0].strength+=c.id.startsWith('A')?3:c.id.startsWith('Y')?2:0;state.markets.talent.splice(i,1,...shuffle(state.decks.talent).slice(0,1));log(`招募 ${c.name}。`);renderAll();}
-  function policyCost(c){return +(c.body.match(/费用：(\d+)/)||[])[1]||2;}
-  function buyPolicy(i){const c=state.markets.policy[i],cost=policyCost(c);if(!spendAP())return;if(state.me.policy<cost){state.ap++;return log(`购买 ${c.name} 需要 ${cost}🏛。`);}state.me.policy-=cost;state.markets.policy.splice(i,1,...shuffle(state.decks.policy).slice(0,1));log(`购入政策「${c.name}」。测试版将其记入政策使用记录。`);renderAll();}
-  function bid(id){if(!spendAP())return;if(state.me.science<1){state.ap++;return log('至少需要 1🔬 才能申报工程。');}state.me.science--;state.me.projects[id]=(state.me.projects[id]||0)+1;log(`向 ${id} 追加 1🔬，当前 ${state.me.projects[id]} 有效基础点。`);renderAll();}
-  function aiTurn(p){p.money+=3;for(let n=0;n<4;n++){const r=Math.random();if(r<.35)p.science+=2;else if(r<.55&&p.money>=2){p.money-=2;p.students+=2;}else if(r<.78){p.campus.push({name:'扩建院系',discipline:shuffle(['文','法','理','农','医','商','传统工科','新工科']).find(x=>state.era>=2||x!=='新工科'),level:1,strength:2});p.money=Math.max(0,p.money-2);}else p.prestige+=1;}}
-  function evaluate(){const cats=['文','法','理','农','医','商','传统工科','新工科'];for(const cat of cats){const rank=state.players.map(p=>({p,s:p.campus.filter(f=>f.discipline===cat).reduce((a,f)=>a+f.strength,0)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);if(rank[0])rank[0].p.prestige+=['理','医','传统工科','新工科'].includes(cat)?5:4;if(rank[1])rank[1].p.prestige+=['理','医','传统工科','新工科'].includes(cat)?3:2;}log(`${eras[state.era]} 学科评估完成，按重点档 5/3⭐、常规档 4/2⭐结算。`);}
-  function settleProjects(){for(const pr of state.projects){const mine=state.me.projects[pr.id]||0;if(mine){const ai=Math.floor(Math.random()*3);if(mine>=ai){state.me.prestige+=2;log(`${pr.id} ${pr.name}：本校进入项目头部，测试结算 +2⭐。`);}}}}
-  function endEra(){if(!state.started)return;state.players.slice(1).forEach(aiTurn);settleProjects();if([1,3,5].includes(state.era))evaluate();if(state.era>=5){const rank=[...state.players].sort((a,b)=>b.prestige-a.prestige);log(`2050 终局：${rank.map((p,i)=>`${i+1}.${p.school.name} ${p.prestige}⭐`).join(' / ')}`);document.getElementById('phase-label').textContent='终局';state.ap=0;renderAll();return;}state.era++;startEra();}
-  function log(msg){const el=document.getElementById('game-log');if(!el)return;const li=document.createElement('li');li.textContent=msg;el.prepend(li);while(el.children.length>14)el.lastChild.remove();}
-  document.getElementById('new-game').onclick=startGame;
-  load().catch(e=>{console.error(e);log('牌库加载失败：'+e.message);});
-})();
-</script>
-
-<style>
-  :global(body){background:#0c1117;color:#ece7da}.gxf-page{--paper:#e9e2cf;--ink:#15202a;--red:#9c2f2b;--blue:#174e72;--violet:#493a6c;--gold:#b7924a;max-width:1500px;margin:0 auto;padding:28px 22px 100px;font-family:"Noto Serif SC","Songti SC",serif}.gxf-hero{min-height:340px;border:1px solid #53606a;background:radial-gradient(circle at 85% 20%,#36485a 0,transparent 26%),linear-gradient(135deg,#111a22,#172b38 60%,#2d1c1a);display:flex;align-items:flex-end;justify-content:space-between;padding:48px;position:relative;overflow:hidden}.gxf-hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff09 1px,transparent 1px),linear-gradient(90deg,#ffffff09 1px,transparent 1px);background-size:28px 28px}.gxf-hero>div{position:relative;z-index:1}.gxf-kicker{font:700 12px/1.3 ui-monospace,monospace;letter-spacing:.18em;color:#cdb477}.gxf-hero h1{font-size:clamp(42px,6vw,86px);line-height:.95;margin:12px 0 22px;letter-spacing:-.04em}.gxf-hero h1 span{color:#b7cddd;font-weight:400}.gxf-hero p{max-width:680px;color:#c2ccd4;line-height:1.8}.gxf-stamp{border:2px solid #c6a059;padding:20px 26px;transform:rotate(-3deg);text-align:center}.gxf-stamp strong{display:block;font-size:28px;color:#d4b470}.gxf-stamp span{font:11px ui-monospace;letter-spacing:.12em}.gxf-manifest{display:flex;gap:8px;flex-wrap:wrap;padding:20px 0}.manifest-chip{border:1px solid #46515b;background:#151c23;color:#cdd5da;padding:10px 14px;cursor:pointer}.manifest-chip b{margin-left:8px;color:white}.manifest-chip.active{outline:2px solid #c7a55e}.manifest-chip.school{border-bottom-color:#a8473f}.manifest-chip.faculty{border-bottom-color:#477c73}.manifest-chip.talent{border-bottom-color:#9e7244}.manifest-chip.event{border-bottom-color:#92513f}.manifest-chip.project{border-bottom-color:#39709a}.manifest-chip.policy{border-bottom-color:#67568c}.gxf-board{border:1px solid #52616a;background:#111920;box-shadow:0 25px 80px #0007}.board-topline{display:grid;grid-template-columns:repeat(3,1fr) auto;border-bottom:1px solid #53606a;background:#0f151a}.board-topline>div{padding:14px 20px;border-right:1px solid #38434b}.board-topline span{display:block;font:10px ui-monospace;letter-spacing:.16em;color:#8fa0aa}.board-topline strong{font-size:20px}.gxf-button,.market-side button,.project-wrap button{border:0;background:#283642;color:#fff;padding:10px;cursor:pointer}.gxf-button.primary{background:#8e3431;padding:0 28px}.board-grid{display:grid;grid-template-columns:300px 1fr 330px;min-height:900px}.board-side,.market-side{padding:16px;background:#131c23}.board-side{border-right:1px solid #42505a}.market-side{border-left:1px solid #42505a;display:flex;flex-direction:column;gap:22px}.panel-title,.zone-label{display:flex;align-items:end;justify-content:space-between;margin-bottom:10px}.panel-title span,.zone-label span{font-weight:800}.panel-title b,.zone-label small{font:9px ui-monospace;letter-spacing:.13em;color:#758692}.school-picker{display:grid;gap:6px;font-size:12px;color:#9eabb3;margin-bottom:10px}.school-picker select,.catalogue-heading input{background:#0b1116;color:#eef3f5;border:1px solid #43505a;padding:10px}.card-shell{border-radius:4px;background:var(--paper);color:var(--ink);padding:16px;box-shadow:inset 0 0 0 5px #9f312d,inset 0 0 0 7px #d6b36c;min-height:250px}.card-top{display:flex;justify-content:space-between;font:10px ui-monospace;letter-spacing:.1em}.school-identity{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center;margin:20px 0}.crest{width:68px;height:68px;border:2px solid #8e302c;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#f4edda,#d8c9a5);font-size:22px;font-weight:900}.school-identity h2{font-size:23px;margin:0}.school-identity p{font-size:11px;color:#59616a}.school-skill{border-top:1px solid #aa9d81;padding-top:12px}.school-skill p{font-size:12px;line-height:1.6}.resource-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:12px 0}.resource-grid>div{background:#0d1419;border:1px solid #34414a;padding:9px;display:flex;justify-content:space-between}.resource-grid .wide{grid-column:1/-1}.action-stack{display:grid;gap:7px}.action-stack button{background:#202d36;border:1px solid #42515c;color:#eef;padding:10px;text-align:left;cursor:pointer}.action-stack small{float:right;color:#99a7af}.action-stack .end-era{background:#752e2b;margin-top:6px}.board-center{padding:18px;min-width:0;background:radial-gradient(circle at 50% 20%,#21303b,#11191f 55%)}.era-track{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-bottom:20px}.era-node{border:1px solid #384650;padding:8px;text-align:center;color:#6f7d86}.era-node span{display:block;font:10px ui-monospace}.era-node.current{background:#8a6d37;color:white;border-color:#d4ad5e}.era-node.done{color:#aab6bd}.event-zone,.project-zone,.campus-zone,.log-zone{margin:18px 0}.event-cards,.project-cards,.campus-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.project-cards{grid-template-columns:repeat(4,minmax(0,1fr))}.archive-card{position:relative;min-height:230px;padding:14px;background:#e5dcc7;color:#182028;border:1px solid #cfbea0;box-shadow:0 8px 20px #0002;overflow:hidden}.archive-card:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,#00000006,#ffffff16);pointer-events:none}.archive-card header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #9b907a;padding-bottom:8px}.archive-card header span{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:#27333b;color:#fff;font-weight:900}.archive-card header small{font:9px ui-monospace;color:#59636a;text-align:right}.archive-card h3{font-size:17px;line-height:1.25;margin:14px 0 9px}.archive-card p{font-size:11px;line-height:1.65;color:#46515a}.archive-card.school{box-shadow:inset 0 5px #9c332e}.archive-card.faculty{box-shadow:inset 0 5px #3f756d}.archive-card.talent{box-shadow:inset 0 5px #9a6d38}.archive-card.event{box-shadow:inset 0 5px #9b513f}.archive-card.project{background:#dce5e5;box-shadow:inset 0 5px #2d678e}.archive-card.policy{background:#e1dce6;box-shadow:inset 0 5px #5b487b}.archive-card.compact{min-height:112px}.archive-card.compact h3{font-size:13px;margin:9px 0}.project-wrap{display:grid;gap:4px}.project-wrap button{font-size:11px;background:#1b516e}.campus-card{min-height:105px;border:1px solid #64737c;background:#1a252d;padding:12px}.campus-card span{font:9px ui-monospace;color:#81919a}.campus-card h3{margin:8px 0 6px;font-size:14px}.campus-card p{font-size:11px;color:#aab5bc}.log-zone ol{margin:0;padding:10px 10px 10px 30px;background:#0c1217;max-height:180px;overflow:auto}.log-zone li{font:11px/1.55 ui-monospace;color:#aab6bc;margin:4px 0}.market-side section{border-bottom:1px solid #33404a;padding-bottom:14px}.market-list{display:grid;grid-template-columns:1fr 1fr;gap:6px}.market-list .archive-card{min-height:92px;padding:9px}.market-list .archive-card h3{font-size:11px}.market-list button{font-size:10px}.gxf-catalogue{padding:80px 0 20px}.catalogue-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:24px}.catalogue-heading h2,.design-notes h2{font-size:38px;margin:6px 0}.catalogue-heading label{display:grid;gap:7px;font-size:11px;color:#9cabaf}.catalogue-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.design-notes{padding:80px 0}.design-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.design-grid article{border:1px solid #3f4a51;background:#151d23;padding:22px}.design-grid b{color:#e5d2a4}.design-grid p{color:#9eabb3;line-height:1.7;font-size:13px}.empty-state{border:1px dashed #51606a;color:#82919a;padding:28px;text-align:center}.market-side .archive-card p{display:none}
-  @media(max-width:1180px){.board-grid{grid-template-columns:280px 1fr}.market-side{grid-column:1/-1;border-left:0;border-top:1px solid #42505a;display:grid;grid-template-columns:repeat(3,1fr)}.catalogue-grid{grid-template-columns:repeat(4,1fr)}.project-cards{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:760px){.gxf-page{padding:12px 10px 70px}.gxf-hero{padding:28px;min-height:420px;align-items:flex-start;flex-direction:column}.gxf-stamp{align-self:flex-end}.board-topline{grid-template-columns:repeat(3,1fr)}.board-topline .gxf-button{grid-column:1/-1;padding:14px}.board-grid{display:block}.board-side{border-right:0}.market-side{display:block}.project-cards,.catalogue-grid,.design-grid{grid-template-columns:1fr 1fr}.catalogue-heading{align-items:stretch;flex-direction:column}.catalogue-heading input{width:100%}.archive-card{min-height:190px}}
-  @media(max-width:480px){.project-cards,.catalogue-grid,.design-grid{grid-template-columns:1fr}.event-cards{grid-template-columns:1fr}.era-track{overflow:auto;grid-template-columns:repeat(6,110px)}}
-</style>

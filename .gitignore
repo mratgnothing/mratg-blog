@@ -1,5 +1,9 @@
 # --- 你原来的规则，全部保留 ---
 node_modules/
+tmp/
+.wrangler/
+.dev.vars*
+worker-configuration.d.ts
 dist/
 .astro/
 .npm-cache/

@@ -10,13 +10,20 @@
     "import:inbox": "node scripts/import-inbox.mjs",
     "new:post": "node scripts/new-content.mjs post",
     "new:column": "node scripts/new-content.mjs column",
-    "new:diary": "node scripts/new-content.mjs diary"
+    "new:diary": "node scripts/new-content.mjs diary",
+    "cards:gaoxiao": "node scripts/build-gaoxiao-cards.mjs",
+    "test:gaoxiao": "node --test tests/gaoxiao-engine.test.mjs tests/gaoxiao-matchmaking.test.mjs",
+    "dev:gaoxiao": "wrangler dev --config workers/gaoxiao/wrangler.jsonc --port 8791",
+    "deploy:gaoxiao": "wrangler deploy --config workers/gaoxiao/wrangler.jsonc"
   },
   "dependencies": {
     "astro": "^5.8.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260906.1",
     "@types/node": "^25.9.3",
-    "typescript": "^5.8.3"
+    "playwright": "^1.63.0",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.129.0"
   }
 }

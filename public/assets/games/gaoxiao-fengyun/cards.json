@@ -1,0 +1,5326 @@
+{
+  "version": "0.5",
+  "counts": {
+    "school": 48,
+    "faculty": 96,
+    "talent": 36,
+    "event": 72,
+    "project": 60,
+    "policy": 24
+  },
+  "decks": {
+    "school": [
+      {
+        "type": "school",
+        "id": "S01",
+        "name": "清华大学",
+        "tier": "领跑档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "新工科"
+        ],
+        "start": "传统工科Ⅱ、理Ⅰ、传统工科Ⅰ",
+        "skills": [
+          {
+            "title": "自强不息",
+            "text": "每时代你第一次对传统工科/新工科执行“建设、升级或转型”时，二选一：①免除本次全部 🔬 费用；②正常支付费用，但完成后可从本轮刚进入市场的新工科牌中保留 1 张到你的下一行动轮，其他玩家不能购买。"
+          }
+        ],
+        "body": "【自强不息】每时代你第一次对传统工科/新工科执行“建设、升级或转型”时，二选一：①免除本次全部 🔬 费用；②正常支付费用，但完成后可从本轮刚进入市场的新工科牌中保留 1 张到你的下一行动轮，其他玩家不能购买。",
+        "target": 112,
+        "startPrestige": 12,
+        "startMoney": 6,
+        "crestClass": "tsinghua"
+      },
+      {
+        "type": "school",
+        "id": "S02",
+        "name": "北京大学",
+        "tier": "领跑档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "文",
+          "理"
+        ],
+        "start": "理Ⅱ、文Ⅰ、法Ⅰ",
+        "skills": [
+          {
+            "title": "兼容并包",
+            "text": "你的人才跨门类放置效果不减半；每次评估若你至少有 1 个重点档门类和 1 个常规档门类同时进入前 2，额外 +1⭐。"
+          }
+        ],
+        "body": "【兼容并包】你的人才跨门类放置效果不减半；每次评估若你至少有 1 个重点档门类和 1 个常规档门类同时进入前 2，额外 +1⭐。",
+        "target": 112,
+        "startPrestige": 12,
+        "startMoney": 6,
+        "crestClass": "pku"
+      },
+      {
+        "type": "school",
+        "id": "S03",
+        "name": "浙江大学",
+        "tier": "领跑档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "农"
+        ],
+        "start": "传统工科Ⅱ、农Ⅰ、商Ⅰ",
+        "skills": [
+          {
+            "title": "求是创新",
+            "text": "你的院系上限为 7；每时代第一次执行“合并院系”或“拆分院系”时不消耗 AP。"
+          }
+        ],
+        "body": "【求是创新】你的院系上限为 7；每时代第一次执行“合并院系”或“拆分院系”时不消耗 AP。",
+        "target": 112,
+        "startPrestige": 12,
+        "startMoney": 6,
+        "crestClass": "zju"
+      },
+      {
+        "type": "school",
+        "id": "S04",
+        "name": "上海交通大学",
+        "tier": "领跑档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "医"
+        ],
+        "start": "传统工科Ⅱ、医Ⅰ、商Ⅰ",
+        "skills": [
+          {
+            "title": "闵行速度",
+            "text": "你作为买方的调档目标刻度为 2(而非 3);每次成功调入院系 +1⭐。"
+          }
+        ],
+        "body": "【闵行速度】你作为买方的调档目标刻度为 2(而非 3);每次成功调入院系 +1⭐。",
+        "target": 112,
+        "startPrestige": 12,
+        "startMoney": 6,
+        "crestClass": "sjtu"
+      },
+      {
+        "type": "school",
+        "id": "S05",
+        "name": "复旦大学",
+        "tier": "领跑档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "文",
+          "医"
+        ],
+        "start": "文Ⅱ、医Ⅰ、商Ⅰ",
+        "skills": [
+          {
+            "title": "日月光华",
+            "text": "每次评估开始前，从文、医、商中选择两个门类作为“日月双星”。结算后，若其中两个都进入前 2，额外 +2⭐；若只有一个进入前 2，额外 +1⭐。"
+          }
+        ],
+        "body": "【日月光华】每次评估开始前，从文、医、商中选择两个门类作为“日月双星”。结算后，若其中两个都进入前 2，额外 +2⭐；若只有一个进入前 2，额外 +1⭐。",
+        "target": 112,
+        "startPrestige": 12,
+        "startMoney": 6,
+        "crestClass": "fudan"
+      },
+      {
+        "type": "school",
+        "id": "S06",
+        "name": "中国科学技术大学",
+        "tier": "领跑档",
+        "region": "中西部",
+        "mechanicTag": "",
+        "core": [
+          "理",
+          "新工科"
+        ],
+        "start": "理Ⅱ、理Ⅰ",
+        "skills": [
+          {
+            "title": "全院办校，所系结合",
+            "text": "申报国家重大工程时，若你在该项目中实际投入至少 4 点匹配资源，本竞标单位获得 +2 固定有效出资点；固定点不受倍率放大。"
+          },
+          {
+            "title": "精兵路线",
+            "text": "(约束)你的院系上限为 5。"
+          }
+        ],
+        "body": "【全院办校，所系结合】申报国家重大工程时，若你在该项目中实际投入至少 4 点匹配资源，本竞标单位获得 +2 固定有效出资点；固定点不受倍率放大。 【精兵路线】(约束)你的院系上限为 5。",
+        "target": 112,
+        "startPrestige": 12,
+        "startMoney": 6,
+        "crestClass": "ustc"
+      },
+      {
+        "type": "school",
+        "id": "S07",
+        "name": "南京大学",
+        "tier": "领跑档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "理",
+          "文"
+        ],
+        "start": "理Ⅱ、文Ⅰ、理Ⅰ",
+        "skills": [
+          {
+            "title": "原创导向",
+            "text": "(约束)你不能作为买方发起调档；评估时你的等级Ⅲ院系各额外 +1 强度。若你最终满足“精尖奖”，该奖额外 +2⭐（总计 +5，而非翻倍）。"
+          }
+        ],
+        "body": "【原创导向】(约束)你不能作为买方发起调档；评估时你的等级Ⅲ院系各额外 +1 强度。若你最终满足“精尖奖”，该奖额外 +2⭐（总计 +5，而非翻倍）。",
+        "target": 112,
+        "startPrestige": 12,
+        "startMoney": 6,
+        "crestClass": "nju"
+      },
+      {
+        "type": "school",
+        "id": "S08",
+        "name": "香港大学",
+        "tier": "领跑档",
+        "region": "港澳",
+        "mechanicTag": "港澳通则 M1",
+        "core": [
+          "医",
+          "商"
+        ],
+        "start": "医Ⅱ、商Ⅰ、文Ⅰ",
+        "skills": [
+          {
+            "title": "国际枢纽",
+            "text": "每时代你第一次参加人才竞价时，可在任意一次加价后获得 +1 虚拟出价；虚拟出价只用于决定竞价胜负，不增加最终实际支付。"
+          }
+        ],
+        "body": "【国际枢纽】每时代你第一次参加人才竞价时，可在任意一次加价后获得 +1 虚拟出价；虚拟出价只用于决定竞价胜负，不增加最终实际支付。",
+        "target": 112,
+        "startPrestige": 12,
+        "startMoney": 6,
+        "crestClass": "hku"
+      },
+      {
+        "type": "school",
+        "id": "S09",
+        "name": "香港中文大学",
+        "tier": "劲旅档",
+        "region": "港澳",
+        "mechanicTag": "港澳通则 M1",
+        "core": [
+          "文",
+          "医"
+        ],
+        "start": "文Ⅱ、医Ⅰ",
+        "skills": [
+          {
+            "title": "书院传承",
+            "text": "你的文科院系人才槽 +1;人文底蕴奖对你额外 +2⭐。"
+          }
+        ],
+        "body": "【书院传承】你的文科院系人才槽 +1;人文底蕴奖对你额外 +2⭐。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "cuhk"
+      },
+      {
+        "type": "school",
+        "id": "S10",
+        "name": "香港科技大学",
+        "tier": "劲旅档",
+        "region": "港澳",
+        "mechanicTag": "港澳通则 M1",
+        "core": [
+          "新工科",
+          "商"
+        ],
+        "start": "商Ⅰ(仅此 1 个)+ 3💰(替代标准开局)",
+        "skills": [
+          {
+            "title": "后发先至",
+            "text": "第 2 时代开始时,你一次性获得 6💰+2🎓(\"建校爆发\");新工科对你自第 2 时代起即可购买(全场唯一提前解锁)。"
+          }
+        ],
+        "body": "【后发先至】第 2 时代开始时,你一次性获得 6💰+2🎓(\"建校爆发\");新工科对你自第 2 时代起即可购买(全场唯一提前解锁)。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "hkust"
+      },
+      {
+        "type": "school",
+        "id": "S11",
+        "name": "香港理工大学",
+        "tier": "劲旅档",
+        "region": "港澳",
+        "mechanicTag": "港澳通则 M1",
+        "core": [
+          "传统工科",
+          "商"
+        ],
+        "start": "传统工科Ⅰ、商Ⅰ",
+        "skills": [
+          {
+            "title": "产学研直通",
+            "text": "每时代一次，当你的一个工科院系产出时，可将其中至多 2🔬 改为等量 💰；若至少转换 1 点，本时代该院系参与工程技术类国家重大工程时获得 +1 固定有效出资点。"
+          }
+        ],
+        "body": "【产学研直通】每时代一次，当你的一个工科院系产出时，可将其中至多 2🔬 改为等量 💰；若至少转换 1 点，本时代该院系参与工程技术类国家重大工程时获得 +1 固定有效出资点。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "polyu"
+      },
+      {
+        "type": "school",
+        "id": "S12",
+        "name": "中国人民大学",
+        "tier": "劲旅档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "文",
+          "法"
+        ],
+        "start": "法Ⅱ、文Ⅰ",
+        "skills": [
+          {
+            "title": "实事求是",
+            "text": "你的文、法门类按重点档计分(第1 +5⭐/第2 +3⭐)。"
+          }
+        ],
+        "body": "【实事求是】你的文、法门类按重点档计分(第1 +5⭐/第2 +3⭐)。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "ruc"
+      },
+      {
+        "type": "school",
+        "id": "S13",
+        "name": "华中科技大学",
+        "tier": "劲旅档",
+        "region": "新一线",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "医"
+        ],
+        "start": "传统工科Ⅰ、医Ⅰ",
+        "skills": [
+          {
+            "title": "喻家山下",
+            "text": "你的“合并院系”每时代可用两次；每时代第一次合并医科或工科院系后，可令另一个不同门类的医/工院系立即获得 1 个主资源。"
+          }
+        ],
+        "body": "【喻家山下】你的“合并院系”每时代可用两次；每时代第一次合并医科或工科院系后，可令另一个不同门类的医/工院系立即获得 1 个主资源。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "hust"
+      },
+      {
+        "type": "school",
+        "id": "S14",
+        "name": "武汉大学",
+        "tier": "劲旅档",
+        "region": "新一线",
+        "mechanicTag": "",
+        "core": [
+          "文",
+          "理"
+        ],
+        "start": "文Ⅰ、理Ⅰ",
+        "skills": [
+          {
+            "title": "珞珈风华",
+            "text": "每次评估，若你进入前 2 的门类同时覆盖重点档与常规档，额外 +2⭐。"
+          }
+        ],
+        "body": "【珞珈风华】每次评估，若你进入前 2 的门类同时覆盖重点档与常规档，额外 +2⭐。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "whu"
+      },
+      {
+        "type": "school",
+        "id": "S15",
+        "name": "中山大学",
+        "tier": "劲旅档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "医",
+          "商"
+        ],
+        "start": "医Ⅰ、商Ⅰ",
+        "skills": [
+          {
+            "title": "湾区枢纽",
+            "text": "每时代第一次建设医科或商科院系时二选一：①本次费用 −1💰；②正常支付费用，建成后立即 +1🎓，且该院系本时代第一次产出额外 +1 主资源。"
+          }
+        ],
+        "body": "【湾区枢纽】每时代第一次建设医科或商科院系时二选一：①本次费用 −1💰；②正常支付费用，建成后立即 +1🎓，且该院系本时代第一次产出额外 +1 主资源。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "sysu"
+      },
+      {
+        "type": "school",
+        "id": "S16",
+        "name": "西安交通大学",
+        "tier": "劲旅档",
+        "region": "中西部",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "商"
+        ],
+        "start": "传统工科Ⅱ、商Ⅰ",
+        "skills": [
+          {
+            "title": "西迁精神",
+            "text": "你同时视为拥有\"中西部\"与\"一线\"两个区位标签,任何区位类事件按对你有利的一边生效。"
+          }
+        ],
+        "body": "【西迁精神】你同时视为拥有\"中西部\"与\"一线\"两个区位标签,任何区位类事件按对你有利的一边生效。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "xjtu"
+      },
+      {
+        "type": "school",
+        "id": "S17",
+        "name": "哈尔滨工业大学",
+        "tier": "劲旅档",
+        "region": "东北",
+        "mechanicTag": "军工高校 M2",
+        "core": [
+          "传统工科",
+          "新工科"
+        ],
+        "start": "传统工科Ⅱ、传统工科Ⅰ",
+        "skills": [
+          {
+            "title": "规格严格，功夫到家",
+            "text": "申报带“航天/国防”标签的国家重大工程时，你的匹配实际出资可使用 ×1.5；遵守工程倍率只取最高且封顶 ×1.5。若其他能力已经使你达到 ×1.5，则本技能改为 +1 固定有效出资点。"
+          }
+        ],
+        "body": "【规格严格，功夫到家】申报带“航天/国防”标签的国家重大工程时，你的匹配实际出资可使用 ×1.5；遵守工程倍率只取最高且封顶 ×1.5。若其他能力已经使你达到 ×1.5，则本技能改为 +1 固定有效出资点。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "hit"
+      },
+      {
+        "type": "school",
+        "id": "S18",
+        "name": "四川大学",
+        "tier": "劲旅档",
+        "region": "中西部",
+        "mechanicTag": "",
+        "core": [
+          "医",
+          "文"
+        ],
+        "start": "医Ⅱ、文Ⅰ",
+        "skills": [
+          {
+            "title": "华西坝",
+            "text": "每时代第一次出现“疫情/公共卫生”事件，或你第一次申报以医为主门类的国家重大工程时，二选一：①获得 2🏛；②让一个医学院系立即获得 1🔬+1💰。"
+          }
+        ],
+        "body": "【华西坝】每时代第一次出现“疫情/公共卫生”事件，或你第一次申报以医为主门类的国家重大工程时，二选一：①获得 2🏛；②让一个医学院系立即获得 1🔬+1💰。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "scu"
+      },
+      {
+        "type": "school",
+        "id": "S19",
+        "name": "南开大学",
+        "tier": "劲旅档",
+        "region": "新一线",
+        "mechanicTag": "",
+        "core": [
+          "文",
+          "商"
+        ],
+        "start": "商Ⅱ、文Ⅰ",
+        "skills": [
+          {
+            "title": "允公允能",
+            "text": "每次评估,你的文、商两门类都进入前 2 时,额外 +2⭐。"
+          }
+        ],
+        "body": "【允公允能】每次评估,你的文、商两门类都进入前 2 时,额外 +2⭐。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "nankai"
+      },
+      {
+        "type": "school",
+        "id": "S20",
+        "name": "天津大学",
+        "tier": "劲旅档",
+        "region": "新一线",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "新工科"
+        ],
+        "start": "传统工科Ⅱ",
+        "skills": [
+          {
+            "title": "工科试验田",
+            "text": "每时代第一次升级传统工科院系时二选一：①正常升级，升级后立即获得 1🔬；②将本次 1 点🔬费用改为 1💰，并放置“转型预备”标记，该院系未来第一次转型新工科时不消耗 AP。"
+          }
+        ],
+        "body": "【工科试验田】每时代第一次升级传统工科院系时二选一：①正常升级，升级后立即获得 1🔬；②将本次 1 点🔬费用改为 1💰，并放置“转型预备”标记，该院系未来第一次转型新工科时不消耗 AP。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "tju"
+      },
+      {
+        "type": "school",
+        "id": "S21",
+        "name": "东南大学",
+        "tier": "劲旅档",
+        "region": "新一线",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "新工科"
+        ],
+        "start": "传统工科Ⅱ",
+        "skills": [
+          {
+            "title": "止于至善",
+            "text": "每时代预算阶段选择一种办学路线，持续到时代结束：①“固本”——本时代第一个影响你传统工科的负面事件，对其中 1 个受影响院系效果减半；②“转型”——本时代第一次“工科转型”不消耗 AP。"
+          }
+        ],
+        "body": "【止于至善】每时代预算阶段选择一种办学路线，持续到时代结束：①“固本”——本时代第一个影响你传统工科的负面事件，对其中 1 个受影响院系效果减半；②“转型”——本时代第一次“工科转型”不消耗 AP。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "seu"
+      },
+      {
+        "type": "school",
+        "id": "S22",
+        "name": "北京航空航天大学",
+        "tier": "劲旅档",
+        "region": "一线",
+        "mechanicTag": "军工高校 M2",
+        "core": [
+          "新工科",
+          "传统工科"
+        ],
+        "start": "传统工科Ⅱ",
+        "skills": [
+          {
+            "title": "空天报国",
+            "text": "你的新工科院系可以放置核心标记(全场唯一;仍须自建,调入的不行)。"
+          }
+        ],
+        "body": "【空天报国】你的新工科院系可以放置核心标记(全场唯一;仍须自建,调入的不行)。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "buaa"
+      },
+      {
+        "type": "school",
+        "id": "S23",
+        "name": "北京师范大学",
+        "tier": "劲旅档",
+        "region": "一线",
+        "mechanicTag": "师范高校 M3",
+        "core": [
+          "文",
+          "法"
+        ],
+        "start": "文Ⅱ、法Ⅰ",
+        "skills": [
+          {
+            "title": "学为人师",
+            "text": "通过 M3“培养人才”获得的讲席教授若放入带“教育/文”方向的匹配院系，其产出加成由 +1 提升为 +2。"
+          }
+        ],
+        "body": "【学为人师】通过 M3“培养人才”获得的讲席教授若放入带“教育/文”方向的匹配院系，其产出加成由 +1 提升为 +2。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "bnu"
+      },
+      {
+        "type": "school",
+        "id": "S24",
+        "name": "北京理工大学",
+        "tier": "劲旅档",
+        "region": "一线",
+        "mechanicTag": "军工高校 M2",
+        "core": [
+          "传统工科",
+          "新工科"
+        ],
+        "start": "传统工科Ⅱ",
+        "skills": [
+          {
+            "title": "延安根脉",
+            "text": "每时代使用 M2“保密科研”后，你本时代购买的下一张政策牌费用 −1🏛（最低 1🏛）。"
+          }
+        ],
+        "body": "【延安根脉】每时代使用 M2“保密科研”后，你本时代购买的下一张政策牌费用 −1🏛（最低 1🏛）。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "bit"
+      },
+      {
+        "type": "school",
+        "id": "S25",
+        "name": "厦门大学",
+        "tier": "劲旅档",
+        "region": "新一线",
+        "mechanicTag": "",
+        "core": [
+          "商",
+          "理"
+        ],
+        "start": "商Ⅱ、理Ⅰ",
+        "skills": [
+          {
+            "title": "嘉庚基金",
+            "text": "每时代预算阶段后，你可以把 0~2💰放到校牌上作为“声誉投资”。时代结束时若本时代声望增长 ≥5，收回投入并再从银行获得等量💰；否则投入进入银行。"
+          }
+        ],
+        "body": "【嘉庚基金】每时代预算阶段后，你可以把 0~2💰放到校牌上作为“声誉投资”。时代结束时若本时代声望增长 ≥5，收回投入并再从银行获得等量💰；否则投入进入银行。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "xmu"
+      },
+      {
+        "type": "school",
+        "id": "S26",
+        "name": "同济大学",
+        "tier": "劲旅档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "医"
+        ],
+        "start": "传统工科Ⅱ、医Ⅰ",
+        "skills": [
+          {
+            "title": "同舟共济",
+            "text": "每次传统工科利空事件将影响你时，选择 1 个受影响院系二选一：①该院系本次负面效果减半；②承受完整效果，但立即获得 1🏛+2💰。"
+          }
+        ],
+        "body": "【同舟共济】每次传统工科利空事件将影响你时，选择 1 个受影响院系二选一：①该院系本次负面效果减半；②承受完整效果，但立即获得 1🏛+2💰。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "tongji"
+      },
+      {
+        "type": "school",
+        "id": "S27",
+        "name": "华南理工大学",
+        "tier": "劲旅档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "商"
+        ],
+        "start": "传统工科Ⅰ、商Ⅰ",
+        "skills": [
+          {
+            "title": "产业森林",
+            "text": "每时代第一次对等级Ⅱ以上工科院系执行“科研攻关”时，选择：①学术——正常产出并额外 +1🔬；②转化——该院系本次所有🔬产出改为等量💰，并额外 +1💰。"
+          }
+        ],
+        "body": "【产业森林】每时代第一次对等级Ⅱ以上工科院系执行“科研攻关”时，选择：①学术——正常产出并额外 +1🔬；②转化——该院系本次所有🔬产出改为等量💰，并额外 +1💰。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "scut"
+      },
+      {
+        "type": "school",
+        "id": "S28",
+        "name": "大连理工大学",
+        "tier": "劲旅档",
+        "region": "东北",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "理"
+        ],
+        "start": "传统工科Ⅱ、传统工科Ⅰ(比标准多 1 个)",
+        "skills": [
+          {
+            "title": "四大工学院",
+            "text": "开局额外拥有 1 个传统工科Ⅰ（已计入）。每时代第一次合并传统工科后，二选一：①立即获得 2💰；②合并所得院系本时代强度 +1。"
+          }
+        ],
+        "body": "【四大工学院】开局额外拥有 1 个传统工科Ⅰ（已计入）。每时代第一次合并传统工科后，二选一：①立即获得 2💰；②合并所得院系本时代强度 +1。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "dlut"
+      },
+      {
+        "type": "school",
+        "id": "S29",
+        "name": "西北工业大学",
+        "tier": "劲旅档",
+        "region": "中西部",
+        "mechanicTag": "军工高校 M2",
+        "core": [
+          "新工科",
+          "传统工科"
+        ],
+        "start": "传统工科Ⅱ",
+        "skills": [
+          {
+            "title": "三航齐飞",
+            "text": "申报带“航空/航天/航海”标签的国家重大工程时，你投入的前 4💰可按 1💰=1有效出资点 计算；超过部分按牌面原折算率。固定点与倍率仍遵守总规则。"
+          },
+          {
+            "title": "低调务实",
+            "text": "(约束)你不能使用“政策公关”偷看事件。"
+          }
+        ],
+        "body": "【三航齐飞】申报带“航空/航天/航海”标签的国家重大工程时，你投入的前 4💰可按 1💰=1有效出资点 计算；超过部分按牌面原折算率。固定点与倍率仍遵守总规则。 【低调务实】(约束)你不能使用“政策公关”偷看事件。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "nwpu"
+      },
+      {
+        "type": "school",
+        "id": "S30",
+        "name": "华东师范大学",
+        "tier": "劲旅档",
+        "region": "一线",
+        "mechanicTag": "师范高校 M3",
+        "core": [
+          "文",
+          "法"
+        ],
+        "start": "文Ⅱ、法Ⅰ",
+        "skills": [
+          {
+            "title": "丽娃河畔",
+            "text": "每时代限一次,你可将自己培养的人才出售给另一玩家(价格自谈,人才单独转让的全场唯一豁免),成交后你 +1⭐。"
+          }
+        ],
+        "body": "【丽娃河畔】每时代限一次,你可将自己培养的人才出售给另一玩家(价格自谈,人才单独转让的全场唯一豁免),成交后你 +1⭐。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "ecnu"
+      },
+      {
+        "type": "school",
+        "id": "S31",
+        "name": "中国农业大学",
+        "tier": "劲旅档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "农",
+          "理"
+        ],
+        "start": "农Ⅱ、理Ⅰ",
+        "skills": [
+          {
+            "title": "强农兴邦",
+            "text": "你的农科按重点档计分（第1 +5⭐ / 第2 +3⭐）。"
+          }
+        ],
+        "body": "【强农兴邦】你的农科按重点档计分（第1 +5⭐ / 第2 +3⭐）。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "cau"
+      },
+      {
+        "type": "school",
+        "id": "S32",
+        "name": "电子科技大学",
+        "tier": "劲旅档",
+        "region": "中西部",
+        "mechanicTag": "",
+        "core": [
+          "新工科",
+          "传统工科"
+        ],
+        "start": "传统工科Ⅱ",
+        "skills": [
+          {
+            "title": "成电速度",
+            "text": "你的“工科转型”不需要支付转型费用（仍消耗 AP）；转型发生的本时代，原院系中的人才按新门类计算匹配时不受异门类减半惩罚。"
+          },
+          {
+            "title": "理工纯度",
+            "text": "(约束)你的文/法/商院系产出减半。"
+          }
+        ],
+        "body": "【成电速度】你的“工科转型”不需要支付转型费用（仍消耗 AP）；转型发生的本时代，原院系中的人才按新门类计算匹配时不受异门类减半惩罚。 【理工纯度】(约束)你的文/法/商院系产出减半。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "uestc"
+      },
+      {
+        "type": "school",
+        "id": "S33",
+        "name": "中南大学",
+        "tier": "劲旅档",
+        "region": "中西部",
+        "mechanicTag": "",
+        "core": [
+          "医",
+          "传统工科"
+        ],
+        "start": "医Ⅰ、传统工科Ⅰ",
+        "skills": [
+          {
+            "title": "矿冶湘雅",
+            "text": "每时代一次，当你的工科院系完成“科研攻关”后，可立即令一个医学院系获得 1 个主资源；也可由医科科研攻关反向带动一个工科院系。该额外产出不触发人才、事件或政策的二次连锁。"
+          }
+        ],
+        "body": "【矿冶湘雅】每时代一次，当你的工科院系完成“科研攻关”后，可立即令一个医学院系获得 1 个主资源；也可由医科科研攻关反向带动一个工科院系。该额外产出不触发人才、事件或政策的二次连锁。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "csu"
+      },
+      {
+        "type": "school",
+        "id": "S34",
+        "name": "南京航空航天大学",
+        "tier": "劲旅档",
+        "region": "新一线",
+        "mechanicTag": "军工高校 M2",
+        "core": [
+          "新工科",
+          "传统工科"
+        ],
+        "start": "传统工科Ⅰ、传统工科Ⅰ",
+        "skills": [
+          {
+            "title": "效法羲和",
+            "text": "每时代第一次你在带“航空/航天”标签的国家重大工程中进入前 2 后，可立即从院系市场选择 1 张新工科Ⅰ/Ⅱ，以牌面价格的 50% 建设（不消耗 AP，仍占院系格）。若市场没有可建设的新工科，本次机会可保留到时代结束。"
+          }
+        ],
+        "body": "【效法羲和】每时代第一次你在带“航空/航天”标签的国家重大工程中进入前 2 后，可立即从院系市场选择 1 张新工科Ⅰ/Ⅱ，以牌面价格的 50% 建设（不消耗 AP，仍占院系格）。若市场没有可建设的新工科，本次机会可保留到时代结束。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "nuaa"
+      },
+      {
+        "type": "school",
+        "id": "S35",
+        "name": "南京理工大学",
+        "tier": "劲旅档",
+        "region": "新一线",
+        "mechanicTag": "军工高校 M2",
+        "core": [
+          "传统工科",
+          "新工科"
+        ],
+        "start": "传统工科Ⅱ",
+        "skills": [
+          {
+            "title": "兵器强国",
+            "text": "M2“保密科研”的收益额外 +1💰；若本时代存在带“国防”标签的国家重大工程，你可以改为不拿这 1💰，而让自己在其中一个已参与项目获得 +1 固定有效出资点。"
+          }
+        ],
+        "body": "【兵器强国】M2“保密科研”的收益额外 +1💰；若本时代存在带“国防”标签的国家重大工程，你可以改为不拿这 1💰，而让自己在其中一个已参与项目获得 +1 固定有效出资点。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "njust"
+      },
+      {
+        "type": "school",
+        "id": "S36",
+        "name": "西安电子科技大学",
+        "tier": "劲旅档",
+        "region": "中西部",
+        "mechanicTag": "",
+        "core": [
+          "新工科",
+          "传统工科"
+        ],
+        "start": "传统工科Ⅱ",
+        "skills": [
+          {
+            "title": "半部电台起家",
+            "text": "\"政策公关\"(偷看事件)对你费用 1🏛(而非 2🏛),且每时代可用两次。"
+          }
+        ],
+        "body": "【半部电台起家】\"政策公关\"(偷看事件)对你费用 1🏛(而非 2🏛),且每时代可用两次。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "xidian"
+      },
+      {
+        "type": "school",
+        "id": "S37",
+        "name": "北京邮电大学",
+        "tier": "劲旅档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "新工科",
+          "传统工科"
+        ],
+        "start": "传统工科Ⅱ",
+        "skills": [
+          {
+            "title": "信息动脉",
+            "text": "每次新工科牌因时代或事件进入市场时，你可选择其中 1 张放置“关注”标记，保留到你的下一行动轮；若清华也保留同一张，则按当前生源力高者优先，另一方可改选其他牌。"
+          }
+        ],
+        "body": "【信息动脉】每次新工科牌因时代或事件进入市场时，你可选择其中 1 张放置“关注”标记，保留到你的下一行动轮；若清华也保留同一张，则按当前生源力高者优先，另一方可改选其他牌。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "bupt"
+      },
+      {
+        "type": "school",
+        "id": "S38",
+        "name": "上海财经大学",
+        "tier": "劲旅档",
+        "region": "一线",
+        "mechanicTag": "",
+        "core": [
+          "商",
+          "法"
+        ],
+        "start": "商Ⅱ、法Ⅰ",
+        "skills": [
+          {
+            "title": "金融炼金",
+            "text": "你的商科产出的 💰 可按 3💰=1⭐ 转化(每时代上限 2⭐)——全场唯一直接花钱买声望的通道。"
+          },
+          {
+            "title": "小而精",
+            "text": "(约束)院系上限 4,且不能拥有理/农/医/工科(传统与新)院系。"
+          }
+        ],
+        "body": "【金融炼金】你的商科产出的 💰 可按 3💰=1⭐ 转化(每时代上限 2⭐)——全场唯一直接花钱买声望的通道。 【小而精】(约束)院系上限 4,且不能拥有理/农/医/工科(传统与新)院系。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "shufe"
+      },
+      {
+        "type": "school",
+        "id": "S39",
+        "name": "吉林大学",
+        "tier": "劲旅档",
+        "region": "东北",
+        "mechanicTag": "",
+        "core": [
+          "理",
+          "医"
+        ],
+        "start": "理Ⅰ、医Ⅰ",
+        "skills": [
+          {
+            "title": "巨无霸",
+            "text": "你的院系上限为 8(全场最高)。"
+          },
+          {
+            "title": "规模的代价",
+            "text": "(约束)预算阶段,院系数超过 6 时每超 1 个支付 1💰 维护费。"
+          }
+        ],
+        "body": "【巨无霸】你的院系上限为 8(全场最高)。 【规模的代价】(约束)预算阶段,院系数超过 6 时每超 1 个支付 1💰 维护费。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "jlu"
+      },
+      {
+        "type": "school",
+        "id": "S40",
+        "name": "山东大学",
+        "tier": "劲旅档",
+        "region": "新一线",
+        "mechanicTag": "",
+        "core": [
+          "文",
+          "理"
+        ],
+        "start": "文Ⅱ、理Ⅰ",
+        "skills": [
+          {
+            "title": "多校区办学",
+            "text": "你可同时加入两个联盟（全场唯一豁免），但同一个国家重大工程中你只能代表其中一个联盟参与。"
+          }
+        ],
+        "body": "【多校区办学】你可同时加入两个联盟（全场唯一豁免），但同一个国家重大工程中你只能代表其中一个联盟参与。",
+        "target": 86,
+        "startPrestige": 6,
+        "startMoney": 5,
+        "crestClass": "sdu"
+      },
+      {
+        "type": "school",
+        "id": "S41",
+        "name": "兰州大学",
+        "tier": "蓄力档",
+        "region": "中西部",
+        "mechanicTag": "",
+        "core": [
+          "理",
+          "农"
+        ],
+        "start": "理Ⅰ、农Ⅰ",
+        "skills": [
+          {
+            "title": "坚守陇原",
+            "text": "每时代第一次有其他玩家对你发起挖角时（无论成败），你选择获得 +1⭐ 或 +2💰；若本时代直到结束都无人对你发起挖角，则时代结束前你的第一次理/农升级费用 −1💰。"
+          }
+        ],
+        "body": "【坚守陇原】每时代第一次有其他玩家对你发起挖角时（无论成败），你选择获得 +1⭐ 或 +2💰；若本时代直到结束都无人对你发起挖角，则时代结束前你的第一次理/农升级费用 −1💰。",
+        "target": 80,
+        "startPrestige": 2,
+        "startMoney": 4,
+        "crestClass": "lzu"
+      },
+      {
+        "type": "school",
+        "id": "S42",
+        "name": "苏州大学",
+        "tier": "蓄力档",
+        "region": "新一线",
+        "mechanicTag": "",
+        "core": [
+          "医",
+          "传统工科"
+        ],
+        "start": "医Ⅰ、商Ⅰ",
+        "skills": [
+          {
+            "title": "园区共生",
+            "text": "每时代预算阶段二选一：①“产业孵化”——你的商科/新工科院系中至多 2 个各 +1💰；②“园区引才”——本时代你作为买方第一次发起调档时免除 2🏛 调档费。"
+          }
+        ],
+        "body": "【园区共生】每时代预算阶段二选一：①“产业孵化”——你的商科/新工科院系中至多 2 个各 +1💰；②“园区引才”——本时代你作为买方第一次发起调档时免除 2🏛 调档费。",
+        "target": 80,
+        "startPrestige": 2,
+        "startMoney": 4,
+        "crestClass": "suda"
+      },
+      {
+        "type": "school",
+        "id": "S43",
+        "name": "郑州大学",
+        "tier": "蓄力档",
+        "region": "中西部",
+        "mechanicTag": "",
+        "core": [
+          "医",
+          "传统工科"
+        ],
+        "start": "医Ⅰ、传统工科Ⅰ",
+        "skills": [
+          {
+            "title": "亿人之省",
+            "text": "你的“招生宣传”费用为 1💰。每时代一次，当你的生源力首次达到或超过 6 时，可立即支付 2🎓，从院系或人才市场选择 1 张牌保留到你的下一行动轮。"
+          }
+        ],
+        "body": "【亿人之省】你的“招生宣传”费用为 1💰。每时代一次，当你的生源力首次达到或超过 6 时，可立即支付 2🎓，从院系或人才市场选择 1 张牌保留到你的下一行动轮。",
+        "target": 80,
+        "startPrestige": 2,
+        "startMoney": 4,
+        "crestClass": "zzu"
+      },
+      {
+        "type": "school",
+        "id": "S44",
+        "name": "中国海洋大学",
+        "tier": "蓄力档",
+        "region": "新一线",
+        "mechanicTag": "",
+        "core": [
+          "农",
+          "理"
+        ],
+        "start": "农Ⅱ(海洋)、理Ⅰ",
+        "skills": [
+          {
+            "title": "深蓝战略",
+            "text": "申报带“海洋/深海/极地”标签的国家重大工程时，若你实际投入至少 3 点匹配资源，获得 +2 固定有效出资点。此外，每时代第一次农（海洋/生态）类负面事件影响你时，可令一个对应院系免受其负面部分。"
+          }
+        ],
+        "body": "【深蓝战略】申报带“海洋/深海/极地”标签的国家重大工程时，若你实际投入至少 3 点匹配资源，获得 +2 固定有效出资点。此外，每时代第一次农（海洋/生态）类负面事件影响你时，可令一个对应院系免受其负面部分。",
+        "target": 80,
+        "startPrestige": 2,
+        "startMoney": 4,
+        "crestClass": "ouc"
+      },
+      {
+        "type": "school",
+        "id": "S45",
+        "name": "东北大学",
+        "tier": "蓄力档",
+        "region": "东北",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "新工科"
+        ],
+        "start": "传统工科Ⅱ",
+        "skills": [
+          {
+            "title": "共和国长子",
+            "text": "每时代第一次拆分传统工科院系时二选一：①本次拆分额外获得 +2💰；②不拿额外经费，但其中一个拆分所得院系本时代第一次转型新工科时免 AP 且费用 −1💰。"
+          }
+        ],
+        "body": "【共和国长子】每时代第一次拆分传统工科院系时二选一：①本次拆分额外获得 +2💰；②不拿额外经费，但其中一个拆分所得院系本时代第一次转型新工科时免 AP 且费用 −1💰。",
+        "target": 80,
+        "startPrestige": 2,
+        "startMoney": 4,
+        "crestClass": "neu"
+      },
+      {
+        "type": "school",
+        "id": "S46",
+        "name": "武汉理工大学",
+        "tier": "蓄力档",
+        "region": "新一线",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "商"
+        ],
+        "start": "传统工科Ⅰ、商Ⅰ",
+        "skills": [
+          {
+            "title": "建材·交通·汽车",
+            "text": "每当事件将使你的传统工科产出下降时，选择 1 个受影响院系二选一：①“保守”——该院系本次忽略产出下降；②“转型”——照常承受下降，但本时代它第一次工科转型免 AP 且费用再 −1💰。"
+          }
+        ],
+        "body": "【建材·交通·汽车】每当事件将使你的传统工科产出下降时，选择 1 个受影响院系二选一：①“保守”——该院系本次忽略产出下降；②“转型”——照常承受下降，但本时代它第一次工科转型免 AP 且费用再 −1💰。",
+        "target": 80,
+        "startPrestige": 2,
+        "startMoney": 4,
+        "crestClass": "whut"
+      },
+      {
+        "type": "school",
+        "id": "S47",
+        "name": "湖南大学",
+        "tier": "蓄力档",
+        "region": "中西部",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "商"
+        ],
+        "start": "传统工科Ⅰ、商Ⅰ",
+        "skills": [
+          {
+            "title": "岳麓书院",
+            "text": "你拥有 1 个独立“书院位”。你自建的等级Ⅰ/Ⅱ文科院系可放入书院位而不占院系上限，但该院系人才槽 −1（最低为 0）且不能参与调档；等级Ⅲ院系不能放在书院位。"
+          }
+        ],
+        "body": "【岳麓书院】你拥有 1 个独立“书院位”。你自建的等级Ⅰ/Ⅱ文科院系可放入书院位而不占院系上限，但该院系人才槽 −1（最低为 0）且不能参与调档；等级Ⅲ院系不能放在书院位。",
+        "target": 80,
+        "startPrestige": 2,
+        "startMoney": 4,
+        "crestClass": "hnu"
+      },
+      {
+        "type": "school",
+        "id": "S48",
+        "name": "重庆大学",
+        "tier": "蓄力档",
+        "region": "中西部",
+        "mechanicTag": "",
+        "core": [
+          "传统工科",
+          "商"
+        ],
+        "start": "传统工科Ⅰ、商Ⅰ",
+        "skills": [
+          {
+            "title": "西部脊梁",
+            "text": "你的\"合并院系\"无需同门类(全场唯一跨门类合并,合并后门类自选其一)。"
+          }
+        ],
+        "body": "【西部脊梁】你的\"合并院系\"无需同门类(全场唯一跨门类合并,合并后门类自选其一)。",
+        "target": 80,
+        "startPrestige": 2,
+        "startMoney": 4,
+        "crestClass": "cqu"
+      }
+    ],
+    "faculty": [
+      {
+        "type": "faculty",
+        "id": "W01",
+        "name": "中国语言文学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "文",
+        "tags": "中文",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "policy": 1
+        },
+        "body": "文 · Ⅰ级 · 中文"
+      },
+      {
+        "type": "faculty",
+        "id": "W02",
+        "name": "历史学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "文",
+        "tags": "历史",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "policy": 1
+        },
+        "body": "文 · Ⅰ级 · 历史"
+      },
+      {
+        "type": "faculty",
+        "id": "W03",
+        "name": "哲学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "文",
+        "tags": "哲学",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "policy": 1
+        },
+        "body": "文 · Ⅰ级 · 哲学"
+      },
+      {
+        "type": "faculty",
+        "id": "W04",
+        "name": "外国语言文学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "文",
+        "tags": "外语",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "policy": 1
+        },
+        "body": "文 · Ⅰ级 · 外语"
+      },
+      {
+        "type": "faculty",
+        "id": "W05",
+        "name": "新闻传播系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "文",
+        "tags": "传播",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "policy": 1
+        },
+        "body": "文 · Ⅰ级 · 传播"
+      },
+      {
+        "type": "faculty",
+        "id": "W06",
+        "name": "艺术与文化研究系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "文",
+        "tags": "艺术/文化",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "policy": 1
+        },
+        "body": "文 · Ⅰ级 · 艺术/文化"
+      },
+      {
+        "type": "faculty",
+        "id": "W07",
+        "name": "文学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "文",
+        "tags": "中文/文学",
+        "slots": 2,
+        "cost": 6,
+        "strength": 4,
+        "output": {
+          "policy": 2
+        },
+        "body": "文 · Ⅱ级 · 中文/文学"
+      },
+      {
+        "type": "faculty",
+        "id": "W08",
+        "name": "历史文化学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "文",
+        "tags": "历史/考古",
+        "slots": 2,
+        "cost": 6,
+        "strength": 4,
+        "output": {
+          "policy": 2
+        },
+        "body": "文 · Ⅱ级 · 历史/考古"
+      },
+      {
+        "type": "faculty",
+        "id": "W09",
+        "name": "哲学与思想文化学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "文",
+        "tags": "哲学/思想",
+        "slots": 2,
+        "cost": 6,
+        "strength": 4,
+        "output": {
+          "policy": 2
+        },
+        "body": "文 · Ⅱ级 · 哲学/思想"
+      },
+      {
+        "type": "faculty",
+        "id": "W10",
+        "name": "国际文化与传播学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "文",
+        "tags": "外语/传播",
+        "slots": 2,
+        "cost": 6,
+        "strength": 4,
+        "output": {
+          "policy": 2
+        },
+        "body": "文 · Ⅱ级 · 外语/传播"
+      },
+      {
+        "type": "faculty",
+        "id": "W11",
+        "name": "人文学部",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "文",
+        "tags": "人文综合",
+        "slots": 3,
+        "cost": null,
+        "strength": 6,
+        "output": {
+          "policy": 3
+        },
+        "body": "文 · Ⅲ级 · 人文综合"
+      },
+      {
+        "type": "faculty",
+        "id": "W12",
+        "name": "中华文明研究院",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "文",
+        "tags": "文献/文明",
+        "slots": 3,
+        "cost": null,
+        "strength": 6,
+        "output": {
+          "policy": 3
+        },
+        "body": "文 · Ⅲ级 · 文献/文明"
+      },
+      {
+        "type": "faculty",
+        "id": "F01",
+        "name": "法学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "法",
+        "tags": "法学",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "policy": 1
+        },
+        "body": "法 · Ⅰ级 · 法学"
+      },
+      {
+        "type": "faculty",
+        "id": "F02",
+        "name": "政治学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "法",
+        "tags": "政治",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "policy": 1
+        },
+        "body": "法 · Ⅰ级 · 政治"
+      },
+      {
+        "type": "faculty",
+        "id": "F03",
+        "name": "社会学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "法",
+        "tags": "社会",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "policy": 1
+        },
+        "body": "法 · Ⅰ级 · 社会"
+      },
+      {
+        "type": "faculty",
+        "id": "F04",
+        "name": "教育学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "法",
+        "tags": "教育",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "policy": 1
+        },
+        "body": "法 · Ⅰ级 · 教育"
+      },
+      {
+        "type": "faculty",
+        "id": "F05",
+        "name": "公共管理系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "法",
+        "tags": "治理",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "policy": 1
+        },
+        "body": "法 · Ⅰ级 · 治理"
+      },
+      {
+        "type": "faculty",
+        "id": "F06",
+        "name": "国际关系系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "法",
+        "tags": "国际关系",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "policy": 1
+        },
+        "body": "法 · Ⅰ级 · 国际关系"
+      },
+      {
+        "type": "faculty",
+        "id": "F07",
+        "name": "法学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "法",
+        "tags": "法学",
+        "slots": 2,
+        "cost": 6,
+        "strength": 4,
+        "output": {
+          "policy": 2
+        },
+        "body": "法 · Ⅱ级 · 法学"
+      },
+      {
+        "type": "faculty",
+        "id": "F08",
+        "name": "政府管理学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "法",
+        "tags": "政治/治理",
+        "slots": 2,
+        "cost": 6,
+        "strength": 4,
+        "output": {
+          "policy": 2
+        },
+        "body": "法 · Ⅱ级 · 政治/治理"
+      },
+      {
+        "type": "faculty",
+        "id": "F09",
+        "name": "社会发展学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "法",
+        "tags": "社会/人口",
+        "slots": 2,
+        "cost": 6,
+        "strength": 4,
+        "output": {
+          "policy": 2
+        },
+        "body": "法 · Ⅱ级 · 社会/人口"
+      },
+      {
+        "type": "faculty",
+        "id": "F10",
+        "name": "教育学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "法",
+        "tags": "教育",
+        "slots": 2,
+        "cost": 6,
+        "strength": 4,
+        "output": {
+          "policy": 2
+        },
+        "body": "法 · Ⅱ级 · 教育"
+      },
+      {
+        "type": "faculty",
+        "id": "F11",
+        "name": "社会科学学部",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "法",
+        "tags": "社科综合",
+        "slots": 3,
+        "cost": null,
+        "strength": 6,
+        "output": {
+          "policy": 3
+        },
+        "body": "法 · Ⅲ级 · 社科综合"
+      },
+      {
+        "type": "faculty",
+        "id": "F12",
+        "name": "国家治理研究院",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "法",
+        "tags": "治理/政策",
+        "slots": 3,
+        "cost": null,
+        "strength": 6,
+        "output": {
+          "policy": 3
+        },
+        "body": "法 · Ⅲ级 · 治理/政策"
+      },
+      {
+        "type": "faculty",
+        "id": "SCI01",
+        "name": "数学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "理",
+        "tags": "数学",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1
+        },
+        "body": "理 · Ⅰ级 · 数学"
+      },
+      {
+        "type": "faculty",
+        "id": "SCI02",
+        "name": "物理学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "理",
+        "tags": "物理",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1
+        },
+        "body": "理 · Ⅰ级 · 物理"
+      },
+      {
+        "type": "faculty",
+        "id": "SCI03",
+        "name": "化学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "理",
+        "tags": "化学",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1
+        },
+        "body": "理 · Ⅰ级 · 化学"
+      },
+      {
+        "type": "faculty",
+        "id": "SCI04",
+        "name": "天文学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "理",
+        "tags": "天文/空间",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1
+        },
+        "body": "理 · Ⅰ级 · 天文/空间"
+      },
+      {
+        "type": "faculty",
+        "id": "SCI05",
+        "name": "地球科学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "理",
+        "tags": "地学",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1
+        },
+        "body": "理 · Ⅰ级 · 地学"
+      },
+      {
+        "type": "faculty",
+        "id": "SCI06",
+        "name": "统计科学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "理",
+        "tags": "数学/统计",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1
+        },
+        "body": "理 · Ⅰ级 · 数学/统计"
+      },
+      {
+        "type": "faculty",
+        "id": "SCI07",
+        "name": "数学科学学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "理",
+        "tags": "数学",
+        "slots": 2,
+        "cost": 7,
+        "strength": 4,
+        "output": {
+          "science": 2
+        },
+        "body": "理 · Ⅱ级 · 数学"
+      },
+      {
+        "type": "faculty",
+        "id": "SCI08",
+        "name": "物理科学学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "理",
+        "tags": "物理/大装置",
+        "slots": 2,
+        "cost": 7,
+        "strength": 4,
+        "output": {
+          "science": 2
+        },
+        "body": "理 · Ⅱ级 · 物理/大装置"
+      },
+      {
+        "type": "faculty",
+        "id": "SCI09",
+        "name": "化学与分子科学学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "理",
+        "tags": "化学/材料基础",
+        "slots": 2,
+        "cost": 7,
+        "strength": 4,
+        "output": {
+          "science": 2
+        },
+        "body": "理 · Ⅱ级 · 化学/材料基础"
+      },
+      {
+        "type": "faculty",
+        "id": "SCI10",
+        "name": "地球与空间科学学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "理",
+        "tags": "地学/空间",
+        "slots": 2,
+        "cost": 7,
+        "strength": 4,
+        "output": {
+          "science": 2
+        },
+        "body": "理 · Ⅱ级 · 地学/空间"
+      },
+      {
+        "type": "faculty",
+        "id": "SCI11",
+        "name": "理学部",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "理",
+        "tags": "基础科学综合",
+        "slots": 3,
+        "cost": null,
+        "strength": 7,
+        "output": {
+          "science": 3
+        },
+        "body": "理 · Ⅲ级 · 基础科学综合"
+      },
+      {
+        "type": "faculty",
+        "id": "SCI12",
+        "name": "基础科学研究院",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "理",
+        "tags": "大装置/前沿基础",
+        "slots": 3,
+        "cost": null,
+        "strength": 7,
+        "output": {
+          "science": 3
+        },
+        "body": "理 · Ⅲ级 · 大装置/前沿基础"
+      },
+      {
+        "type": "faculty",
+        "id": "AGR01",
+        "name": "农学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "农",
+        "tags": "农业",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "science": 1
+        },
+        "body": "农 · Ⅰ级 · 农业"
+      },
+      {
+        "type": "faculty",
+        "id": "AGR02",
+        "name": "林学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "农",
+        "tags": "林业",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "science": 1
+        },
+        "body": "农 · Ⅰ级 · 林业"
+      },
+      {
+        "type": "faculty",
+        "id": "AGR03",
+        "name": "生态学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "农",
+        "tags": "生态",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "science": 1
+        },
+        "body": "农 · Ⅰ级 · 生态"
+      },
+      {
+        "type": "faculty",
+        "id": "AGR04",
+        "name": "海洋科学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "农",
+        "tags": "海洋",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "science": 1
+        },
+        "body": "农 · Ⅰ级 · 海洋"
+      },
+      {
+        "type": "faculty",
+        "id": "AGR05",
+        "name": "水产科学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "农",
+        "tags": "海洋/水产",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "science": 1
+        },
+        "body": "农 · Ⅰ级 · 海洋/水产"
+      },
+      {
+        "type": "faculty",
+        "id": "AGR06",
+        "name": "动物科学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "农",
+        "tags": "畜牧/生命",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "science": 1
+        },
+        "body": "农 · Ⅰ级 · 畜牧/生命"
+      },
+      {
+        "type": "faculty",
+        "id": "AGR07",
+        "name": "农业与生物技术学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "农",
+        "tags": "种业/农业",
+        "slots": 2,
+        "cost": 6,
+        "strength": 5,
+        "output": {
+          "science": 1,
+          "policy": 1
+        },
+        "body": "农 · Ⅱ级 · 种业/农业"
+      },
+      {
+        "type": "faculty",
+        "id": "AGR08",
+        "name": "资源与环境学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "农",
+        "tags": "生态/环境",
+        "slots": 2,
+        "cost": 6,
+        "strength": 5,
+        "output": {
+          "science": 1,
+          "policy": 1
+        },
+        "body": "农 · Ⅱ级 · 生态/环境"
+      },
+      {
+        "type": "faculty",
+        "id": "AGR09",
+        "name": "海洋学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "农",
+        "tags": "海洋/极地",
+        "slots": 2,
+        "cost": 6,
+        "strength": 5,
+        "output": {
+          "science": 1,
+          "policy": 1
+        },
+        "body": "农 · Ⅱ级 · 海洋/极地"
+      },
+      {
+        "type": "faculty",
+        "id": "AGR10",
+        "name": "农林生命学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "农",
+        "tags": "农林/生命",
+        "slots": 2,
+        "cost": 6,
+        "strength": 5,
+        "output": {
+          "science": 1,
+          "policy": 1
+        },
+        "body": "农 · Ⅱ级 · 农林/生命"
+      },
+      {
+        "type": "faculty",
+        "id": "AGR11",
+        "name": "农林学部",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "农",
+        "tags": "农林综合",
+        "slots": 3,
+        "cost": null,
+        "strength": 7,
+        "output": {
+          "science": 2,
+          "policy": 1
+        },
+        "body": "农 · Ⅲ级 · 农林综合"
+      },
+      {
+        "type": "faculty",
+        "id": "AGR12",
+        "name": "海洋与生态研究院",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "农",
+        "tags": "海洋/极地/生态",
+        "slots": 3,
+        "cost": null,
+        "strength": 7,
+        "output": {
+          "science": 2,
+          "policy": 1
+        },
+        "body": "农 · Ⅲ级 · 海洋/极地/生态"
+      },
+      {
+        "type": "faculty",
+        "id": "MED01",
+        "name": "临床医学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "医",
+        "tags": "临床",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1,
+          "money": 1
+        },
+        "body": "医 · Ⅰ级 · 临床"
+      },
+      {
+        "type": "faculty",
+        "id": "MED02",
+        "name": "基础医学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "医",
+        "tags": "基础医学",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1,
+          "money": 1
+        },
+        "body": "医 · Ⅰ级 · 基础医学"
+      },
+      {
+        "type": "faculty",
+        "id": "MED03",
+        "name": "药学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "医",
+        "tags": "药学",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1,
+          "money": 1
+        },
+        "body": "医 · Ⅰ级 · 药学"
+      },
+      {
+        "type": "faculty",
+        "id": "MED04",
+        "name": "公共卫生系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "医",
+        "tags": "公卫",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1,
+          "money": 1
+        },
+        "body": "医 · Ⅰ级 · 公卫"
+      },
+      {
+        "type": "faculty",
+        "id": "MED05",
+        "name": "口腔医学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "医",
+        "tags": "口腔",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1,
+          "money": 1
+        },
+        "body": "医 · Ⅰ级 · 口腔"
+      },
+      {
+        "type": "faculty",
+        "id": "MED06",
+        "name": "护理与健康科学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "医",
+        "tags": "健康",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1,
+          "money": 1
+        },
+        "body": "医 · Ⅰ级 · 健康"
+      },
+      {
+        "type": "faculty",
+        "id": "MED07",
+        "name": "医学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "医",
+        "tags": "临床/基础",
+        "slots": 2,
+        "cost": 7,
+        "strength": 4,
+        "output": {
+          "science": 2,
+          "money": 1
+        },
+        "body": "医 · Ⅱ级 · 临床/基础"
+      },
+      {
+        "type": "faculty",
+        "id": "MED08",
+        "name": "药学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "医",
+        "tags": "药学/生命",
+        "slots": 2,
+        "cost": 7,
+        "strength": 4,
+        "output": {
+          "science": 2,
+          "money": 1
+        },
+        "body": "医 · Ⅱ级 · 药学/生命"
+      },
+      {
+        "type": "faculty",
+        "id": "MED09",
+        "name": "公共卫生学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "医",
+        "tags": "公卫/防疫",
+        "slots": 2,
+        "cost": 7,
+        "strength": 4,
+        "output": {
+          "science": 2,
+          "money": 1
+        },
+        "body": "医 · Ⅱ级 · 公卫/防疫"
+      },
+      {
+        "type": "faculty",
+        "id": "MED10",
+        "name": "附属医院体系",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "医",
+        "tags": "临床/医院",
+        "slots": 2,
+        "cost": 7,
+        "strength": 4,
+        "output": {
+          "science": 2,
+          "money": 1
+        },
+        "body": "医 · Ⅱ级 · 临床/医院"
+      },
+      {
+        "type": "faculty",
+        "id": "MED11",
+        "name": "医学部",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "医",
+        "tags": "医学综合",
+        "slots": 3,
+        "cost": null,
+        "strength": 7,
+        "output": {
+          "science": 2,
+          "money": 2
+        },
+        "body": "医 · Ⅲ级 · 医学综合"
+      },
+      {
+        "type": "faculty",
+        "id": "MED12",
+        "name": "国家医学中心",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "医",
+        "tags": "临床/公卫/平台",
+        "slots": 3,
+        "cost": null,
+        "strength": 7,
+        "output": {
+          "science": 2,
+          "money": 2
+        },
+        "body": "医 · Ⅲ级 · 临床/公卫/平台"
+      },
+      {
+        "type": "faculty",
+        "id": "BUS01",
+        "name": "经济学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "商",
+        "tags": "经济",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "money": 2
+        },
+        "body": "商 · Ⅰ级 · 经济"
+      },
+      {
+        "type": "faculty",
+        "id": "BUS02",
+        "name": "金融学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "商",
+        "tags": "金融",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "money": 2
+        },
+        "body": "商 · Ⅰ级 · 金融"
+      },
+      {
+        "type": "faculty",
+        "id": "BUS03",
+        "name": "工商管理系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "商",
+        "tags": "管理",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "money": 2
+        },
+        "body": "商 · Ⅰ级 · 管理"
+      },
+      {
+        "type": "faculty",
+        "id": "BUS04",
+        "name": "会计学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "商",
+        "tags": "会计",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "money": 2
+        },
+        "body": "商 · Ⅰ级 · 会计"
+      },
+      {
+        "type": "faculty",
+        "id": "BUS05",
+        "name": "国际贸易系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "商",
+        "tags": "贸易",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "money": 2
+        },
+        "body": "商 · Ⅰ级 · 贸易"
+      },
+      {
+        "type": "faculty",
+        "id": "BUS06",
+        "name": "市场与运营管理系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "商",
+        "tags": "管理/市场",
+        "slots": 1,
+        "cost": 2,
+        "strength": 2,
+        "output": {
+          "money": 2
+        },
+        "body": "商 · Ⅰ级 · 管理/市场"
+      },
+      {
+        "type": "faculty",
+        "id": "BUS07",
+        "name": "经济学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "商",
+        "tags": "经济",
+        "slots": 2,
+        "cost": 6,
+        "strength": 4,
+        "output": {
+          "money": 3
+        },
+        "body": "商 · Ⅱ级 · 经济"
+      },
+      {
+        "type": "faculty",
+        "id": "BUS08",
+        "name": "金融学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "商",
+        "tags": "金融",
+        "slots": 2,
+        "cost": 6,
+        "strength": 4,
+        "output": {
+          "money": 3
+        },
+        "body": "商 · Ⅱ级 · 金融"
+      },
+      {
+        "type": "faculty",
+        "id": "BUS09",
+        "name": "商学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "商",
+        "tags": "管理/工商",
+        "slots": 2,
+        "cost": 6,
+        "strength": 4,
+        "output": {
+          "money": 3
+        },
+        "body": "商 · Ⅱ级 · 管理/工商"
+      },
+      {
+        "type": "faculty",
+        "id": "BUS10",
+        "name": "管理科学学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "商",
+        "tags": "管理/决策",
+        "slots": 2,
+        "cost": 6,
+        "strength": 4,
+        "output": {
+          "money": 3
+        },
+        "body": "商 · Ⅱ级 · 管理/决策"
+      },
+      {
+        "type": "faculty",
+        "id": "BUS11",
+        "name": "经济管理学部",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "商",
+        "tags": "经管综合",
+        "slots": 3,
+        "cost": null,
+        "strength": 6,
+        "output": {
+          "money": 4
+        },
+        "body": "商 · Ⅲ级 · 经管综合"
+      },
+      {
+        "type": "faculty",
+        "id": "BUS12",
+        "name": "高级金融与经济研究院",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "商",
+        "tags": "金融/经济治理",
+        "slots": 3,
+        "cost": null,
+        "strength": 6,
+        "output": {
+          "money": 4
+        },
+        "body": "商 · Ⅲ级 · 金融/经济治理"
+      },
+      {
+        "type": "faculty",
+        "id": "ENG01",
+        "name": "机械工程系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "传统工科",
+        "tags": "机械/制造",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1,
+          "money": 1
+        },
+        "body": "传统工科 · Ⅰ级 · 机械/制造"
+      },
+      {
+        "type": "faculty",
+        "id": "ENG02",
+        "name": "土木工程系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "传统工科",
+        "tags": "土木/基建",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1,
+          "money": 1
+        },
+        "body": "传统工科 · Ⅰ级 · 土木/基建"
+      },
+      {
+        "type": "faculty",
+        "id": "ENG03",
+        "name": "化学工程系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "传统工科",
+        "tags": "化工",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1,
+          "money": 1
+        },
+        "body": "传统工科 · Ⅰ级 · 化工"
+      },
+      {
+        "type": "faculty",
+        "id": "ENG04",
+        "name": "电气工程系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "传统工科",
+        "tags": "电气/能源",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1,
+          "money": 1
+        },
+        "body": "传统工科 · Ⅰ级 · 电气/能源"
+      },
+      {
+        "type": "faculty",
+        "id": "ENG05",
+        "name": "材料工程系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "传统工科",
+        "tags": "材料",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1,
+          "money": 1
+        },
+        "body": "传统工科 · Ⅰ级 · 材料"
+      },
+      {
+        "type": "faculty",
+        "id": "ENG06",
+        "name": "电子信息工程系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "传统工科",
+        "tags": "信息/电子",
+        "slots": 1,
+        "cost": 3,
+        "strength": 2,
+        "output": {
+          "science": 1,
+          "money": 1
+        },
+        "body": "传统工科 · Ⅰ级 · 信息/电子"
+      },
+      {
+        "type": "faculty",
+        "id": "ENG07",
+        "name": "机械与动力工程学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "传统工科",
+        "tags": "机械/能源",
+        "slots": 2,
+        "cost": 7,
+        "strength": 4,
+        "output": {
+          "science": 2,
+          "money": 1
+        },
+        "body": "传统工科 · Ⅱ级 · 机械/能源"
+      },
+      {
+        "type": "faculty",
+        "id": "ENG08",
+        "name": "土木与建筑工程学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "传统工科",
+        "tags": "土木/基建",
+        "slots": 2,
+        "cost": 7,
+        "strength": 4,
+        "output": {
+          "science": 2,
+          "money": 1
+        },
+        "body": "传统工科 · Ⅱ级 · 土木/基建"
+      },
+      {
+        "type": "faculty",
+        "id": "ENG09",
+        "name": "化工与材料学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "传统工科",
+        "tags": "化工/材料",
+        "slots": 2,
+        "cost": 7,
+        "strength": 4,
+        "output": {
+          "science": 2,
+          "money": 1
+        },
+        "body": "传统工科 · Ⅱ级 · 化工/材料"
+      },
+      {
+        "type": "faculty",
+        "id": "ENG10",
+        "name": "电气与信息工程学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "传统工科",
+        "tags": "电气/信息",
+        "slots": 2,
+        "cost": 7,
+        "strength": 4,
+        "output": {
+          "science": 2,
+          "money": 1
+        },
+        "body": "传统工科 · Ⅱ级 · 电气/信息"
+      },
+      {
+        "type": "faculty",
+        "id": "ENG11",
+        "name": "工程学部",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "传统工科",
+        "tags": "工程综合",
+        "slots": 3,
+        "cost": null,
+        "strength": 7,
+        "output": {
+          "science": 3,
+          "money": 1
+        },
+        "body": "传统工科 · Ⅲ级 · 工程综合"
+      },
+      {
+        "type": "faculty",
+        "id": "ENG12",
+        "name": "先进工程与制造研究院",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "传统工科",
+        "tags": "制造/重大工程",
+        "slots": 3,
+        "cost": null,
+        "strength": 7,
+        "output": {
+          "science": 3,
+          "money": 1
+        },
+        "body": "传统工科 · Ⅲ级 · 制造/重大工程"
+      },
+      {
+        "type": "faculty",
+        "id": "NEW01",
+        "name": "人工智能系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "新工科",
+        "tags": "AI",
+        "slots": 1,
+        "cost": 4,
+        "strength": 3,
+        "output": {
+          "science": 2
+        },
+        "body": "新工科 · Ⅰ级 · AI"
+      },
+      {
+        "type": "faculty",
+        "id": "NEW02",
+        "name": "集成电路系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "新工科",
+        "tags": "芯片",
+        "slots": 1,
+        "cost": 4,
+        "strength": 3,
+        "output": {
+          "science": 2
+        },
+        "body": "新工科 · Ⅰ级 · 芯片"
+      },
+      {
+        "type": "faculty",
+        "id": "NEW03",
+        "name": "新能源科学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "新工科",
+        "tags": "新能源",
+        "slots": 1,
+        "cost": 4,
+        "strength": 3,
+        "output": {
+          "science": 2
+        },
+        "body": "新工科 · Ⅰ级 · 新能源"
+      },
+      {
+        "type": "faculty",
+        "id": "NEW04",
+        "name": "生物医学工程系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "新工科",
+        "tags": "医工",
+        "slots": 1,
+        "cost": 4,
+        "strength": 3,
+        "output": {
+          "science": 2
+        },
+        "body": "新工科 · Ⅰ级 · 医工"
+      },
+      {
+        "type": "faculty",
+        "id": "NEW05",
+        "name": "智能制造系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "新工科",
+        "tags": "机器人/制造",
+        "slots": 1,
+        "cost": 4,
+        "strength": 3,
+        "output": {
+          "science": 2
+        },
+        "body": "新工科 · Ⅰ级 · 机器人/制造"
+      },
+      {
+        "type": "faculty",
+        "id": "NEW06",
+        "name": "数据科学系",
+        "level": 1,
+        "levelLabel": "Ⅰ",
+        "discipline": "新工科",
+        "tags": "AI/数据",
+        "slots": 1,
+        "cost": 4,
+        "strength": 3,
+        "output": {
+          "science": 2
+        },
+        "body": "新工科 · Ⅰ级 · AI/数据"
+      },
+      {
+        "type": "faculty",
+        "id": "NEW07",
+        "name": "人工智能学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "新工科",
+        "tags": "AI/数据",
+        "slots": 2,
+        "cost": 8,
+        "strength": 5,
+        "output": {
+          "science": 3
+        },
+        "body": "新工科 · Ⅱ级 · AI/数据"
+      },
+      {
+        "type": "faculty",
+        "id": "NEW08",
+        "name": "微电子与集成电路学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "新工科",
+        "tags": "芯片",
+        "slots": 2,
+        "cost": 8,
+        "strength": 5,
+        "output": {
+          "science": 3
+        },
+        "body": "新工科 · Ⅱ级 · 芯片"
+      },
+      {
+        "type": "faculty",
+        "id": "NEW09",
+        "name": "未来能源学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "新工科",
+        "tags": "新能源/能源",
+        "slots": 2,
+        "cost": 8,
+        "strength": 5,
+        "output": {
+          "science": 3
+        },
+        "body": "新工科 · Ⅱ级 · 新能源/能源"
+      },
+      {
+        "type": "faculty",
+        "id": "NEW10",
+        "name": "机器人与智能制造学院",
+        "level": 2,
+        "levelLabel": "Ⅱ",
+        "discipline": "新工科",
+        "tags": "机器人/制造",
+        "slots": 2,
+        "cost": 8,
+        "strength": 5,
+        "output": {
+          "science": 3
+        },
+        "body": "新工科 · Ⅱ级 · 机器人/制造"
+      },
+      {
+        "type": "faculty",
+        "id": "NEW11",
+        "name": "未来技术学院",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "新工科",
+        "tags": "AI/芯片/前沿",
+        "slots": 3,
+        "cost": null,
+        "strength": 8,
+        "output": {
+          "science": 4
+        },
+        "body": "新工科 · Ⅲ级 · AI/芯片/前沿"
+      },
+      {
+        "type": "faculty",
+        "id": "NEW12",
+        "name": "前沿工程学部",
+        "level": 3,
+        "levelLabel": "Ⅲ",
+        "discipline": "新工科",
+        "tags": "新能源/智能制造/医工",
+        "slots": 3,
+        "cost": null,
+        "strength": 8,
+        "output": {
+          "science": 4
+        },
+        "body": "新工科 · Ⅲ级 · 新能源/智能制造/医工"
+      }
+    ],
+    "talent": [
+      {
+        "type": "talent",
+        "id": "L01",
+        "name": "讲席教授·中国语言文学",
+        "discipline": "文",
+        "tags": "中文",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L02",
+        "name": "讲席教授·世界史",
+        "discipline": "文",
+        "tags": "历史",
+        "subtype": "教学型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1；入职 +1🎓"
+      },
+      {
+        "type": "talent",
+        "id": "L03",
+        "name": "讲席教授·宪法与行政法",
+        "discipline": "法",
+        "tags": "法学",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L04",
+        "name": "讲席教授·公共政策",
+        "discipline": "法",
+        "tags": "政治/治理",
+        "subtype": "教学型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1；入职 +1🎓"
+      },
+      {
+        "type": "talent",
+        "id": "L05",
+        "name": "讲席教授·基础数学",
+        "discipline": "理",
+        "tags": "数学",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L06",
+        "name": "讲席教授·凝聚态物理",
+        "discipline": "理",
+        "tags": "物理",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L07",
+        "name": "讲席教授·作物遗传育种",
+        "discipline": "农",
+        "tags": "种业",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L08",
+        "name": "讲席教授·海洋生态",
+        "discipline": "农",
+        "tags": "海洋/生态",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L09",
+        "name": "讲席教授·临床医学",
+        "discipline": "医",
+        "tags": "临床",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L10",
+        "name": "讲席教授·公共卫生",
+        "discipline": "医",
+        "tags": "公卫",
+        "subtype": "教学型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1；入职 +1🎓"
+      },
+      {
+        "type": "talent",
+        "id": "L11",
+        "name": "讲席教授·金融学",
+        "discipline": "商",
+        "tags": "金融",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L12",
+        "name": "讲席教授·工商管理",
+        "discipline": "商",
+        "tags": "管理",
+        "subtype": "教学型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1；入职 +1🎓"
+      },
+      {
+        "type": "talent",
+        "id": "L13",
+        "name": "讲席教授·机械工程",
+        "discipline": "传统工科",
+        "tags": "机械",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L14",
+        "name": "讲席教授·土木工程",
+        "discipline": "传统工科",
+        "tags": "土木",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L15",
+        "name": "讲席教授·电气工程",
+        "discipline": "传统工科",
+        "tags": "电气/能源",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L16",
+        "name": "讲席教授·人工智能",
+        "discipline": "新工科",
+        "tags": "AI",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L17",
+        "name": "讲席教授·集成电路",
+        "discipline": "新工科",
+        "tags": "芯片",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "L18",
+        "name": "讲席教授·新能源系统",
+        "discipline": "新工科",
+        "tags": "新能源",
+        "subtype": "研究型",
+        "cost": 2,
+        "strength": 0,
+        "body": "主产出 +1"
+      },
+      {
+        "type": "talent",
+        "id": "Y01",
+        "name": "长江学者·古典文献",
+        "discipline": "文",
+        "tags": "文献",
+        "subtype": "主产出+1，强度+2",
+        "cost": 4,
+        "strength": 2,
+        "body": "每次评估若所在文科进入前2，额外获得 1🏛（每次评估一次）"
+      },
+      {
+        "type": "talent",
+        "id": "Y02",
+        "name": "长江学者·国家治理",
+        "discipline": "法",
+        "tags": "治理",
+        "subtype": "主产出+1，强度+2",
+        "cost": 4,
+        "strength": 2,
+        "body": "每时代第一次购买政策牌后返还 1🏛"
+      },
+      {
+        "type": "talent",
+        "id": "Y03",
+        "name": "杰青·理论物理",
+        "discipline": "理",
+        "tags": "物理",
+        "subtype": "主产出+1，强度+2",
+        "cost": 4,
+        "strength": 2,
+        "body": "每时代第一次“科研攻关”所在院系时额外 +1🔬"
+      },
+      {
+        "type": "talent",
+        "id": "Y04",
+        "name": "杰青·数学与统计",
+        "discipline": "理",
+        "tags": "数学/统计",
+        "subtype": "主产出+1，强度+2",
+        "cost": 4,
+        "strength": 2,
+        "body": "工程竞标平手时，所在理科院系视为等级高一级用于破平"
+      },
+      {
+        "type": "talent",
+        "id": "Y05",
+        "name": "杰青·作物遗传",
+        "discipline": "农",
+        "tags": "种业",
+        "subtype": "主产出+1，强度+2",
+        "cost": 4,
+        "strength": 2,
+        "body": "农科利空事件发生时，本人所在院系额外免除 1 点产出损失"
+      },
+      {
+        "type": "talent",
+        "id": "Y06",
+        "name": "长江学者·临床医学",
+        "discipline": "医",
+        "tags": "临床",
+        "subtype": "主产出+1，强度+2",
+        "cost": 4,
+        "strength": 2,
+        "body": "每时代第一次有其他玩家因公共卫生效果向你支付资源时，额外 +1💰"
+      },
+      {
+        "type": "talent",
+        "id": "Y07",
+        "name": "长江学者·金融工程",
+        "discipline": "商",
+        "tags": "金融",
+        "subtype": "主产出+1，强度+2",
+        "cost": 4,
+        "strength": 2,
+        "body": "每时代第一次将💰用于国家重大工程时，额外 +1 有效出资点（固定值）"
+      },
+      {
+        "type": "talent",
+        "id": "Y08",
+        "name": "杰青·先进制造",
+        "discipline": "传统工科",
+        "tags": "机械/制造",
+        "subtype": "主产出+1，强度+2",
+        "cost": 4,
+        "strength": 2,
+        "body": "所在院系第一次工科转型时费用 −1💰"
+      },
+      {
+        "type": "talent",
+        "id": "Y09",
+        "name": "杰青·电力系统",
+        "discipline": "传统工科",
+        "tags": "电气/能源",
+        "subtype": "主产出+1，强度+2",
+        "cost": 4,
+        "strength": 2,
+        "body": "“能源/双碳”利好事件作用于所在院系时额外 +1💰"
+      },
+      {
+        "type": "talent",
+        "id": "Y10",
+        "name": "杰青·人工智能",
+        "discipline": "新工科",
+        "tags": "AI",
+        "subtype": "主产出+1，强度+2",
+        "cost": 4,
+        "strength": 2,
+        "body": "本时代若“人工智能”类事件生效，所在院系强度再 +1（本时代）"
+      },
+      {
+        "type": "talent",
+        "id": "Y11",
+        "name": "杰青·微电子",
+        "discipline": "新工科",
+        "tags": "芯片",
+        "subtype": "主产出+1，强度+2",
+        "cost": 4,
+        "strength": 2,
+        "body": "参与“芯片/战略科技”工程时最终有效出资 +1（固定值）"
+      },
+      {
+        "type": "talent",
+        "id": "Y12",
+        "name": "杰青·生物医学工程",
+        "discipline": "新工科",
+        "tags": "医工",
+        "subtype": "主产出+1，强度+2",
+        "cost": 4,
+        "strength": 2,
+        "body": "若同校同时有医学院系，每次评估本人所在院系额外 +1 强度"
+      },
+      {
+        "type": "talent",
+        "id": "A01",
+        "name": "院士·基础科学",
+        "discipline": "理",
+        "tags": "物理/数学",
+        "subtype": "院士/学部委员",
+        "cost": 7,
+        "strength": 3,
+        "body": "【学术灯塔】本人所在院系执行“科研攻关”时，可额外选择同校另 1 个理科院系获得 +1🔬；每时代限一次。"
+      },
+      {
+        "type": "talent",
+        "id": "A02",
+        "name": "院士·工程技术",
+        "discipline": "传统工科",
+        "tags": "重大工程",
+        "subtype": "院士/学部委员",
+        "cost": 7,
+        "strength": 3,
+        "body": "【总师】参与传统工科为主/协同门类的国家重大工程时，本竞标单位最终有效出资 +2 点（固定值，不参加倍率）。"
+      },
+      {
+        "type": "talent",
+        "id": "A03",
+        "name": "院士·信息科技",
+        "discipline": "新工科",
+        "tags": "AI/芯片",
+        "subtype": "院士/学部委员",
+        "cost": 7,
+        "strength": 3,
+        "body": "【前沿领军】本人所在新工科院系升级至Ⅲ时，额外获得 +1🎓 +1🔬；若入职时已经是Ⅲ，则立即获得一次。"
+      },
+      {
+        "type": "talent",
+        "id": "A04",
+        "name": "院士·医学科学",
+        "discipline": "医",
+        "tags": "临床/基础医学",
+        "subtype": "院士/学部委员",
+        "cost": 7,
+        "strength": 3,
+        "body": "【国家医学中心】本人所在院系评估时视为高一等级用于工程/人才/事件的等级判定（强度仍只加标准 +3，不重复增加）。"
+      },
+      {
+        "type": "talent",
+        "id": "A05",
+        "name": "院士·农业与生命科学",
+        "discipline": "农",
+        "tags": "种业/生态",
+        "subtype": "院士/学部委员",
+        "cost": 7,
+        "strength": 3,
+        "body": "【粮食安全】每个预算阶段，本人所在农学院系可选择其主产出 +1，或获得 +1🏛；二选一。"
+      },
+      {
+        "type": "talent",
+        "id": "A06",
+        "name": "学部委员·人文社会科学",
+        "discipline": "文 / 法（二选一入职方向）",
+        "tags": "人文/治理",
+        "subtype": "院士/学部委员",
+        "cost": 7,
+        "strength": 3,
+        "body": "【经世致用】入职时选择“文”或“法”作为本人本局门类。每次评估若该门类进入前2，可在评估结束后执行一次 1🏛→1⭐ 的额外智库转换；不占正常智库通道额度。"
+      }
+    ],
+    "event": [
+      {
+        "type": "event",
+        "id": "E01",
+        "era": "1990s",
+        "tone": "🟢",
+        "name": "南方谈话·春潮",
+        "range": "商",
+        "duration": "本时代",
+        "body": "商科院系产出 +1;所有人 +1💰。"
+      },
+      {
+        "type": "event",
+        "id": "E02",
+        "era": "1990s",
+        "tone": "🟢",
+        "name": "863计划推进",
+        "range": "理、传统工科",
+        "duration": "本时代",
+        "body": "对应院系\"科研攻关\"时产出 +1;本时代立项工程若主门类或协同门类含理/传统工科,其基础声望池 +2。"
+      },
+      {
+        "type": "event",
+        "id": "E03",
+        "era": "1990s",
+        "tone": "🟢",
+        "name": "重点学科评选",
+        "range": "全体",
+        "duration": "即时",
+        "body": "每人可为自己一个院系 +1 强度(放永久标记);当前声望最低者可选两个。"
+      },
+      {
+        "type": "event",
+        "id": "E04",
+        "era": "1990s",
+        "tone": "🟢",
+        "name": "侨资捐赠潮",
+        "range": "一线、新一线",
+        "duration": "即时",
+        "body": "对应区位学校 +2💰;其中有商科院系者再 +1💰。"
+      },
+      {
+        "type": "event",
+        "id": "E05",
+        "era": "1990s",
+        "tone": "🟢",
+        "name": "教师节尊师重教",
+        "range": "文、法",
+        "duration": "本时代",
+        "body": "对应院系产出 +1;师范学校「培养人才」费用 −1💰。"
+      },
+      {
+        "type": "event",
+        "id": "E06",
+        "era": "1990s",
+        "tone": "🔴",
+        "name": "出国潮",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "人才竞价底价 −1,但每人生源力 −1。↩ 任意玩家可弃 1 院系换 2🎓(\"留住人就是胜利\")。"
+      },
+      {
+        "type": "event",
+        "id": "E07",
+        "era": "1990s",
+        "tone": "🔴",
+        "name": "经费寒冬",
+        "range": "全体",
+        "duration": "即时",
+        "body": "每名玩家立即支付 1💰（不足则付至 0）。↩ 有商科院系者可改为让 1 个商科院系立即产出一次其 💰 主产出，并免除本次支付（创收自救）。"
+      },
+      {
+        "type": "event",
+        "id": "E08",
+        "era": "1990s",
+        "tone": "🔴",
+        "name": "三角债危机",
+        "range": "商、传统工科",
+        "duration": "本时代",
+        "body": "对应院系 💰 产出减半。↩ 受影响玩家\"拆分院系\"套现 +1💰。"
+      },
+      {
+        "type": "event",
+        "id": "E09",
+        "era": "1990s",
+        "tone": "🔴",
+        "name": "人才断层之忧",
+        "range": "全体",
+        "duration": "即时",
+        "body": "本时代人才市场只补 2 张(而非 3)。↩ 师范学校本时代「培养人才」免🎓。"
+      },
+      {
+        "type": "event",
+        "id": "E10",
+        "era": "1990s",
+        "tone": "🔵",
+        "name": "教育部院系大调整",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "发起调档免 2🏛 调档费,目标刻度 1,不可挽留。*(第 1/3/5 时代各一张,二十年一窗口。)*"
+      },
+      {
+        "type": "event",
+        "id": "E11",
+        "era": "1990s",
+        "tone": "🔵",
+        "name": "211工程启动",
+        "range": "全体",
+        "duration": "即时",
+        "body": "立即迷你评估:每门类强度第 1 者 +1⭐(只结算有竞争门类)。"
+      },
+      {
+        "type": "event",
+        "id": "E12",
+        "era": "1990s",
+        "tone": "🔵",
+        "name": "高校合并浪潮",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "\"合并院系\"不限次数且免 AP。"
+      },
+      {
+        "type": "event",
+        "id": "E13",
+        "era": "2000s",
+        "tone": "🟢",
+        "name": "入世·全球化",
+        "range": "商、法",
+        "duration": "本时代",
+        "body": "对应院系产出 +1;港澳学校 +2💰(转口红利)。"
+      },
+      {
+        "type": "event",
+        "id": "E14",
+        "era": "2000s",
+        "tone": "🟢",
+        "name": "985工程深化",
+        "range": "全体",
+        "duration": "即时",
+        "body": "声望 ≥ 中位数的玩家 +2💰,低于中位数的 +1💰+1🏛(兼顾公平)。"
+      },
+      {
+        "type": "event",
+        "id": "E15",
+        "era": "2000s",
+        "tone": "🟢",
+        "name": "基建狂魔时代开启",
+        "range": "传统工科",
+        "duration": "两个时代",
+        "body": "传统工科院系产出 +1。"
+      },
+      {
+        "type": "event",
+        "id": "E16",
+        "era": "2000s",
+        "tone": "🟢",
+        "name": "高校扩建·大学城",
+        "range": "全体",
+        "duration": "即时",
+        "body": "每人可立即半价建设 1 个等级Ⅰ院系(免 AP)。"
+      },
+      {
+        "type": "event",
+        "id": "E17",
+        "era": "2000s",
+        "tone": "🟢",
+        "name": "载人航天首飞",
+        "range": "理、传统工科",
+        "duration": "即时",
+        "body": "军工学校 +2⭐;若本时代立项工程带有“航天/太空”标签,其基础声望池 +2。"
+      },
+      {
+        "type": "event",
+        "id": "E18",
+        "era": "2000s",
+        "tone": "🔴",
+        "name": "非典突袭",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "医科院系强度 +2，且本时代执行“科研攻关”时产出 +1；其余门类本时代第一次被选为“科研攻关”对象时不产出。↩ 有医科院系者可在该次攻关结算前代任一玩家恢复其中 1 个院系的正常产出，并收取 1💰。"
+      },
+      {
+        "type": "event",
+        "id": "E19",
+        "era": "2000s",
+        "tone": "🔴",
+        "name": "网络泡沫破裂",
+        "range": "传统工科(信息向)、商",
+        "duration": "本时代",
+        "body": "对应院系 💰 产出减半。↩ 受影响者\"科研攻关\"免 AP 一次(泡沫破了安心做学问)。"
+      },
+      {
+        "type": "event",
+        "id": "E20",
+        "era": "2000s",
+        "tone": "🔴",
+        "name": "学术不端风波",
+        "range": "全体",
+        "duration": "即时",
+        "body": "🔬 存量最多的玩家 −2⭐(树大招风)。↩ 其可弃 3🔬 免除(彻查自清)。"
+      },
+      {
+        "type": "event",
+        "id": "E21",
+        "era": "2000s",
+        "tone": "🔴",
+        "name": "高校债务危机",
+        "range": "全体",
+        "duration": "即时",
+        "body": "本时代建过 ≥2 个院系的玩家付 2💰 利息。↩ 可改为弃 1 张政策牌抵债。"
+      },
+      {
+        "type": "event",
+        "id": "E22",
+        "era": "2000s",
+        "tone": "🔵",
+        "name": "大扩招",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "所有人立即获得 +2🎓，随后各支付 1💰（不足则付至 0，代表本时代扩招摊薄的即时支出）。"
+      },
+      {
+        "type": "event",
+        "id": "E23",
+        "era": "2000s",
+        "tone": "🔵",
+        "name": "本科教学评估",
+        "range": "全体",
+        "duration": "即时",
+        "body": "每人亮出等级最低的院系:全场最低者 −1⭐,最高者 +1⭐。"
+      },
+      {
+        "type": "event",
+        "id": "E24",
+        "era": "2000s",
+        "tone": "🔵",
+        "name": "学科目录修订",
+        "range": "全体",
+        "duration": "即时",
+        "body": "每人可免费将自己 1 个院系改挂相邻门类(理↔工、文↔法、农↔医、商↔法)。"
+      },
+      {
+        "type": "event",
+        "id": "E25",
+        "era": "2010s",
+        "tone": "🟢",
+        "name": "移动互联网爆发",
+        "range": "新工科",
+        "duration": "即时",
+        "body": "从新工科堆额外翻 2 张入市场;本时代新工科建造 −1💰。"
+      },
+      {
+        "type": "event",
+        "id": "E26",
+        "era": "2010s",
+        "tone": "🟢",
+        "name": "房地产黄金年代",
+        "range": "传统工科",
+        "duration": "本时代",
+        "body": "传统工科产出 +2。*(与 #42 雪崩构成跨时代叙事。)*"
+      },
+      {
+        "type": "event",
+        "id": "E27",
+        "era": "2010s",
+        "tone": "🟢",
+        "name": "高铁出海",
+        "range": "传统工科",
+        "duration": "即时",
+        "body": "传统工科院系最多的玩家 +2⭐;其余有传统工科者 +1💰。"
+      },
+      {
+        "type": "event",
+        "id": "E28",
+        "era": "2010s",
+        "tone": "🟢",
+        "name": "MOOC浪潮",
+        "range": "文、法",
+        "duration": "本时代",
+        "body": "对应院系产出 +1;师范学校 +1⭐(名师出圈)。"
+      },
+      {
+        "type": "event",
+        "id": "E29",
+        "era": "2010s",
+        "tone": "🟢",
+        "name": "医改扩容",
+        "range": "医",
+        "duration": "本时代",
+        "body": "医科院系 💰 产出 +1;医科人才底价 −1。"
+      },
+      {
+        "type": "event",
+        "id": "E30",
+        "era": "2010s",
+        "tone": "🔴",
+        "name": "基础学科之困",
+        "range": "理",
+        "duration": "本时代",
+        "body": "理科院系 🔬 产出 −1(\"下海去了\")。↩ 理科核心校改为产出不变且 +1🏛(坚守获得同情)。"
+      },
+      {
+        "type": "event",
+        "id": "E31",
+        "era": "2010s",
+        "tone": "🔴",
+        "name": "就业寒潮·文科之问",
+        "range": "文、法、商",
+        "duration": "本时代",
+        "body": "对应院系强度 −1。↩ 受影响者\"招生宣传\"半价(转型宣传)。"
+      },
+      {
+        "type": "event",
+        "id": "E32",
+        "era": "2010s",
+        "tone": "🔴",
+        "name": "排名军备竞赛",
+        "range": "全体",
+        "duration": "即时",
+        "body": "每人须付 1💰\"榜单公关费\",拒付者 −1⭐。↩ 声望最低两名免付。"
+      },
+      {
+        "type": "event",
+        "id": "E33",
+        "era": "2010s",
+        "tone": "🔴",
+        "name": "青椒困境",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "讲席教授竞价底价 +1(生活成本挤压)。↩ 师范「培养人才」不受影响;蓄力档学校招募讲席教授 −1💰。"
+      },
+      {
+        "type": "event",
+        "id": "E34",
+        "era": "2010s",
+        "tone": "🔵",
+        "name": "双一流名单公布",
+        "range": "全体",
+        "duration": "即时",
+        "body": "迷你评估:每门类第 1 +2⭐ 与 1 认证。"
+      },
+      {
+        "type": "event",
+        "id": "E35",
+        "era": "2010s",
+        "tone": "🔵",
+        "name": "智能制造2025",
+        "range": "新工科、传统工科",
+        "duration": "本时代",
+        "body": "\"工科转型\"免 AP。"
+      },
+      {
+        "type": "event",
+        "id": "E36",
+        "era": "2010s",
+        "tone": "🔵",
+        "name": "教育部院系大调整",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "同 #10。"
+      },
+      {
+        "type": "event",
+        "id": "E37",
+        "era": "2020s",
+        "tone": "🟢",
+        "name": "人工智能崛起",
+        "range": "新工科",
+        "duration": "永久",
+        "body": "立即将新工科堆中全部 AI 类院系翻入市场;新工科强度 +2;新工科人才竞价起价 ×2(红利与内卷同来)。"
+      },
+      {
+        "type": "event",
+        "id": "E38",
+        "era": "2020s",
+        "tone": "🟢",
+        "name": "新能源汽车狂飙",
+        "range": "新工科、传统工科",
+        "duration": "本时代",
+        "body": "对应院系 💰 产出 +1;\"工科转型\"半价。"
+      },
+      {
+        "type": "event",
+        "id": "E39",
+        "era": "2020s",
+        "tone": "🟢",
+        "name": "国产替代·芯片攻坚",
+        "range": "新工科",
+        "duration": "本时代",
+        "body": "集成电路类院系产出 +2；本时代交叉战略赛道直接指定 P40「先进制程与芯片自主攻关」，替换该赛道原随机项目。"
+      },
+      {
+        "type": "event",
+        "id": "E40",
+        "era": "2020s",
+        "tone": "🟢",
+        "name": "县中崛起计划",
+        "range": "中西部、东北",
+        "duration": "本时代",
+        "body": "对应区位学校生源力 +2(蓄力档 M5 可翻倍成 +4)。"
+      },
+      {
+        "type": "event",
+        "id": "E41",
+        "era": "2020s",
+        "tone": "🟢",
+        "name": "双碳战略",
+        "range": "新工科、农",
+        "duration": "本时代",
+        "body": "新能源类与农科院系产出 +1;弃置传统工科(能源向)转型新能源者返还 1💰。"
+      },
+      {
+        "type": "event",
+        "id": "E42",
+        "era": "2020s",
+        "tone": "🔴",
+        "name": "房地产雪崩",
+        "range": "传统工科",
+        "duration": "两个时代",
+        "body": "传统工科(土木向)产出减半。↩ 拆分传统工科免 AP 且套现 +2💰;\"工科转型\"再 5 折。"
+      },
+      {
+        "type": "event",
+        "id": "E43",
+        "era": "2020s",
+        "tone": "🔴",
+        "name": "疫情蔓延",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "本时代生源力不能增加或减少；所有正在调档的院系立即 −1 刻度（不低于 0），且本时代不能执行“加急调档”。↩ 每名拥有医科Ⅱ以上院系的玩家立即 +1⭐；其本时代第一次以医学院系执行“科研攻关”时额外 +1🏛（逆行者）。"
+      },
+      {
+        "type": "event",
+        "id": "E44",
+        "era": "2020s",
+        "tone": "🔴",
+        "name": "国际形势紧张·科技脱钩",
+        "range": "理、新工科",
+        "duration": "本时代",
+        "body": "对应门类人才市场本时代不补充;港澳学校 −1💰。↩ 军工学校改为 +1⭐+1🏛(自主可控主场)。"
+      },
+      {
+        "type": "event",
+        "id": "E45",
+        "era": "2020s",
+        "tone": "🔴",
+        "name": "毕业生千万时代",
+        "range": "全体",
+        "duration": "即时",
+        "body": "每人生源力 −1;商科强度 −1。↩ 有新工科院系者免生源损失(热门专业护体)。"
+      },
+      {
+        "type": "event",
+        "id": "E46",
+        "era": "2020s",
+        "tone": "🔵",
+        "name": "人才流动禁令",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "禁止对中西部/东北区位学校挖角。"
+      },
+      {
+        "type": "event",
+        "id": "E47",
+        "era": "2020s",
+        "tone": "🔵",
+        "name": "破五唯改革",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "本时代\"院系升级\"不需要 🔬(只付💰)——不数论文了,看实际建设。"
+      },
+      {
+        "type": "event",
+        "id": "E48",
+        "era": "2020s",
+        "tone": "🔵",
+        "name": "预警学科名单",
+        "range": "全体",
+        "duration": "即时",
+        "body": "全场投票选出一个门类(平票由声望最低者定夺):该门类本时代建造费 +2💰。*(玩家亲手制造利空——外交武器。)*"
+      },
+      {
+        "type": "event",
+        "id": "E49",
+        "era": "2030s",
+        "tone": "🟢",
+        "name": "聚变点火成功",
+        "range": "理、新工科",
+        "duration": "本时代",
+        "body": "对应院系产出 +2；本时代基础科学赛道直接指定 P41「可控核聚变示范堆点火」，替换该赛道原随机项目。"
+      },
+      {
+        "type": "event",
+        "id": "E50",
+        "era": "2030s",
+        "tone": "🟢",
+        "name": "脑机接口临床化",
+        "range": "医、新工科",
+        "duration": "本时代",
+        "body": "医科与新工科相邻摆放者(声明\"医工交叉\")各产出 +1。"
+      },
+      {
+        "type": "event",
+        "id": "E51",
+        "era": "2030s",
+        "tone": "🟢",
+        "name": "太空经济元年",
+        "range": "新工科、传统工科",
+        "duration": "本时代",
+        "body": "军工学校 +2💰;航天类工程出资全场 ×1.25。"
+      },
+      {
+        "type": "event",
+        "id": "E52",
+        "era": "2030s",
+        "tone": "🟢",
+        "name": "银发教育蓝海",
+        "range": "文、法、医",
+        "duration": "本时代",
+        "body": "对应院系 💰 产出 +1(终身学习市场)。"
+      },
+      {
+        "type": "event",
+        "id": "E53",
+        "era": "2030s",
+        "tone": "🟢",
+        "name": "中文学术圈崛起",
+        "range": "文、法",
+        "duration": "即时",
+        "body": "每名玩家选择自己的 1 个文/法院系永久 +1 强度；没有对应院系者改为 +1🏛。本时代立项工程若主门类或协同门类含文/法,其基础声望池 +2。"
+      },
+      {
+        "type": "event",
+        "id": "E54",
+        "era": "2030s",
+        "tone": "🔴",
+        "name": "少子化浪潮",
+        "range": "全体",
+        "duration": "永久",
+        "body": "所有人生源力 −2。↩ 文/法院系每个抵消 1 点。"
+      },
+      {
+        "type": "event",
+        "id": "E55",
+        "era": "2030s",
+        "tone": "🔴",
+        "name": "赛道大内卷",
+        "range": "新工科",
+        "duration": "本时代",
+        "body": "新工科院系最多者其新工科产出减半。↩ 可免 AP 将 1 个新工科发起调档卖出(找人接盘)。"
+      },
+      {
+        "type": "event",
+        "id": "E56",
+        "era": "2030s",
+        "tone": "🔴",
+        "name": "AI冲击白领",
+        "range": "商、法",
+        "duration": "本时代",
+        "body": "对应院系强度 −2。↩ 受影响者可免费将 1 个商/法院系改挂\"新工科\"(转型智能金融/计算法学)。"
+      },
+      {
+        "type": "event",
+        "id": "E57",
+        "era": "2030s",
+        "tone": "🔴",
+        "name": "气候异常频发",
+        "range": "农",
+        "duration": "即时",
+        "body": "农科产出本时代 −1。↩ 农科核心校改为 +2🏛(农业安全上升为最高议题)。"
+      },
+      {
+        "type": "event",
+        "id": "E58",
+        "era": "2030s",
+        "tone": "🔵",
+        "name": "教育部院系大调整",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "同 #10。"
+      },
+      {
+        "type": "event",
+        "id": "E59",
+        "era": "2030s",
+        "tone": "🔵",
+        "name": "学分银行全国互认",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "联盟\"联合培养\"效果翻倍;签联盟免🏛。"
+      },
+      {
+        "type": "event",
+        "id": "E60",
+        "era": "2030s",
+        "tone": "🔵",
+        "name": "科研经费包干制",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "\"科研攻关\"可选 3 个院系(而非 2)。"
+      },
+      {
+        "type": "event",
+        "id": "E61",
+        "era": "2040s",
+        "tone": "🟢",
+        "name": "AGI科研代理普及",
+        "range": "全体",
+        "duration": "永久",
+        "body": "\"科研攻关\"可选 3 个院系;文科院系强度 +1(\"人机时代,人文溢价\")。"
+      },
+      {
+        "type": "event",
+        "id": "E62",
+        "era": "2040s",
+        "tone": "🟢",
+        "name": "月面科研基地立项",
+        "range": "理、新工科",
+        "duration": "本时代",
+        "body": "本时代基础科学赛道直接指定 P51「月面科研基地一期」，替换该赛道原随机项目；军工学校立即 +1🏛（项目动员）。"
+      },
+      {
+        "type": "event",
+        "id": "E63",
+        "era": "2040s",
+        "tone": "🟢",
+        "name": "合成生物学产业化",
+        "range": "农、医",
+        "duration": "本时代",
+        "body": "对应院系产出 +2;农科人才底价 −1。"
+      },
+      {
+        "type": "event",
+        "id": "E64",
+        "era": "2040s",
+        "tone": "🟢",
+        "name": "高校开放办学令",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "每人可免费旁听:每时代一次,复制盟友的一次\"科研攻关\"产出的一半(向下取整)。"
+      },
+      {
+        "type": "event",
+        "id": "E65",
+        "era": "2040s",
+        "tone": "🟢",
+        "name": "世界一流方阵确认",
+        "range": "全体",
+        "duration": "即时",
+        "body": "声望前二名各 +2⭐,其余每人 +1⭐+1💰(整体崛起,人人有份)。"
+      },
+      {
+        "type": "event",
+        "id": "E66",
+        "era": "2040s",
+        "tone": "🔴",
+        "name": "深度老龄化",
+        "range": "全体",
+        "duration": "永久",
+        "body": "生源力上限 10;医科院系产出 +1(唯一受益者)。↩ 生源力超限部分每 2 点换 1💰(存量变现)。"
+      },
+      {
+        "type": "event",
+        "id": "E67",
+        "era": "2040s",
+        "tone": "🔴",
+        "name": "学历通胀",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "\"招生宣传\"费用翻倍。↩ 等级Ⅲ院系持有者免疫(顶尖品牌不愁生源)。"
+      },
+      {
+        "type": "event",
+        "id": "E68",
+        "era": "2040s",
+        "tone": "🔴",
+        "name": "能源转型阵痛",
+        "range": "传统工科",
+        "duration": "本时代",
+        "body": "传统工科(能源向)产出 −2。↩ 转型新能源免 AP 且半价。"
+      },
+      {
+        "type": "event",
+        "id": "E69",
+        "era": "2040s",
+        "tone": "🔴",
+        "name": "太空碎片危机",
+        "range": "新工科",
+        "duration": "即时",
+        "body": "航天类工程本时代暂停竞标。↩ 军工可付 2🔬 解除(清障技术),解除者 +2⭐。"
+      },
+      {
+        "type": "event",
+        "id": "E70",
+        "era": "2040s",
+        "tone": "🔵",
+        "name": "高等教育大改革",
+        "range": "全体",
+        "duration": "即时",
+        "body": "2050 最终评估只计每人最强 3 个门类——终局计分口径突变。"
+      },
+      {
+        "type": "event",
+        "id": "E71",
+        "era": "2040s",
+        "tone": "🔵",
+        "name": "全球人才大流动",
+        "range": "全体",
+        "duration": "本时代",
+        "body": "挖角费用降为 ×125%;防御费升为 2🏛(攻强守弱的乱纪元)。"
+      },
+      {
+        "type": "event",
+        "id": "E72",
+        "era": "2040s",
+        "tone": "🔵",
+        "name": "巅峰对决",
+        "range": "全体",
+        "duration": "即时",
+        "body": "声望第一与第二立即就双方各自最强门类比强度,胜者 +2⭐,负者 −1⭐(终局戏剧性对撞)。"
+      }
+    ],
+    "project": [
+      {
+        "type": "project",
+        "id": "P01",
+        "name": "国家重点实验室体系扩展",
+        "era": "1990s",
+        "lane": "基础科学",
+        "main": [
+          "理"
+        ],
+        "support": [
+          "传统工科"
+        ],
+        "pool": 6,
+        "contribution": "1🔬=1点；3💰=1点｜声望池：6⭐",
+        "leader": "1 个匹配院系获得“重点实验室”标记，永久强度 +1。",
+        "participant": "+2🔬。",
+        "tags": "基础科研、平台",
+        "body": "主门类：理｜协同：传统工科｜1🔬=1点；3💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P02",
+        "name": "人类基因组“中国1%”计划启动",
+        "era": "1990s",
+        "lane": "基础科学",
+        "main": [
+          "理",
+          "医"
+        ],
+        "support": [
+          "新工科"
+        ],
+        "pool": 5,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：5⭐",
+        "leader": "查看人才堆顶 4 张，选择 1 名理/医人才置于人才市场，并获得 2🔬。",
+        "participant": "+1🔬+1🎓。",
+        "tags": "生命科学、基因组",
+        "body": "主门类：理、医｜协同：新工科（未解锁时忽略）｜1🔬=1点；2💰=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P03",
+        "name": "“921”载人航天工程启动",
+        "era": "1990s",
+        "lane": "工程技术",
+        "main": [
+          "传统工科"
+        ],
+        "support": [
+          "理"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "获得“航天总师单位”标记；以后航天/太空项目固定 +1 有效点。",
+        "participant": "+1🎓+1💰。",
+        "tags": "航天、国防",
+        "body": "主门类：传统工科｜协同：理｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P04",
+        "name": "三峡工程科技攻关",
+        "era": "1990s",
+        "lane": "工程技术",
+        "main": [
+          "传统工科"
+        ],
+        "support": [
+          "理",
+          "农",
+          "商"
+        ],
+        "pool": 6,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：6⭐",
+        "leader": "+3💰，并在本项目结算后立即令 1 个传统工科院系免费执行一次“科研攻关”。",
+        "participant": "+2💰。",
+        "tags": "水利、能源、基础设施",
+        "body": "主门类：传统工科｜协同：理、农、商｜1🔬=1点；2💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P05",
+        "name": "超级杂交稻一期攻关",
+        "era": "1990s",
+        "lane": "生命资源",
+        "main": [
+          "农"
+        ],
+        "support": [
+          "理"
+        ],
+        "pool": 5,
+        "contribution": "1🔬=1点；1🏛=1点；3💰=1点｜声望池：5⭐",
+        "leader": "1 个农科院系获得“育种基地”，其预算阶段主产出永久 +1。",
+        "participant": "+1🔬+1🏛。",
+        "tags": "粮食、种业",
+        "body": "主门类：农｜协同：理｜1🔬=1点；1🏛=1点；3💰=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P06",
+        "name": "国家生态监测与天然林保护科技工程",
+        "era": "1990s",
+        "lane": "生命资源",
+        "main": [
+          "农"
+        ],
+        "support": [
+          "理",
+          "法",
+          "医"
+        ],
+        "pool": 5,
+        "contribution": "1🔬=1点；1🏛=1点｜声望池：5⭐",
+        "leader": "获得“生态监测站”；以后第一次受到农/生态类负面事件时免除其中一个院系的负面效果。",
+        "participant": "+2🏛。",
+        "tags": "生态、环境",
+        "body": "主门类：农｜协同：理、法、医｜1🔬=1点；1🏛=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P07",
+        "name": "中华古籍整理与文献保护工程",
+        "era": "1990s",
+        "lane": "人文治理",
+        "main": [
+          "文"
+        ],
+        "support": [
+          "法"
+        ],
+        "pool": 4,
+        "contribution": "1🏛=1点；2💰=1点｜声望池：4⭐",
+        "leader": "1 个文/法院系永久强度 +1，并 +1🏛。",
+        "participant": "+1🏛+1💰。",
+        "tags": "文化、文献",
+        "body": "主门类：文｜协同：法｜1🏛=1点；2💰=1点｜声望池：4⭐｜声望池 4⭐"
+      },
+      {
+        "type": "project",
+        "id": "P08",
+        "name": "现代金融市场与会计审计体系建设",
+        "era": "1990s",
+        "lane": "人文治理",
+        "main": [
+          "商"
+        ],
+        "support": [
+          "法"
+        ],
+        "pool": 5,
+        "contribution": "1🏛=1点；2💰=1点｜声望池：5⭐",
+        "leader": "+3💰；下一时代第一次购买政策牌返还 1🏛。",
+        "participant": "+2💰。",
+        "tags": "金融、制度",
+        "body": "主门类：商｜协同：法｜1🏛=1点；2💰=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P09",
+        "name": "北斗一号卫星导航工程",
+        "era": "1990s",
+        "lane": "交叉战略",
+        "main": [
+          "传统工科",
+          "理"
+        ],
+        "support": [
+          "商"
+        ],
+        "pool": 6,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：6⭐",
+        "leader": "+1🎓；以后“导航/通信/航天”项目固定 +1 有效点。",
+        "participant": "+1🔬+1💰。",
+        "tags": "卫星、导航、信息基础设施",
+        "body": "主门类：传统工科、理｜协同：商｜1🔬=1点；2💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P10",
+        "name": "国家信息高速公路",
+        "era": "1990s",
+        "lane": "交叉战略",
+        "main": [
+          "传统工科"
+        ],
+        "support": [
+          "商",
+          "法"
+        ],
+        "pool": 5,
+        "contribution": "1🔬=1点；2💰=1点；1🏛=1点｜声望池：5⭐",
+        "leader": "本校第一次“政策公关”每时代费用 -1🏛（最低 1）。",
+        "participant": "+1💰+1🏛。",
+        "tags": "互联网、信息化",
+        "body": "主门类：传统工科｜协同：商、法｜1🔬=1点；2💰=1点；1🏛=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P11",
+        "name": "人类基因组序列图完成",
+        "era": "2000s",
+        "lane": "基础科学",
+        "main": [
+          "理",
+          "医"
+        ],
+        "support": [
+          "新工科"
+        ],
+        "pool": 6,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：6⭐",
+        "leader": "下一名理/医/新工科人才招募成本 -2 资源单位。",
+        "participant": "+2🔬。",
+        "tags": "基因组、生命科学",
+        "body": "主门类：理、医｜协同：新工科｜1🔬=1点；2💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P12",
+        "name": "嫦娥一号绕月探测工程",
+        "era": "2000s",
+        "lane": "基础科学",
+        "main": [
+          "理",
+          "传统工科"
+        ],
+        "support": [
+          "新工科"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "获得“深空探测”标记；后续月球/深空项目固定 +1 有效点。",
+        "participant": "+1🎓+1🔬。",
+        "tags": "探月、航天、深空",
+        "body": "主门类：理、传统工科｜协同：新工科｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P13",
+        "name": "神舟五号首次载人航天",
+        "era": "2000s",
+        "lane": "工程技术",
+        "main": [
+          "传统工科"
+        ],
+        "support": [
+          "理",
+          "新工科"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "+2🎓；若已有 P03“航天总师单位”，再 +1⭐（一次性，不进入出资倍率）。",
+        "participant": "+1🎓+1💰。",
+        "tags": "航天、国防",
+        "body": "主门类：传统工科｜协同：理、新工科｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P14",
+        "name": "青藏铁路冻土工程",
+        "era": "2000s",
+        "lane": "工程技术",
+        "main": [
+          "传统工科"
+        ],
+        "support": [
+          "理",
+          "农",
+          "商"
+        ],
+        "pool": 6,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：6⭐",
+        "leader": "+3💰；中西部学校额外 +1🏛。",
+        "participant": "+2💰。",
+        "tags": "交通、冻土、西部",
+        "body": "主门类：传统工科｜协同：理、农、商｜1🔬=1点；2💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P15",
+        "name": "超级杂交稻高产攻关与水稻基因组计划",
+        "era": "2000s",
+        "lane": "生命资源",
+        "main": [
+          "农"
+        ],
+        "support": [
+          "理",
+          "新工科"
+        ],
+        "pool": 6,
+        "contribution": "1🔬=1点；1🏛=1点｜声望池：6⭐",
+        "leader": "1 个农科院系强度 +1；若已有“育种基地”，改为该院系再获得 +1 主产出。",
+        "participant": "+1🔬+1🏛。",
+        "tags": "种业、基因组、粮食",
+        "body": "主门类：农｜协同：理、新工科｜1🔬=1点；1🏛=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P16",
+        "name": "SARS 公共卫生科技攻关",
+        "era": "2000s",
+        "lane": "生命资源",
+        "main": [
+          "医"
+        ],
+        "support": [
+          "理",
+          "法"
+        ],
+        "pool": 6,
+        "contribution": "1🔬=1点；1🏛=1点；3💰=1点｜声望池：6⭐",
+        "leader": "获得“公共卫生中心”；下一次疫情类事件中自己一个院系完全免疫负面部分。",
+        "participant": "+1🔬+1🏛。",
+        "tags": "公共卫生、传染病",
+        "body": "主门类：医｜协同：理、法｜1🔬=1点；1🏛=1点；3💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P17",
+        "name": "国家数字图书馆与文化遗产数字化",
+        "era": "2000s",
+        "lane": "人文治理",
+        "main": [
+          "文"
+        ],
+        "support": [
+          "法",
+          "传统工科"
+        ],
+        "pool": 5,
+        "contribution": "1🏛=1点；2💰=1点｜声望池：5⭐",
+        "leader": "文科下一次评估若进入前 2，额外 +1⭐；并 +1🏛。",
+        "participant": "+2🏛。",
+        "tags": "文化、数字化",
+        "body": "主门类：文｜协同：法、传统工科｜1🏛=1点；2💰=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P18",
+        "name": "金融支付清算与风险监测体系",
+        "era": "2000s",
+        "lane": "人文治理",
+        "main": [
+          "商"
+        ],
+        "support": [
+          "法",
+          "传统工科"
+        ],
+        "pool": 5,
+        "contribution": "1🏛=1点；2💰=1点｜声望池：5⭐",
+        "leader": "+4💰；下一次经济/金融类负面事件资源损失 -2。",
+        "participant": "+2💰+1🏛。",
+        "tags": "金融、支付、风险治理",
+        "body": "主门类：商｜协同：法、传统工科｜1🏛=1点；2💰=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P19",
+        "name": "高速铁路技术体系与“和谐号”",
+        "era": "2000s",
+        "lane": "交叉战略",
+        "main": [
+          "传统工科"
+        ],
+        "support": [
+          "理",
+          "商"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "下一时代第一次建设或升级传统工科院系后返还 2💰。",
+        "participant": "+2💰。",
+        "tags": "高铁、交通、产业化",
+        "body": "主门类：传统工科｜协同：理、商｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P20",
+        "name": "国家重大科研基础条件平台",
+        "era": "2000s",
+        "lane": "交叉战略",
+        "main": [
+          "理"
+        ],
+        "support": [
+          "医",
+          "农",
+          "传统工科"
+        ],
+        "pool": 6,
+        "contribution": "1🔬=1点；3💰=1点｜声望池：6⭐",
+        "leader": "选择一个主/协同门类；本校该门类第一次科研攻关每时代 +1🔬。",
+        "participant": "+2🔬。",
+        "tags": "科研平台、共享设施",
+        "body": "主门类：理｜协同：医、农、传统工科｜1🔬=1点；3💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P21",
+        "name": "FAST“中国天眼”",
+        "era": "2010s",
+        "lane": "基础科学",
+        "main": [
+          "理"
+        ],
+        "support": [
+          "传统工科",
+          "新工科"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "1 个理科院系获得“大科学装置”，科研攻关额外 +1🔬。",
+        "participant": "+2🔬。",
+        "tags": "天文、大科学装置",
+        "body": "主门类：理｜协同：传统工科、新工科｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P22",
+        "name": "“墨子号”量子科学实验卫星",
+        "era": "2010s",
+        "lane": "基础科学",
+        "main": [
+          "理",
+          "新工科"
+        ],
+        "support": [
+          "传统工科"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "下一次新工科解锁时，可在正常购买顺序前“保留”其中 1 张到自己的下一行动轮。",
+        "participant": "+2🔬+1🎓。",
+        "tags": "量子、卫星、前沿科学",
+        "body": "主门类：理、新工科｜协同：传统工科｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P23",
+        "name": "“蛟龙号”7000 米级载人深潜",
+        "era": "2010s",
+        "lane": "工程技术",
+        "main": [
+          "传统工科",
+          "农（海洋）"
+        ],
+        "support": [
+          "新工科",
+          "理"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "获得“深海平台”；海洋/深海项目中前 5 个实际出资点按 ×1.5 计算，超过部分正常。",
+        "participant": "+1🔬+2💰。",
+        "tags": "海洋、深海、装备",
+        "body": "主门类：传统工科、农（海洋）｜协同：新工科、理｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P24",
+        "name": "5G 技术研发与商用",
+        "era": "2010s",
+        "lane": "工程技术",
+        "main": [
+          "新工科",
+          "传统工科"
+        ],
+        "support": [
+          "商"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "首个新工科院系带来的生源奖励若尚未获得，立即获得；若已获得，则 +1🎓。",
+        "participant": "+2💰+1🎓。",
+        "tags": "通信、数字经济、产业化",
+        "body": "主门类：新工科、传统工科｜协同：商｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P25",
+        "name": "精准医学与基因组学重点专项",
+        "era": "2010s",
+        "lane": "生命资源",
+        "main": [
+          "医"
+        ],
+        "support": [
+          "理",
+          "新工科"
+        ],
+        "pool": 6,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：6⭐",
+        "leader": "选择 1 个医学院系和 1 个理/新工科院系组成“精准医学中心”，两者下一次评估各 +1 强度。",
+        "participant": "下一名医/理人才成本 -2。",
+        "tags": "精准医学、基因组",
+        "body": "主门类：医｜协同：理、新工科｜1🔬=1点；2💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P26",
+        "name": "绿色农业与生物育种联合计划",
+        "era": "2010s",
+        "lane": "生命资源",
+        "main": [
+          "农"
+        ],
+        "support": [
+          "理",
+          "新工科"
+        ],
+        "pool": 5,
+        "contribution": "1🔬=1点；1🏛=1点｜声望池：5⭐",
+        "leader": "从下一时代起，每时代第一次有负面事件影响自己的农科院系时，可令其中 1 个受影响院系选择“产出不减”或“强度不减”。",
+        "participant": "+1🔬+1🏛。",
+        "tags": "农业、育种、生态",
+        "body": "主门类：农｜协同：理、新工科｜1🔬=1点；1🏛=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P27",
+        "name": "中华文明探源与古 DNA 联合研究",
+        "era": "2010s",
+        "lane": "人文治理",
+        "main": [
+          "文"
+        ],
+        "support": [
+          "法",
+          "理",
+          "医"
+        ],
+        "pool": 5,
+        "contribution": "1🏛=1点；1🔬=1点｜声望池：5⭐",
+        "leader": "下一次评估的“人文底蕴奖”若达成，额外 +1⭐；否则获得 +2🏛。",
+        "participant": "+1🏛+1🔬。",
+        "tags": "考古、古DNA、文明探源",
+        "body": "主门类：文｜协同：法、理、医｜1🏛=1点；1🔬=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P28",
+        "name": "国家高端智库与“一带一路”研究网络",
+        "era": "2010s",
+        "lane": "人文治理",
+        "main": [
+          "法",
+          "文"
+        ],
+        "support": [
+          "商"
+        ],
+        "pool": 5,
+        "contribution": "1🏛=1点；2💰=1点｜声望池：5⭐",
+        "leader": "下一时代及再下一时代的智库通道上限各 +1（仍需实际支付🏛）。",
+        "participant": "+2🏛。",
+        "tags": "智库、国际治理",
+        "body": "主门类：法、文｜协同：商｜1🏛=1点；2💰=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P29",
+        "name": "北斗全球组网攻关",
+        "era": "2010s",
+        "lane": "交叉战略",
+        "main": [
+          "新工科",
+          "传统工科"
+        ],
+        "support": [
+          "理",
+          "商"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "获得“时空信息平台”；以后导航/通信/智能交通项目固定 +1 有效点。",
+        "participant": "+1🔬+1🎓。",
+        "tags": "北斗、导航、卫星",
+        "body": "主门类：新工科、传统工科｜协同：理、商｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P30",
+        "name": "C919 首飞与适航攻关",
+        "era": "2010s",
+        "lane": "交叉战略",
+        "main": [
+          "传统工科",
+          "新工科"
+        ],
+        "support": [
+          "商",
+          "理"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "选择 1 个传统/新工科院系：其下一次升级费用各减 1💰、1🔬。",
+        "participant": "+2💰+1🔬。",
+        "tags": "大飞机、航空、适航",
+        "body": "主门类：传统工科、新工科｜协同：商、理｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P31",
+        "name": "嫦娥五号/六号月球采样返回",
+        "era": "2020s",
+        "lane": "基础科学",
+        "main": [
+          "理"
+        ],
+        "support": [
+          "传统工科",
+          "新工科"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "若已有“深空探测”标记，额外 +1⭐；并使一个理科院系永久强度 +1。",
+        "participant": "+2🔬+1🎓。",
+        "tags": "探月、深空、样品科学",
+        "body": "主门类：理｜协同：传统工科、新工科｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P32",
+        "name": "“九章/祖冲之”量子计算前沿计划",
+        "era": "2020s",
+        "lane": "基础科学",
+        "main": [
+          "理",
+          "新工科"
+        ],
+        "support": [
+          "传统工科"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "每时代第一次科研攻关可额外选择 1 个理/新工科院系，但该额外院系只产出 1 个主资源。",
+        "participant": "+2🔬。",
+        "tags": "量子计算、前沿计算",
+        "body": "主门类：理、新工科｜协同：传统工科｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P33",
+        "name": "中国空间站建成与运营",
+        "era": "2020s",
+        "lane": "工程技术",
+        "main": [
+          "传统工科",
+          "新工科"
+        ],
+        "support": [
+          "理",
+          "医"
+        ],
+        "pool": 8,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：8⭐",
+        "leader": "获得“空间实验平台”；每次参与航天/太空项目时固定 +1 有效点（可与其他固定点合并计算，但仍受单项目固定点合计最多 +2 的总上限约束）。",
+        "participant": "+1🎓+2🔬。",
+        "tags": "空间站、航天、生命科学",
+        "body": "主门类：传统工科、新工科｜协同：理、医｜1🔬=1点；2💰=1点｜声望池：8⭐｜声望池 8⭐"
+      },
+      {
+        "type": "project",
+        "id": "P34",
+        "name": "可重复使用运载火箭工程化",
+        "era": "2020s",
+        "lane": "工程技术",
+        "main": [
+          "传统工科",
+          "新工科"
+        ],
+        "support": [
+          "理",
+          "商"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "以后航天/太空项目中第一次实际投入的 2 个资源单位，在结算后返还 1 个（代表可重复使用降低成本）。",
+        "participant": "+2💰+1🎓。",
+        "tags": "商业航天、可重复使用、火箭",
+        "body": "主门类：传统工科、新工科｜协同：理、商｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P35",
+        "name": "新冠疫苗与抗病毒药物联合攻关",
+        "era": "2020s",
+        "lane": "生命资源",
+        "main": [
+          "医"
+        ],
+        "support": [
+          "理",
+          "新工科",
+          "法"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；1🏛=1点；2💰=1点｜声望池：7⭐",
+        "leader": "+2🏛；选择 1 个医学院系永久强度 +1。",
+        "participant": "+1🔬+1🏛。",
+        "tags": "疫苗、公共卫生、生物医药",
+        "body": "主门类：医｜协同：理、新工科、法｜1🔬=1点；1🏛=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P36",
+        "name": "种源自主与生物育种产业化",
+        "era": "2020s",
+        "lane": "生命资源",
+        "main": [
+          "农"
+        ],
+        "support": [
+          "理",
+          "新工科",
+          "商"
+        ],
+        "pool": 6,
+        "contribution": "1🔬=1点；1🏛=1点；3💰=1点｜声望池：6⭐",
+        "leader": "农科院系每时代第一次科研攻关后额外 +1💰（成果转化）。",
+        "participant": "+1🔬+2💰。",
+        "tags": "种业、农业科技、产业化",
+        "body": "主门类：农｜协同：理、新工科、商｜1🔬=1点；1🏛=1点；3💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P37",
+        "name": "国家文化数字化战略",
+        "era": "2020s",
+        "lane": "人文治理",
+        "main": [
+          "文"
+        ],
+        "support": [
+          "法",
+          "新工科",
+          "商"
+        ],
+        "pool": 5,
+        "contribution": "1🏛=1点；2💰=1点｜声望池：5⭐",
+        "leader": "选择 1 个文科院系获得“数字人文中心”，其人才槽 +1（最多因此 +1）。",
+        "participant": "+2🏛。",
+        "tags": "文化、数字人文",
+        "body": "主门类：文｜协同：法、新工科、商｜1🏛=1点；2💰=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P38",
+        "name": "数字经济治理与平台规则研究",
+        "era": "2020s",
+        "lane": "人文治理",
+        "main": [
+          "法",
+          "商"
+        ],
+        "support": [
+          "新工科"
+        ],
+        "pool": 5,
+        "contribution": "1🏛=1点；2💰=1点｜声望池：5⭐",
+        "leader": "立即从政策牌堆顶 3 张选择 1 张，以 -1🏛 价格购买（最低 1）；其余放回牌底。",
+        "participant": "+2💰+1🏛。",
+        "tags": "数字经济、治理、平台规则",
+        "body": "主门类：法、商｜协同：新工科｜1🏛=1点；2💰=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P39",
+        "name": "LLM 大模型与智能算力基础设施",
+        "era": "2020s",
+        "lane": "交叉战略",
+        "main": [
+          "新工科",
+          "理"
+        ],
+        "support": [
+          "传统工科",
+          "商",
+          "文"
+        ],
+        "pool": 8,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：8⭐",
+        "leader": "获得“AI科研平台”；科研攻关时每时代第一次可把一个文/法/商院系视为新工科协同院系，正常产出并额外 +1 强度至时代末。",
+        "participant": "+2🔬+1💰。",
+        "tags": "大模型、人工智能、算力",
+        "body": "主门类：新工科、理｜协同：传统工科、商、文｜1🔬=1点；2💰=1点｜声望池：8⭐｜声望池 8⭐"
+      },
+      {
+        "type": "project",
+        "id": "P40",
+        "name": "先进制程与芯片自主攻关",
+        "era": "2020s",
+        "lane": "交叉战略",
+        "main": [
+          "新工科"
+        ],
+        "support": [
+          "理",
+          "传统工科",
+          "商"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "选择 1 个新工科/传统工科院系，其下一次升级费用各减 1💰、1🔬；若该院系带“芯片/集成电路”方向，再额外 +1 强度至时代末（可影响紧随其后的本时代评估）。",
+        "participant": "+2🔬。",
+        "tags": "集成电路、先进制程、产业自主",
+        "body": "主门类：新工科｜协同：理、传统工科、商｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P41",
+        "name": "可控核聚变示范堆点火",
+        "era": "2030s",
+        "lane": "基础科学",
+        "main": [
+          "理"
+        ],
+        "support": [
+          "传统工科",
+          "新工科"
+        ],
+        "pool": 8,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：8⭐",
+        "leader": "1 个理/工科院系获得“大科学装置”，科研攻关额外 +1🔬。",
+        "participant": "+2🔬+1💰。",
+        "tags": "聚变、能源、大科学装置",
+        "body": "主门类：理｜协同：传统工科、新工科｜1🔬=1点；2💰=1点｜声望池：8⭐｜声望池 8⭐"
+      },
+      {
+        "type": "project",
+        "id": "P42",
+        "name": "全国量子互联网骨干网",
+        "era": "2030s",
+        "lane": "基础科学",
+        "main": [
+          "理",
+          "新工科"
+        ],
+        "support": [
+          "传统工科",
+          "法"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；1🏛=1点｜声望池：7⭐",
+        "leader": "“政策公关”每时代可多查看 1 张事件牌；查看后仍只能调整规则允许的数量。",
+        "participant": "+2🔬。",
+        "tags": "量子通信、网络安全",
+        "body": "主门类：理、新工科｜协同：传统工科、法｜1🔬=1点；1🏛=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P43",
+        "name": "6G 空天地一体通信网络",
+        "era": "2030s",
+        "lane": "工程技术",
+        "main": [
+          "新工科",
+          "传统工科"
+        ],
+        "support": [
+          "商",
+          "理"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "+2🎓；以后通信/导航项目固定 +1 有效点。",
+        "participant": "+1🎓+2💰。",
+        "tags": "6G、通信、卫星互联网",
+        "body": "主门类：新工科、传统工科｜协同：商、理｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P44",
+        "name": "深空运输与商业空间站",
+        "era": "2030s",
+        "lane": "工程技术",
+        "main": [
+          "传统工科",
+          "新工科"
+        ],
+        "support": [
+          "理",
+          "商"
+        ],
+        "pool": 8,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：8⭐",
+        "leader": "航天项目中每时代第一次追加出资不消耗 AP（仍需实际资源）。",
+        "participant": "+2💰+1🔬。",
+        "tags": "深空运输、商业航天",
+        "body": "主门类：传统工科、新工科｜协同：理、商｜1🔬=1点；2💰=1点｜声望池：8⭐｜声望池 8⭐"
+      },
+      {
+        "type": "project",
+        "id": "P45",
+        "name": "脑机接口临床转化工程",
+        "era": "2030s",
+        "lane": "生命资源",
+        "main": [
+          "医",
+          "新工科"
+        ],
+        "support": [
+          "理",
+          "法"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；1🏛=1点；2💰=1点｜声望池：7⭐",
+        "leader": "选择医 + 新工科各 1 个院系组成“脑机中心”；每次评估二者各 +1 强度。",
+        "participant": "下一名医/新工科人才成本 -2。",
+        "tags": "脑机接口、医工交叉",
+        "body": "主门类：医、新工科｜协同：理、法｜1🔬=1点；1🏛=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P46",
+        "name": "合成生物与细胞工厂",
+        "era": "2030s",
+        "lane": "生命资源",
+        "main": [
+          "医",
+          "农"
+        ],
+        "support": [
+          "理",
+          "新工科",
+          "商"
+        ],
+        "pool": 6,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：6⭐",
+        "leader": "每时代第一次让医/农院系科研攻关后，可将 1🔬 转为 1💰（成果产业化）。",
+        "participant": "+1🔬+2💰。",
+        "tags": "合成生物、生物制造",
+        "body": "主门类：医、农｜协同：理、新工科、商｜1🔬=1点；2💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P47",
+        "name": "AI 时代法律与算法治理体系",
+        "era": "2030s",
+        "lane": "人文治理",
+        "main": [
+          "法"
+        ],
+        "support": [
+          "文",
+          "商",
+          "新工科"
+        ],
+        "pool": 6,
+        "contribution": "1🏛=1点；2💰=1点｜声望池：6⭐",
+        "leader": "每时代第一次使用政策牌后返还 1🏛（最低实际净成本 1）。",
+        "participant": "+2🏛。",
+        "tags": "AI治理、法律、伦理",
+        "body": "主门类：法｜协同：文、商、新工科｜1🏛=1点；2💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P48",
+        "name": "全国终身教育与学习型社会平台",
+        "era": "2030s",
+        "lane": "人文治理",
+        "main": [
+          "文",
+          "法"
+        ],
+        "support": [
+          "商"
+        ],
+        "pool": 5,
+        "contribution": "1🏛=1点；2💰=1点｜声望池：5⭐",
+        "leader": "+2🎓；少子化导致的生源力损失永久减少 1。",
+        "participant": "+1🎓+1🏛。",
+        "tags": "教育、人口、社会治理",
+        "body": "主门类：文、法｜协同：商｜1🏛=1点；2💰=1点｜声望池：5⭐｜声望池 5⭐"
+      },
+      {
+        "type": "project",
+        "id": "P49",
+        "name": "碳中和能源网络与长时储能",
+        "era": "2030s",
+        "lane": "交叉战略",
+        "main": [
+          "新工科",
+          "传统工科"
+        ],
+        "support": [
+          "理",
+          "农",
+          "商"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点；1🏛=1点｜声望池：7⭐",
+        "leader": "选择一个传统工科院系：可按半价立即转型同级新工科，免 AP。",
+        "participant": "+2💰+1🔬。",
+        "tags": "双碳、储能、能源转型",
+        "body": "主门类：新工科、传统工科｜协同：理、农、商｜1🔬=1点；2💰=1点；1🏛=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P50",
+        "name": "国家智能科研基础设施",
+        "era": "2030s",
+        "lane": "交叉战略",
+        "main": [
+          "新工科",
+          "理"
+        ],
+        "support": [
+          "文",
+          "法",
+          "医",
+          "农"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "每时代第一次科研攻关可选 3 个院系；若规则已允许 3 个，则其中 1 个额外 +1 主资源。",
+        "participant": "+2🔬。",
+        "tags": "AI科研、跨学科、算力",
+        "body": "主门类：新工科、理｜协同：文、法、医、农｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P51",
+        "name": "月面科研基地",
+        "era": "2040s",
+        "lane": "基础科学",
+        "main": [
+          "理",
+          "新工科"
+        ],
+        "support": [
+          "传统工科"
+        ],
+        "pool": 8,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：8⭐",
+        "leader": "+2⭐；并获得“月面实验室”，最终评估时一个理/新工科院系 +2 强度。",
+        "participant": "+2🔬+1🎓。",
+        "tags": "月球、深空、终局工程",
+        "body": "主门类：理、新工科｜协同：传统工科｜1🔬=1点；2💰=1点｜声望池：8⭐｜声望池 8⭐"
+      },
+      {
+        "type": "project",
+        "id": "P52",
+        "name": "引力波与深空天文观测阵列",
+        "era": "2040s",
+        "lane": "基础科学",
+        "main": [
+          "理"
+        ],
+        "support": [
+          "新工科",
+          "传统工科"
+        ],
+        "pool": 8,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：8⭐",
+        "leader": "最终评估“精尖奖”若达成，额外 +1⭐；否则 +3🔬。",
+        "participant": "+2🔬。",
+        "tags": "天文、基础物理、大装置",
+        "body": "主门类：理｜协同：新工科、传统工科｜1🔬=1点；2💰=1点｜声望池：8⭐｜声望池 8⭐"
+      },
+      {
+        "type": "project",
+        "id": "P53",
+        "name": "火星采样返回与载人深空前哨",
+        "era": "2040s",
+        "lane": "工程技术",
+        "main": [
+          "传统工科",
+          "新工科"
+        ],
+        "support": [
+          "理",
+          "医"
+        ],
+        "pool": 8,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：8⭐",
+        "leader": "+2🎓+1⭐；航天/深空项目固定平台奖励在本项目结算时最多计算 2 个，避免无限叠加。",
+        "participant": "+1🎓+2🔬。",
+        "tags": "火星、深空、载人航天",
+        "body": "主门类：传统工科、新工科｜协同：理、医｜1🔬=1点；2💰=1点｜声望池：8⭐｜声望池 8⭐"
+      },
+      {
+        "type": "project",
+        "id": "P54",
+        "name": "聚变电站商业化与全球能源网络",
+        "era": "2040s",
+        "lane": "工程技术",
+        "main": [
+          "传统工科",
+          "新工科"
+        ],
+        "support": [
+          "理",
+          "商"
+        ],
+        "pool": 8,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：8⭐",
+        "leader": "+5💰；最终评估前可将至多 2💰转为 1⭐（仅一次）。",
+        "participant": "+3💰+1🔬。",
+        "tags": "聚变、能源商业化",
+        "body": "主门类：传统工科、新工科｜协同：理、商｜1🔬=1点；2💰=1点｜声望池：8⭐｜声望池 8⭐"
+      },
+      {
+        "type": "project",
+        "id": "P55",
+        "name": "器官再生与个体化医学",
+        "era": "2040s",
+        "lane": "生命资源",
+        "main": [
+          "医"
+        ],
+        "support": [
+          "理",
+          "新工科"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "最终评估医科强度 +2，并立即获得 1🎓。",
+        "participant": "下一名医科人才成本 -2。",
+        "tags": "再生医学、精准医疗",
+        "body": "主门类：医｜协同：理、新工科｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P56",
+        "name": "气候韧性农业与全球种质库",
+        "era": "2040s",
+        "lane": "生命资源",
+        "main": [
+          "农"
+        ],
+        "support": [
+          "理",
+          "新工科",
+          "法"
+        ],
+        "pool": 6,
+        "contribution": "1🔬=1点；1🏛=1点｜声望池：6⭐",
+        "leader": "农科最终评估强度 +2；忽略一次气候/生态类负面事件。",
+        "participant": "+1🔬+2🏛。",
+        "tags": "气候、农业、种质资源",
+        "body": "主门类：农｜协同：理、新工科、法｜1🔬=1点；1🏛=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P57",
+        "name": "中华文明数字基因库与全球汉学平台",
+        "era": "2040s",
+        "lane": "人文治理",
+        "main": [
+          "文"
+        ],
+        "support": [
+          "法",
+          "新工科"
+        ],
+        "pool": 6,
+        "contribution": "1🏛=1点；2💰=1点｜声望池：6⭐",
+        "leader": "最终评估文科强度 +2；若同时满足人文底蕴奖，再 +1⭐。",
+        "participant": "+2🏛。",
+        "tags": "文明、数字人文、国际传播",
+        "body": "主门类：文｜协同：法、新工科｜1🏛=1点；2💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P58",
+        "name": "AGI 时代全球治理与伦理框架",
+        "era": "2040s",
+        "lane": "人文治理",
+        "main": [
+          "法",
+          "文"
+        ],
+        "support": [
+          "商",
+          "新工科"
+        ],
+        "pool": 6,
+        "contribution": "1🏛=1点；2💰=1点｜声望池：6⭐",
+        "leader": "最终结算前可从弃牌堆选择 1 张费用≤3🏛的政策牌免费使用一次。",
+        "participant": "+2🏛+1💰。",
+        "tags": "AGI、治理、伦理",
+        "body": "主门类：法、文｜协同：商、新工科｜1🏛=1点；2💰=1点｜声望池：6⭐｜声望池 6⭐"
+      },
+      {
+        "type": "project",
+        "id": "P59",
+        "name": "全自主科研机器人与 AI 实验室",
+        "era": "2040s",
+        "lane": "交叉战略",
+        "main": [
+          "新工科"
+        ],
+        "support": [
+          "理",
+          "传统工科",
+          "医",
+          "农"
+        ],
+        "pool": 7,
+        "contribution": "1🔬=1点；2💰=1点｜声望池：7⭐",
+        "leader": "本项目结算后立即免费执行一次“科研攻关”（按当前规则选择院系数量），不消耗 AP。",
+        "participant": "+2🔬+1💰。",
+        "tags": "AI科研、机器人、自动化",
+        "body": "主门类：新工科｜协同：理、传统工科、医、农｜1🔬=1点；2💰=1点｜声望池：7⭐｜声望池 7⭐"
+      },
+      {
+        "type": "project",
+        "id": "P60",
+        "name": "月球资源利用与地月经济圈",
+        "era": "2040s",
+        "lane": "交叉战略",
+        "main": [
+          "新工科",
+          "传统工科"
+        ],
+        "support": [
+          "理",
+          "商",
+          "法"
+        ],
+        "pool": 8,
+        "contribution": "1🔬=1点；2💰=1点；1🏛=1点｜声望池：8⭐",
+        "leader": "+4💰+1⭐；若为联盟牵头，联盟中实际出资的每名成员再 +1🎓。",
+        "participant": "+2💰+1🏛。",
+        "tags": "月球、产业化、国际规则、终局工程",
+        "body": "主门类：新工科、传统工科｜协同：理、商、法｜1🔬=1点；2💰=1点；1🏛=1点｜声望池：8⭐｜声望池 8⭐"
+      }
+    ],
+    "policy": [
+      {
+        "type": "policy",
+        "id": "G01",
+        "name": "交叉学科试点",
+        "category": "学科治理与评估（6 张）",
+        "cost": 2,
+        "subtype": "持续",
+        "body": "选择自己两个不同门类的院系。本时代下一次评估时，若二者都仍在校且均未处于调档中，二者各 强度 +1。"
+      },
+      {
+        "type": "policy",
+        "id": "G02",
+        "name": "学科特区",
+        "category": "学科治理与评估（6 张）",
+        "cost": 3,
+        "subtype": "持续",
+        "body": "选择 1 个院系。本时代内升级该院系时，所需 🔬 可全部用 🏛 按 1:1 替代，不受门类限制。"
+      },
+      {
+        "type": "policy",
+        "id": "G03",
+        "name": "自主审核权",
+        "category": "学科治理与评估（6 张）",
+        "cost": 2,
+        "subtype": "即时",
+        "body": "从院系市场或人才市场选择 1 张牌，放置“保留”标记。直到你的下一行动轮开始前，其他玩家不能购买/招募该牌；届时若你没有拿走，移除标记。"
+      },
+      {
+        "type": "policy",
+        "id": "G04",
+        "name": "教育综合改革试点",
+        "category": "学科治理与评估（6 张）",
+        "cost": 4,
+        "subtype": "即时",
+        "body": "本行动轮你执行一次“建设院系 / 升级院系 / 合并院系 / 工科转型”后，立即返还该行动消耗的 1 AP。每时代每名玩家最多通过此牌获得 1 AP。"
+      },
+      {
+        "type": "policy",
+        "id": "G05",
+        "name": "评估复核",
+        "category": "学科治理与评估（6 张）",
+        "cost": 2,
+        "subtype": "反应",
+        "body": "在某门类评估排名确定、但声望尚未发放时使用。选择自己该门类 1 个院系，本次评估 强度 +2，然后重新计算该门类排名。 每次评估每名玩家最多使用 1 张“评估复核”。"
+      },
+      {
+        "type": "policy",
+        "id": "G06",
+        "name": "一流学科专项",
+        "category": "学科治理与评估（6 张）",
+        "cost": 4,
+        "subtype": "常设",
+        "body": "选择一个门类并放置专项标记。你第一次在该门类获得“评估第 1”时，额外 +2⭐，随后立即弃掉本政策。"
+      },
+      {
+        "type": "policy",
+        "id": "T01",
+        "name": "青年人才计划",
+        "category": "人才与招生（6 张）",
+        "cost": 2,
+        "subtype": "即时",
+        "body": "查看人才牌堆顶 3 张牌，选择其中 1 张“讲席教授”放入人才市场，其余按原顺序放回牌堆底。若 3 张中没有讲席教授，则全部放回牌堆底并获得 1🏛返还。"
+      },
+      {
+        "type": "policy",
+        "id": "T02",
+        "name": "编制绿色通道",
+        "category": "人才与招生（6 张）",
+        "cost": 2,
+        "subtype": "反应",
+        "body": "你赢得一次人才竞价后使用。最终支付成本减少 2 个资源单位（💰或🔬任意组合，最低支付不低于牌面底价的 50%）。"
+      },
+      {
+        "type": "policy",
+        "id": "T03",
+        "name": "服务期协议",
+        "category": "人才与招生（6 张）",
+        "cost": 2,
+        "subtype": "反应",
+        "body": "当你的 1 名人才能被挖角时使用：本次挖角直接无效，且不消耗该院系本来可用的免费防御次数。"
+      },
+      {
+        "type": "policy",
+        "id": "T04",
+        "name": "柔性引才",
+        "category": "人才与招生（6 张）",
+        "cost": 3,
+        "subtype": "持续",
+        "body": "本时代你招募的第一名异门类人才，不再将效果减半；其按全额效果工作到时代结束。时代结束后若仍门类不匹配，恢复减半。"
+      },
+      {
+        "type": "policy",
+        "id": "T05",
+        "name": "招生专项计划",
+        "category": "人才与招生（6 张）",
+        "cost": 2,
+        "subtype": "即时",
+        "body": "获得 +1🎓。若你当前生源力处于全场后两名，则改为 +2🎓。"
+      },
+      {
+        "type": "policy",
+        "id": "T06",
+        "name": "人才西部专项",
+        "category": "人才与招生（6 张）",
+        "cost": 2,
+        "subtype": "持续",
+        "body": "若你属于“中西部 / 东北”区位：本时代第一次成功招募人才后获得 1💰 +1🎓。 其他区位学校也可购买：本时代若你与一所中西部/东北学校组成联盟，则双方各获得 1🎓。"
+      },
+      {
+        "type": "policy",
+        "id": "R01",
+        "name": "国家重大专项",
+        "category": "科研与国家重大工程（6 张）",
+        "cost": 3,
+        "subtype": "即时",
+        "body": "选择本时代一个你已参与的国家重大工程。你的竞标单位立即获得 +2 固定有效出资点；这些点不是实际资源，不参与退款，并在所有倍率计算完成后加入。"
+      },
+      {
+        "type": "policy",
+        "id": "R02",
+        "name": "配套资金",
+        "category": "科研与国家重大工程（6 张）",
+        "cost": 2,
+        "subtype": "持续",
+        "body": "打出时选择本时代 1 个你已参与的国家重大工程。直到该工程结算，你投入的前 4💰折算率改善一级： - 原 3💰=1点 → 2💰=1点； - 原 2💰=1点 → 1💰=1点； - 已是 1💰=1点 的项目不再改善。 超过前 4💰 的部分按项目原折算率计算。"
+      },
+      {
+        "type": "policy",
+        "id": "R03",
+        "name": "联合实验室",
+        "category": "科研与国家重大工程（6 张）",
+        "cost": 2,
+        "subtype": "持续",
+        "body": "仅当你处于联盟中可使用。选择本时代一个联盟合标的国家重大工程；只要联盟成员中至少有两人分别拥有该工程不同的匹配门类，该竞标单位获得 +2 固定有效出资点。"
+      },
+      {
+        "type": "policy",
+        "id": "R04",
+        "name": "揭榜挂帅",
+        "category": "科研与国家重大工程（6 张）",
+        "cost": 3,
+        "subtype": "反应",
+        "body": "在另一竞标单位追加国家重大工程出资后使用。你可以立即向同一工程追加至多 2 个资源单位，不消耗 AP；仍按工程正常折算，并计入你每时代最多参与 2 个工程的上限。"
+      },
+      {
+        "type": "policy",
+        "id": "R05",
+        "name": "成果转化",
+        "category": "科研与国家重大工程（6 张）",
+        "cost": 2,
+        "subtype": "持续",
+        "body": "打出时选择本时代 1 个你已参与的国家重大工程。若你在该工程最终进入前 2，结算后额外获得 2💰；若你是第 1 名，改为 3💰。本牌不会因你同时参加两个工程而重复触发。"
+      },
+      {
+        "type": "policy",
+        "id": "R06",
+        "name": "科研经费包干制",
+        "category": "科研与国家重大工程（6 张）",
+        "cost": 3,
+        "subtype": "持续",
+        "body": "本时代你第一次执行“科研攻关”时，可以选择 3 个院系而非 2 个。若事件已经让科研攻关可选 3 个，则改为其中 1 个院系额外产出一次其主资源的 +1。"
+      },
+      {
+        "type": "policy",
+        "id": "D01",
+        "name": "院系调整备案",
+        "category": "调档、外交与风险管理（6 张）",
+        "cost": 2,
+        "subtype": "即时",
+        "body": "选择一个你作为买方、正在调档中的院系，其调档刻度立即 +1。本时代同一院系不能同时受到两张“院系调整备案”。"
+      },
+      {
+        "type": "policy",
+        "id": "D02",
+        "name": "重点学科保卫",
+        "category": "调档、外交与风险管理（6 张）",
+        "cost": 2,
+        "subtype": "反应",
+        "body": "当你即将为“挽留院系”支付 1⭐ 或 2🎓时使用：本次改为支付 1🏛，仍使调档刻度 −1。"
+      },
+      {
+        "type": "policy",
+        "id": "D03",
+        "name": "对口支援计划",
+        "category": "调档、外交与风险管理（6 张）",
+        "cost": 2,
+        "subtype": "即时",
+        "body": "选择另一名玩家。你给对方至多 2 个 💰/🔬；每实际给出 1 个资源，你获得 1 个🏛兑换额度，本次最多获得 2🏛。对方必须同意交易。"
+      },
+      {
+        "type": "policy",
+        "id": "D04",
+        "name": "高校联盟专项",
+        "category": "调档、外交与风险管理（6 张）",
+        "cost": 3,
+        "subtype": "即时",
+        "body": "你本时代签订或续签一次联盟时，自己的 1🏛联盟费用免除；并且本次联盟可在“资源互通 / 联合培养”中额外选择一个弱化版副效果： - 资源互通副效果：每人额外可转换 1 单位资源； - 联合培养副效果：签约时盟内每人立即 +1🎓，但不再提供持续 +1🎓。"
+      },
+      {
+        "type": "policy",
+        "id": "D05",
+        "name": "政策预研",
+        "category": "调档、外交与风险管理（6 张）",
+        "cost": 2,
+        "subtype": "即时",
+        "body": "查看下一时代事件堆顶 3 张，可以选择其中 1 张放到第 3 位，其余顺序不变。你可以公开或隐瞒看到的信息。"
+      },
+      {
+        "type": "policy",
+        "id": "D06",
+        "name": "应急预案",
+        "category": "调档、外交与风险管理（6 张）",
+        "cost": 3,
+        "subtype": "反应",
+        "body": "一个负面时代事件翻开并确定效果后使用。选择自己： - 免除该事件造成的 一种资源损失；或 - 令自己 1 个院系完全免受该事件影响。 不能取消针对全体的规则改变，也不能取消其他玩家受到的效果。"
+      }
+    ]
+  }
+}

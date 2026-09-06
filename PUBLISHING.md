@@ -163,3 +163,16 @@ new build.
 ## Drafts
 
 Set `draft: true` to hide a post from the homepage and from generated routes.
+
+## 高校风云游戏服务
+
+游戏页面发布前，先部署 `workers/gaoxiao/wrangler.jsonc` 中的独立 Worker，确认同域 `/api/gaoxiao/health` 返回正常，再发布 Pages。详细步骤与规则范围见 `docs/gaoxiao-online.md`。
+
+```powershell
+npx.cmd wrangler whoami
+npm.cmd run deploy:gaoxiao
+npm.cmd run build
+npx.cmd wrangler pages deploy dist --project-name mratg-pixel-blog-git --branch main
+```
+
+将对应源代码提交到 GitHub，确保下一次 Git 自动部署继续包含联网游戏。切勿只发前端却遗漏 Durable Objects 后端。
