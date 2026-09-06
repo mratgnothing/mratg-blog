@@ -58,8 +58,9 @@ async function acceptQueue(result) {
   }
 }
 async function getRoom() {
-  const next=await api(`/room/${session.roomId}/state?size=${session.size}`);
-  receive(next);
+  const roomId=session.roomId;
+  const next=await api(`/room/${roomId}/state?size=${session.size}`);
+  if(session.roomId===roomId)receive(next);
 }
 function receive(next) {
   if(view && view.roomId===next.roomId && next.version<view.version)return;
@@ -148,6 +149,7 @@ function renderRoom() {
 }
 function renderActions() {
   $('ready-button').disabled=busy||view.ready?.includes(view.me);
+  $('confirm-leave').disabled=busy;
   const previous=$('action-type').value;
   const types=[...new Set(view.actions.filter(a=>a.type!=='pass').map(a=>a.type))];
   $('action-type').innerHTML=types.map(t=>`<option value="${esc(t)}">${esc(actionNames[t]||t)}</option>`).join('')||'<option value="">等待其他玩家</option>';
@@ -195,7 +197,7 @@ $('match-form').addEventListener('submit',e=>{e.preventDefault();start(selectedM
 $('cancel-match').addEventListener('click',cancelMatch);$('action-type').addEventListener('change',renderChoices);$('action-choice').addEventListener('change',()=>{$('action-description').textContent=view.actions.find(a=>a.id===$('action-choice').value)?.label||'';});
 $('execute').addEventListener('click',()=>act($('action-choice').value));$('pass').addEventListener('click',()=>act(view?.actions.find(a=>a.type==='pass')?.id));
 $('resume').addEventListener('click',async()=>{if(busy)return;busy=true;try{receive(await api(`/room/${session.roomId}/resume`,{size:session.size}));error();}catch(e){error(e.message);}finally{busy=false;renderActions();schedule();}});
-$('leave-room').addEventListener('click',()=>$('leave-dialog').showModal());$('keep-playing').addEventListener('click',()=>$('leave-dialog').close());$('confirm-leave').addEventListener('click',leave);$('play-again').addEventListener('click',leave);
+$('leave-room').addEventListener('click',()=>{$('confirm-leave').disabled=busy;$('leave-dialog').showModal();});$('keep-playing').addEventListener('click',()=>$('leave-dialog').close());$('confirm-leave').addEventListener('click',leave);$('play-again').addEventListener('click',leave);
 $('school').addEventListener('change',previewSchool);
 $('mode-human').addEventListener('click',()=>selectMode('human'));$('mode-ai').addEventListener('click',()=>selectMode('ai'));
 $('faculty-tab').addEventListener('click',()=>marketTab('faculty'));$('talent-tab').addEventListener('click',()=>marketTab('talent'));
