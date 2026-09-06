@@ -237,11 +237,11 @@ function deskTab(name){
   for(const b of document.querySelectorAll('[data-desk-tab]')){const on=b.dataset.deskTab===name;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;}
   for(const p of document.querySelectorAll('.desk-content'))p.hidden=p.id!=='desk-'+name;
 }
-function mobileView(name){document.querySelector('.gxf-online').dataset.mobileView=name;for(const b of document.querySelectorAll('[data-mobile-view]'))b.setAttribute('aria-pressed',String(b.dataset.mobileView===name));}
+function mobileView(name){document.querySelector('.gxf-online').dataset.mobileView=name;for(const b of document.querySelectorAll('button[data-mobile-view]'))b.setAttribute('aria-pressed',String(b.dataset.mobileView===name));}
 document.querySelector('.desk-tabs').addEventListener('keydown',e=>{const tabs=[...document.querySelectorAll('[data-desk-tab]')];let i=tabs.indexOf(document.activeElement);if(i<0)return;if(e.key==='ArrowRight')i=(i+1)%tabs.length;else if(e.key==='ArrowLeft')i=(i+tabs.length-1)%tabs.length;else if(e.key==='Home')i=0;else if(e.key==='End')i=tabs.length-1;else return;e.preventDefault();deskTab(tabs[i].dataset.deskTab);tabs[i].focus();});
 document.querySelector('.gxf-online').addEventListener('click',e=>{
  const tab=e.target.closest('[data-desk-tab]');if(tab)deskTab(tab.dataset.deskTab);
- const nav=e.target.closest('[data-mobile-view]');if(nav)mobileView(nav.dataset.mobileView);
+ const nav=e.target.closest('button[data-mobile-view]');if(nav)mobileView(nav.dataset.mobileView);
  const seat=e.target.closest('[data-inspect-player]');if(seat&&view){const p=view.players.find(p=>p.id===seat.dataset.inspectPlayer);$('card-detail').innerHTML=`<p class="gxf-eyebrow">${p.human?'真人玩家':'AI 玩家'} · ${esc(p.name)}</p><h2>${esc(p.school)}</h2><p>声望 ${p.prestige} / ${p.target} · ${p.ap} AP</p>${p.campus.map(f=>`<p><strong>${esc(f.card.name)}</strong> · 强度 ${f.strength}<br>人才：${esc(f.talentNames.join('、'))||'暂无'}</p>`).join('')}`;$('card-dialog').showModal();}
 });
 $('fullscreen-toggle').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{error('浏览器未允许全屏，可使用浏览器的全屏功能。');}});

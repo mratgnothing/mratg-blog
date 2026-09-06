@@ -31,4 +31,4 @@ Cloudflare Pages 已部署成功：`https://a7a25cb3.mratg-pixel-blog-git.pages.
 
 对正式域名 `https://mra-t-g-blog.cn` 运行同一浏览器验证脚本全部通过：首页双入口、2 真人 + 2 AI 匹配及双方操作、刷新、四个标签、移动端三个视图、6 人 AI 桌、退出。浏览器脚本错误为 0；真实域名截图和结果位于 `output/playwright/v3-production/`。
 
-GitHub 源码普通推送因自动审批要求对具体仓库 main 及本次/上一任务提交范围的明确授权而暂停，已向用户提出授权请求；不是 Cloudflare 发布失败。授权后再执行普通推送，不使用强制覆盖。
+用户明确授权同步源码后，已成功普通推送至 `mratgnothing/mratg-blog` 的 `main`（`e63d0e4..db4206a`），包含上一任务的联机与真人控制修复。本次没有强制覆盖远端。
