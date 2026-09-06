@@ -13,6 +13,8 @@ const tickets=await Promise.all(clients.map(c=>request(c.token,'/match?size=3'))
 const roomId=tickets[0].body.roomId;assert.ok(roomId);assert.ok(tickets.every(r=>r.body.roomId===roomId));
 let latest;
 for(const c of clients){const r=await request(c.token,`/room/${roomId}/state?size=3`);assert.equal(r.status,200);c.id=r.body.me;latest=r.body;}
+for(const c of clients)latest=(await request(c.token,`/room/${roomId}/ready`,{size:3})).body;
+await new Promise(r=>setTimeout(r,Math.max(0,latest.readyAt-latest.serverNow)+100));
 assert.ok(latest.players.every(p=>p.human));evidence.push('Concurrent 3-human queue created exactly one all-human room.');
 const outsider=(await request(null,'/session',{})).body.token;
 assert.equal((await request(outsider,`/room/${roomId}/state?size=3`)).status,403);
@@ -31,6 +33,7 @@ assert.equal((await request(current.token,`/room/${roomId}/action`,{...command,r
 evidence.push('Duplicate request id did not spend again; stale version and wrong actor rejected.');
 latest=result.body;let actions=1;
 while(!latest.ended && actions<140){
+  if(latest.readyAt>latest.serverNow)await new Promise(r=>setTimeout(r,latest.readyAt-latest.serverNow+100));
   current=clients.find(c=>c.id===latest.active);assert.ok(current);
   latest=(await request(current.token,`/room/${roomId}/state?size=3`)).body;
   const pass=latest.actions.find(a=>a.type==='pass');assert.ok(pass);

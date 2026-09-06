@@ -4,7 +4,7 @@ import { createGame, applyAction, chooseAI, publicView, legalActions, activePlay
 import { joinQueue, cancelQueue, advanceQueue, queueView, TICKET_TTL_MS } from './matchmaking.js';
 
 const API = '/api/gaoxiao';
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 const json = (body, status = 200) => Response.json(body?._error ? {error:body._error} : body, {status:body?._error ? body.status : status, headers: {'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff'}});
 const number = (value, fallback) => value !== null && value !== undefined && Number.isFinite(Number(value)) ? Number(value) : fallback;
 function assert(value, message, status = 400) { if (!value) throw Object.assign(new Error(message), {status}); }
@@ -42,7 +42,7 @@ export class Matchmaker extends DurableObject {
       saveStore(this.ctx, saved);
       if (result.roomId) {
         const ticket = q.find(t => t.playerId === player.playerId);
-        await this.env.ROOMS.getByName(ticket.roomId).initialize(ticket.roomId, ticket.roster, size);
+        await this.env.ROOMS.getByName(ticket.roomId).initialize(ticket.roomId, ticket.roster, size, saved.practice);
       }
       return result;
     } else if (operation === 'release') {
@@ -56,7 +56,7 @@ export class Matchmaker extends DurableObject {
     await this.ctx.storage.setAlarm(now + 5000);
     const ticket = q.find(t => t.playerId === player.playerId);
     // Assignment is durable before RPC. Any poll safely retries the same room initialization.
-    if (ticket?.roomId) await this.env.ROOMS.getByName(ticket.roomId).initialize(ticket.roomId, ticket.roster, size);
+    if (ticket?.roomId) await this.env.ROOMS.getByName(ticket.roomId).initialize(ticket.roomId, ticket.roster, size, saved.practice);
     return queueView(q, player.playerId, size, waitMs, now);
   }
   async alarm() {
@@ -72,19 +72,18 @@ export class Matchmaker extends DurableObject {
 
 export class GameRoom extends DurableObject {
   constructor(ctx, env) { super(ctx, env); initStore(ctx); }
-  async initialize(roomId, roster, size) {
+  async initialize(roomId, roster, size, practice = false) {
     if (readStore(this.ctx)) return;
     const seed = crypto.getRandomValues(new Uint32Array(1))[0];
     const game = createGame(data.decks, roster, size, seed);
     const now = Date.now();
-    const saved = {roomId, game, touched: now, expires: now + TICKET_TTL_MS, receipts: [], deadline: 0};
-    this.deadline(saved,now);
+    const saved = {roomId, game, practice, started:false, ready:[], seen:{}, readyAt:now, touched: now, expires: now + TICKET_TTL_MS, receipts: [], deadline: now + number(this.env.TURN_MS,300000)};
     saveStore(this.ctx,saved);
     await this.schedule(saved);
   }
   deadline(saved, now) {
     const p = activePlayer(saved.game);
-    saved.deadline = saved.game.ended ? now + 3600000 : now + (p?.human && !p.auto ? number(this.env.TURN_MS,90000) : number(this.env.AI_MS,1000));
+    saved.deadline = saved.game.ended ? now + 3600000 : Math.max(now,saved.readyAt||0) + (p?.human && !p.left ? number(this.env.TURN_MS,300000) : number(this.env.AI_MS,2500));
   }
   async schedule(saved) { await this.ctx.storage.setAlarm(Math.min(saved.deadline, saved.expires)); }
   async request(playerId, operation, body = {}) {
@@ -98,13 +97,31 @@ export class GameRoom extends DurableObject {
     assert(p, '你不在这个房间中。',403);
     const now = Date.now();
     assert(now < saved.expires, '房间已过期，请重新匹配。',410);
+    saved.seen ||= {}; saved.seen[playerId] = now;
+    // Migrate old rooms: human is an identity, never a permanent timeout controller.
+    if (saved.started === undefined) saved.started = true;
+    saved.ready ||= [];
+    if (p.auto && !p.left && !saved.game.ended) {
+      p.auto = false; saved.game.version++;
+      if (activePlayer(saved.game)?.id === playerId) this.deadline(saved,now);
+    }
+    if (operation === 'ready') {
+      assert(!p.left,'已经退出这场对局。',403);
+      if(!saved.ready.includes(playerId)) { saved.ready.push(playerId); saved.game.version++; }
+      if(!saved.started && saved.game.players.filter(p=>p.human&&!p.left).every(p=>saved.ready.includes(p.id))) {
+        saved.started=true; saved.readyAt=now+number(this.env.ERA_MS,5000);this.deadline(saved,now);
+      }
+    }
     if (operation === 'action') {
       assert(typeof body.requestId === 'string' && /^[a-zA-Z0-9-]{8,80}$/.test(body.requestId),'请求编号无效。');
       if (!saved.receipts.some(r => r.playerId === playerId && r.id === body.requestId)) {
         assert(!p.left, '已退出对局，不能继续操作。',403);
+        assert(saved.started,'请先准备开始对局。',409);
+        assert(now >= (saved.readyAt||0),'正在发牌，请稍候。',409);
         assert(body.version === saved.game.version, '局面已更新，请按最新状态行动。',409);
-        assert(now < saved.deadline, '行动已超时，正在由 AI 托管。',409);
+        const era = saved.game.era;
         applyAction(saved.game, data.decks, playerId, body.actionId);
+        if(saved.game.era!==era) saved.readyAt=now+number(this.env.ERA_MS,5000);
         saved.receipts.push({playerId,id:body.requestId});
         saved.receipts = saved.receipts.slice(-80);
         this.deadline(saved,now);
@@ -125,7 +142,7 @@ export class GameRoom extends DurableObject {
     saved.touched = now;
     saveStore(this.ctx,saved);
     await this.schedule(saved);
-    return {...publicView(saved.game,data.decks,playerId), roomId:saved.roomId, deadline:saved.deadline, serverNow:now};
+    return {...publicView(saved.game,data.decks,playerId), roomId:saved.roomId, practice:!!saved.practice, started:saved.started, ready:saved.ready, readyAt:saved.readyAt||0, deadline:saved.deadline, serverNow:now};
   }
   async alarm() {
     const saved = readStore(this.ctx);
@@ -133,14 +150,23 @@ export class GameRoom extends DurableObject {
     const now = Date.now();
     if (now >= saved.expires || (saved.game.ended && now >= saved.deadline)) { this.ctx.storage.sql.exec('DELETE FROM state'); return; }
     if (now >= saved.deadline) {
+      if(saved.started === false) {
+        if(saved.practice) {saved.deadline=now+number(this.env.TURN_MS,300000);saveStore(this.ctx,saved);await this.schedule(saved);return;}
+        saved.started=true;saved.game.version++;saved.readyAt=now+number(this.env.ERA_MS,5000);this.deadline(saved,now);saveStore(this.ctx,saved);await this.schedule(saved);return;
+      }
       const p = activePlayer(saved.game);
-      if (p?.human && !p.auto) {
-        p.auto = true;
-        saved.game.logs.unshift(`${p.name} 行动超时，AI 暂时托管，可点击「恢复操作」回到对局。`);
+      if (p?.human && !p.left) {
+        p.auto=false;
+        if(saved.practice || now-(saved.seen?.[p.id]||0)<30000) {
+          this.deadline(saved,now);saveStore(this.ctx,saved);await this.schedule(saved);return;
+        }
+        saved.game.logs.unshift(`${p.name} 暂时离线，AI 仅代为完成本次行动；回来即可继续操作。`);
       }
       if (p && !saved.game.ended) {
+        const era=saved.game.era;
         const action = chooseAI(saved.game,data.decks,p.id);
         applyAction(saved.game,data.decks,p.id,action.id);
+        if(saved.game.era!==era)saved.readyAt=now+number(this.env.ERA_MS,5000);
       }
       this.deadline(saved,now);
       saveStore(this.ctx,saved);
@@ -199,7 +225,7 @@ export default {
         const coordinator = env.MATCHMAKER.getByName(practice ? `practice-${size}-${playerId}` : `public-${size}`);
         return json(await coordinator.update(player,size,path.endsWith('/cancel') ? 'cancel' : request.method === 'GET' ? 'poll' : 'join'));
       }
-      const room = path.match(/^\/room\/([a-f0-9-]{36})\/(state|action|resume|leave)$/);
+      const room = path.match(/^\/room\/([a-f0-9-]{36})\/(state|action|ready|resume|leave)$/);
       if (room) {
         const [,roomId,operation] = room;
         assert(request.method === (operation === 'state' ? 'GET' : 'POST'),'请求方法不被允许。',405);

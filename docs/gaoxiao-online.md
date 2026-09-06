@@ -10,7 +10,7 @@
 - **与 AI 练习**：立即创建个人练习桌，其余位置全部为 AI。
 - **取消匹配**：尚未分桌时撤销排队；若同一时刻已经分桌，则显示已分配房间，玩家可选择退出。
 - **刷新重连**：浏览器本地保存会话和房间号，重新打开同一浏览器即可恢复。不要清理浏览器网站数据。
-- **超时托管**：每次操作 90 秒，超时后 AI 接管；点击“恢复操作”重新接手。真人不会因网络抖动立即被踢出。
+- **超时托管**：AI 对战无强制行动超时；真人匹配每次 5 分钟，在线时自动延长思考。离线超过 30 秒且轮到自己并耗尽思考时间时，AI 只代走本次行动，不修改真人身份；重连后可以继续亲自操作。旧版 auto 状态会自动清除。
 - **退出对局**：经确认后由 AI 接替，原玩家不可再回到本局，可以重新匹配。
 
 每个浏览器会话独立；使用不同浏览器或不同无痕窗口测试多个真人。同桌选到相同高校时，按服务器入队顺序保留先选者，后选者分配其他学校，并记录校史。
@@ -55,7 +55,7 @@ AI 与真人调用同一个 `applyAction`。服务端只接受当前版本的合
 - Durable Objects：每个桌位数一个公共匹配协调器；每个对局一个独立 `GameRoom`。练习队列按玩家独立。
 - 使用 SQLite 存储同步读改写；分桌结果先持久化，再幂等创建房间，重复轮询不会重复开局。
 - Durable Object alarm 驱动排队过期、AI 行动、超时托管和清理。房间最长保留 6 小时；终局约保留 1 小时；所有真人退出后约 1 分钟清理。
-- 客户端 1.5 秒轮询、90 秒行动限时，使用服务端时间计算倒计时。
+- 客户端 1.5 秒轮询、5 分钟基础思考时段，使用服务端时间计算倒计时。
 - 会话为随机 256 位 bearer 值，仅保存在浏览器并放在 Authorization 请求头；服务端用其 SHA-256 摘要作为玩家标识。日志和页面不输出凭证。
 - 匹配租约 15 秒，公共队列限制每来源 IP 每分钟 12 次新入队，协调器限制 1000 张有效票据；JSON 请求最多 4 KiB。私人练习实例的限流仅针对自身实例，未做跨实例全局限流。
 
@@ -68,7 +68,8 @@ AI 与真人调用同一个 `applyAction`。服务端只接受当前版本的合
 | POST `/api/gaoxiao/practice` | 独立 AI 练习 |
 | GET `/api/gaoxiao/room/:id/state` | 已入桌玩家获取自己的视图 |
 | POST `/api/gaoxiao/room/:id/action` | 版本校验、请求幂等、行动校验 |
-| POST `/api/gaoxiao/room/:id/resume` | 恢复真人控制 |
+| POST `/api/gaoxiao/room/:id/ready` | 真人确认准备，全部准备后才开局 |
+| POST `/api/gaoxiao/room/:id/resume` | 兼容旧版，恢复真人控制 |
 | POST `/api/gaoxiao/room/:id/leave` | 退出并释放匹配票据 |
 
 ## 本地开发与验证
@@ -90,7 +91,7 @@ npx.cmd wrangler deploy --config workers/gaoxiao/wrangler.jsonc --dry-run
 浏览器测试使用本机 Edge 与 Playwright，截图在 `output/playwright/gaoxiao-online/`。超时测试使用独立的本地 Worker 实例：
 
 ```powershell
-npx.cmd wrangler dev --config workers/gaoxiao/wrangler.jsonc --port 8792 --inspector-port 9232 --persist-to tmp/fast-state --var MATCH_WAIT_MS:1000 --var TURN_MS:3000 --var AI_MS:50
+npx.cmd wrangler dev --config workers/gaoxiao/wrangler.jsonc --name mratg-gaoxiao-test2 --port 8794 --inspector-port 9234 --persist-to tmp/test2-state --var MATCH_WAIT_MS:1000 --var TURN_MS:1200 --var AI_MS:100 --var ERA_MS:200
 node scripts/test-gaoxiao-timeouts.mjs
 ```
 
@@ -105,3 +106,9 @@ node scripts/test-gaoxiao-timeouts.mjs
 5. 在线上再次测试两个独立会话、匹配、AI 补位、行动、刷新与手机布局，退出测试房间。
 
 回退前端可使用 Pages 的上一部署；Worker 可使用 `wrangler rollback`。数据库规则标识为 `quick-v1`，后续不兼容规则应创建新的版本命名空间，避免把进行中的对局按新规则解释。
+
+## 1.1 牌桌与节奏修订
+
+入口改为“真人匹配”和“AI 对战”两张模式卡。所有真人点击准备后才开始；真人匹配准备阶段最多等待 5 分钟，AI 对战一直等待本人确认。AI 每步 2.5 秒，发牌与时代切换保留 5 秒。动画支持手动关闭及系统减少动态效果偏好。
+
+正式界面为中央公共牌桌、对手席位、本人校园及资源、右侧决策与共享市场。卡牌可直接点选合法行动，手机提供牌桌/校园/决策快捷导航。真人身份与离席 AI 代走分开处理，旧版超时永久托管的逻辑已删除。

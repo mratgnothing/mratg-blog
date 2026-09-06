@@ -11,6 +11,6 @@
     { "name": "ROOMS", "class_name": "GameRoom" }
   ]},
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Matchmaker", "GameRoom"] }],
-  "vars": { "MATCH_WAIT_MS": "20000", "TURN_MS": "90000", "AI_MS": "1000" },
+  "vars": { "MATCH_WAIT_MS": "20000", "TURN_MS": "300000", "AI_MS": "2500", "ERA_MS": "5000" },
   "observability": { "enabled": true, "head_sampling_rate": 0.1 }
 }

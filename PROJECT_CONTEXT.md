@@ -269,6 +269,8 @@ As of this review:
 
 ## 高校风云联网版（2026-09-06）
 
-游戏路由新增真人匹配、AI 练习、匿名会话重连与超时托管。服务代码位于 `workers/gaoxiao/`，由独立 Cloudflare Worker 和 SQLite Durable Objects 执行；同域路由 `/api/gaoxiao/*`。默认等待 20 秒，满桌即开始；每次行动限时 90 秒。网站仍发布到原 Pages 项目。
+游戏路由新增真人匹配、AI 练习、匿名会话重连与超时托管。服务代码位于 `workers/gaoxiao/`，由独立 Cloudflare Worker 和 SQLite Durable Objects 执行；同域路由 `/api/gaoxiao/*`。默认等待 20 秒，满桌即开始；真人每次有 5 分钟基础思考时间，保持在线可继续思考；AI 对战不强制超时。网站仍发布到原 Pages 项目。
 
 当前自动化玩法是 `quick-v1` 快速版，保留 48 校与完整 336 张卡牌档案；复杂高校技能、政策、人才拍卖等尚未完整自动化。规则差异、AI 行为、接口、验证和上线顺序以 `docs/gaoxiao-online.md` 为准。不要把该快速版称为实体 v0.5 全规则实现，也不要把本地测试通过写成已上线。
+
+2026-09-06 第二轮：修复真人超时后被永久托管；增加准备确认、真人/AI 双入口、中央牌桌、卡牌行动入口、发牌/时代动画与手机快捷导航。实际部署状态见 docs/gaoxiao-validation-2026-09-06.md。

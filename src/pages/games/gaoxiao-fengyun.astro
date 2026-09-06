@@ -3,54 +3,68 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 ---
-<BaseLayout title="高校风云 · 真人匹配与 AI 对战" description="执掌一所高校，穿越六个时代。真人优先匹配，空位由策略 AI 补齐，也可立即开始 AI 练习。">
+<BaseLayout title="高校风云 · 你的大学，你的时代" description="中国高校策略桌游。选择真人匹配或 AI 对战，在同一张牌桌上建设院系、争夺人才、参与国家工程。">
   <SiteHeader />
   <main class="gxf-online">
-    <header class="gxf-hero"><div><p class="gxf-eyebrow">高校风云 / UNIVERSITY CHRONICLES</p><h1>下一所世界一流，<br/><span>由你执掌。</span></h1><p>从 1990 到 2050，在学科建设、人才竞争与国家工程之间，写下你的校史。</p></div><div class="gxf-seal" aria-hidden="true">高校<br/>风云<small>1990—2050</small></div></header>
-    <section class="gxf-lobby gxf-panel" id="lobby" aria-labelledby="lobby-title">
-      <div><p class="gxf-eyebrow">ONLINE PLAY · 快速对战</p><h2 id="lobby-title">和真人相遇，随时有 AI 同桌</h2><p>匹配等待 20 秒，优先邀请同时排队的真人；满桌立即开始，空位由 AI 补齐。</p></div>
-      <form id="match-form" class="gxf-form">
-        <label>你的昵称<input id="nickname" name="nickname" maxlength="16" required autocomplete="nickname" placeholder="例如：知行校长" /></label>
-        <label>选择高校<select id="school" name="school" required><option value="">正在载入高校…</option></select></label>
-        <label>同桌人数<select id="table-size" name="size"><option value="3">3 人</option><option value="4" selected>4 人 · 推荐</option><option value="5">5 人</option><option value="6">6 人</option></select></label>
-        <div class="gxf-buttons"><button id="match" type="submit" class="gxf-primary" disabled>开始匹配</button><button id="practice" type="button" disabled>与 AI 练习</button></div>
+    <header class="gxf-hero" id="lobby-hero">
+      <div><p class="gxf-eyebrow">高校风云 / UNIVERSITY CHRONICLES</p><h1>你的大学，<br/><span>你的时代。</span></h1><p>一张牌桌，六十年校史。<br/>在时代的变局中，找到属于你的办学之道。</p><div class="hero-facts"><span>3–6 位校长</span><span>6 个时代</span><span>336 张卡牌档案</span></div></div>
+      <div class="hero-editorial"><span class="hero-year">1990</span><div class="hero-divider"></div><span class="hero-year future">2050</span><p>从第一所院系<br/>到世界一流大学</p><span class="hero-edition">ONLINE EDITION / 01</span></div>
+    </header>
+    <section class="gxf-lobby" id="lobby" aria-labelledby="lobby-title">
+      <div class="lobby-heading"><div><p class="gxf-eyebrow">TAKE YOUR SEAT</p><h2 id="lobby-title">选择你的对局</h2></div><p id="service-status" role="status" aria-live="polite">正在连接游戏服务…</p></div>
+      <div class="mode-choices" role="group" aria-label="对局模式">
+        <button type="button" id="mode-human" class="mode-card selected" aria-pressed="true"><span class="mode-number">01 / ONLINE</span><strong>真人匹配</strong><span>与其他校长同桌较量</span><small>等待 20 秒 · 真人优先 · 空位 AI 补齐</small><b class="mode-arrow" aria-hidden="true">↗</b></button>
+        <button type="button" id="mode-ai" class="mode-card" aria-pressed="false"><span class="mode-number">02 / SOLO</span><strong>AI 对战</strong><span>按自己的节奏，经营一所大学</span><small>立即入桌 · 你亲自操作 · 自由思考</small><b class="mode-arrow" aria-hidden="true">↗</b></button>
+      </div>
+      <form id="match-form" class="gxf-form gxf-panel">
+        <label>校长昵称<input id="nickname" name="nickname" maxlength="16" required autocomplete="nickname" placeholder="你的称呼" /></label>
+        <label>执掌高校<select id="school" name="school" required><option value="">正在载入高校…</option></select></label>
+        <label>牌桌人数<select id="table-size" name="size"><option value="3">3 人</option><option value="4" selected>4 人 · 推荐</option><option value="5">5 人</option><option value="6">6 人</option></select></label>
+        <div class="gxf-buttons"><button id="match" type="submit" class="gxf-primary" disabled>开始真人匹配 →</button><button id="practice" type="button" class="gxf-primary" hidden disabled>开始 AI 对战 →</button><span id="mode-help">你的席位始终由你亲自操作。</span></div>
+        <p id="school-preview" class="gxf-muted"></p>
       </form>
-      <p id="school-preview" class="gxf-muted"></p><p id="service-status" role="status" aria-live="polite">正在连接游戏服务…</p>
-      <details class="gxf-rules"><summary>开局须知 · 本次采用哪些规则？</summary>
-        <p>这是基于 v0.5 的线上快速对战。3–6 人、六个时代；先免费申报，再按生源顺序轮流使用每人 4 AP。AI 与真人共享院系和人才市场，执行同样的行动和资源校验。</p>
-        <p>已启用：院系建设、升级、科研、工科转型、定价招募、招生、智库、双向确认调档、工程前二分配、认证与评估。预算生源加成自动分配；工程主导奖励统一为匹配院系 +1 强度，协同牵头 +1🔬，第二名 +1🏛。</p>
-        <p>与实体规则的差异：人才使用定价招募；事件从已自动化的 24 张中抽取；政策牌、人才拍卖/挖角、联盟合标、合并/拆分及大部分高校独有技能尚未启用。完整 336 张卡牌仍可在下方查阅，档案里的全文不代表全部已自动执行。</p>
-        <p>每次操作限时 90 秒，超时由 AI 临时托管，可恢复操作；刷新网页可重连。离开对局会交给 AI，无法再加入这一局。匹配到相同高校时，后加入者会获分配另一所高校。</p>
+      <details class="gxf-rules"><summary>开始前，花一分钟了解线上规则</summary>
+        <p>本次是基于实体 v0.5 的快速对战。每时代先免费申报，再按生源顺序轮流使用每人 4 AP。你的昵称旁始终标注“你 · 真人”，AI 对手会单独标注。入桌后点击“准备好了”才开始。</p>
+        <p>AI 对战可自由思考；真人匹配每次操作 5 分钟，保持在线可继续思考。只有离线超时才由 AI 代走一次，重连后继续由你操作。AI 每步约 2.5 秒，进入新时代留出 5 秒发牌时间。</p>
+        <p>已启用院系建设/升级、科研、工科转型、定价招募、招生、智库、双方确认调档、工程与评估。工程主导奖励统一为匹配院系 +1 强度，协同牵头 +1🔬，第二名 +1🏛。</p>
+        <p>与实体规则的差异：人才采用定价招募；事件从 24 张已自动化事件中抽取；政策牌、人才拍卖/挖角、联盟合标、合并/拆分及大部分高校独有技能尚未启用。完整档案可查，全文不代表全部自动执行。</p>
         <a href="/assets/games/gaoxiao-fengyun/data/高校风云-游戏规则-v0.5.md" target="_blank" rel="noopener">阅读实体 v0.5 规则全文 ↗</a>
       </details>
     </section>
-    <section id="queue" class="gxf-panel gxf-queue" hidden aria-label="匹配中"><span class="gxf-pulse" aria-hidden="true"></span><h2>正在寻找同桌校长</h2><p id="queue-summary" role="status" aria-live="polite"></p><p id="queue-names"></p><strong id="queue-timer"></strong><p>剩余席位将在倒计时结束后由 AI 补齐。</p><button id="cancel-match">取消匹配</button></section>
+    <section id="queue" class="gxf-panel gxf-queue" hidden aria-label="匹配中"><span class="gxf-pulse" aria-hidden="true"></span><p class="gxf-eyebrow">FINDING YOUR TABLE</p><h2>正在寻找同桌校长</h2><p id="queue-summary" role="status" aria-live="polite"></p><p id="queue-names"></p><strong id="queue-timer"></strong><p>倒计时结束后，AI 将加入剩余席位。</p><button id="cancel-match">取消匹配</button></section>
     <p id="game-error" class="gxf-error" role="alert" hidden></p>
     <section id="room" hidden aria-labelledby="room-title">
-      <header class="gxf-room-header gxf-panel"><div><p class="gxf-eyebrow" id="room-code"></p><h2 id="room-title">1990s · 初始申报</h2><p id="turn-status" role="status" aria-live="polite"></p></div><div class="gxf-room-tools"><strong id="turn-timer"></strong><button id="resume" hidden>恢复操作</button><button id="leave-room">离开对局</button></div></header>
-      <div id="players" class="gxf-players"></div>
-      <section id="results" class="gxf-panel" hidden><h2>校史终章 · 对局结果</h2><div id="result-table"></div><button id="play-again" class="gxf-primary">再来一局</button></section>
+      <header class="gxf-room-header"><div><p class="gxf-eyebrow" id="room-code"></p><h2 id="room-title">1990s · 初始申报</h2></div><div class="gxf-room-tools"><button id="motion-toggle" aria-pressed="false">动画：开</button><button id="resume" hidden>恢复操作</button><button id="leave-room">离开牌桌</button></div></header>
+      <nav id="era-track" class="era-track" aria-label="时代进度"></nav>
+      <section id="ready-panel" class="ready-panel" hidden><div><h2>先看清牌桌，再开始你的校史</h2><p id="ready-copy">你的席位由你亲自操作。准备完成后，才会开始发牌和行动。</p></div><button id="ready-button" class="gxf-primary">准备好了，开始对局</button></section>
+      <section id="results" class="gxf-panel" hidden><p class="gxf-eyebrow">YOUR UNIVERSITY CHRONICLE</p><h2>校史终章</h2><div id="result-table"></div><button id="play-again" class="gxf-primary">再来一局</button></section>
       <div class="gxf-game-grid">
-        <aside class="gxf-panel gxf-actions" id="action-panel"><p class="gxf-eyebrow">YOUR DECISION</p><h2>校务决策</h2><p id="action-hint"></p><label>行动类别<select id="action-type"></select></label><label>选择行动<select id="action-choice"></select></label><p id="action-description"></p><button id="execute" class="gxf-primary" disabled>执行行动</button><button id="pass" disabled>结束本时代的行动</button><p class="gxf-muted">只展示当前可执行、且资源足够的行动。免费申报窗口关闭后不能补用。</p></aside>
-        <div class="gxf-table">
-          <section class="gxf-panel"><h2>时代风向</h2><div id="events" class="gxf-events"></div></section>
-          <section class="gxf-panel"><h2>国家重大工程 <small>每人最多参与 2 项</small></h2><div id="projects" class="gxf-projects"></div></section>
-          <section class="gxf-panel"><h2>我的校园</h2><div id="campus" class="gxf-campus"></div></section>
-          <section class="gxf-panel"><h2>共享市场</h2><h3>院系</h3><div id="faculty-market" class="gxf-market"></div><h3>人才 · 定价招募</h3><div id="talent-market" class="gxf-market"></div></section>
+        <div class="table-column">
+          <div class="table-caption"><span>同桌校长</span><span>点击校园，了解对手的学科布局</span></div>
+          <div id="players" class="gxf-players"></div>
+          <section class="felt-table" aria-label="公共牌桌">
+            <header class="felt-heading"><div><p class="gxf-eyebrow">THE COMMON TABLE</p><h2>国家重大工程</h2></div><span>每人每时代最多 2 项</span></header>
+            <div id="projects" class="gxf-projects"></div>
+            <div class="event-strip"><div><p class="gxf-eyebrow">ERA EVENTS</p><h3>时代风向</h3></div><div id="events" class="gxf-events"></div></div>
+            <div id="last-move" class="last-move" aria-live="polite"></div>
+          </section>
+          <section class="my-desk"><header><div><p class="gxf-eyebrow">YOUR CAMPUS</p><h2 id="my-school-title">我的校园</h2></div><span class="human-badge">你 · 真人操作</span></header><div id="my-resources" class="my-resources"></div><div id="campus" class="gxf-campus"></div></section>
           <section class="gxf-panel" id="transfers-panel" hidden><h2>跨校调档</h2><div id="transfers"></div></section>
-          <details class="gxf-panel" open><summary>校史记录</summary><ol id="game-log"></ol></details>
         </div>
+        <aside class="control-column">
+          <section class="gxf-panel gxf-actions" id="action-panel"><div class="turn-heading"><p class="gxf-eyebrow">YOUR DECISION</p><strong id="turn-timer"></strong></div><h2>校务决策</h2><p id="turn-status" role="status" aria-live="polite"></p><div id="ap-dots" class="ap-dots" aria-label="行动点"></div><p id="action-hint"></p><label>行动类别<select id="action-type"></select></label><label>选择行动<select id="action-choice"></select></label><p id="action-description"></p><button id="execute" class="gxf-primary" disabled>确认执行</button><button id="pass" disabled>结束本时代的行动</button><p class="gxf-muted">市场和校园中的卡牌可点击选择；这里只显示资源足够的合法行动。</p></section>
+          <section class="market-panel gxf-panel"><header><p class="gxf-eyebrow">SHARED MARKET</p><h2>共享市场</h2></header><div class="market-tabs" role="group" aria-label="市场类别"><button id="faculty-tab" aria-pressed="true">院系市场</button><button id="talent-tab" aria-pressed="false">人才市场</button></div><div id="faculty-market" class="gxf-market"></div><div id="talent-market" class="gxf-market" hidden></div></section>
+          <details class="gxf-panel log-panel"><summary>校史记录</summary><ol id="game-log"></ol></details>
+        </aside>
       </div>
     </section>
-    <section class="gxf-archive gxf-panel" aria-labelledby="archive-title">
-      <div class="gxf-archive-header"><div><p class="gxf-eyebrow">CARD ARCHIVE</p><h2 id="archive-title">336 张卡牌，完整查阅</h2></div><p>高校 48 · 院系 96 · 人才 36<br/>事件 72 · 国家工程 60 · 政策 24</p></div>
-      <div class="gxf-archive-filters"><label>牌类<select id="archive-type"><option value="all">全部卡牌</option><option value="school">高校</option><option value="faculty">院系</option><option value="talent">人才</option><option value="event">事件</option><option value="project">国家工程</option><option value="policy">政策</option></select></label><label>搜索<input id="archive-search" type="search" placeholder="学校、门类、航天…"/></label></div>
-      <p id="archive-count" class="gxf-muted"></p><div id="archive-grid" class="gxf-archive-grid"></div><button id="more-cards">显示更多</button>
-    </section>
+    <section class="gxf-archive gxf-panel" id="archive" aria-labelledby="archive-title"><div class="gxf-archive-header"><div><p class="gxf-eyebrow">THE COMPLETE COLLECTION</p><h2 id="archive-title">每一张牌，都有它的故事。</h2></div><p>高校 48 · 院系 96 · 人才 36<br/>事件 72 · 国家工程 60 · 政策 24</p></div><div class="gxf-archive-filters"><label>牌类<select id="archive-type"><option value="all">全部卡牌</option><option value="school">高校</option><option value="faculty">院系</option><option value="talent">人才</option><option value="event">事件</option><option value="project">国家工程</option><option value="policy">政策</option></select></label><label>搜索<input id="archive-search" type="search" placeholder="学校、门类、航天…"/></label></div><p id="archive-count" class="gxf-muted"></p><div id="archive-grid" class="gxf-archive-grid"></div><button id="more-cards">继续翻阅</button></section>
+    <nav class="mobile-table-nav" aria-label="牌桌快捷导航"><button data-jump="players">看牌桌</button><button data-jump="my-resources">我的校园</button><button data-jump="action-panel">校务决策</button></nav>
     <dialog id="card-dialog"><button id="close-card" aria-label="关闭卡牌详情">关闭 ×</button><div id="card-detail"></div></dialog>
-    <dialog id="leave-dialog"><h2>将本局交给 AI？</h2><p>退出后将由 AI 接替你完成这一局，你可以重新匹配。仅刷新网页可以重连，不必退出。</p><div class="gxf-buttons"><button id="keep-playing">继续游戏</button><button id="confirm-leave">退出并交给 AI</button></div></dialog>
+    <dialog id="leave-dialog"><h2>离开这张牌桌？</h2><p>退出后由 AI 接替你完成本局，可以重新匹配。如果只是暂时离开，保留页面即可；刷新也能重连。</p><div class="gxf-buttons"><button id="keep-playing">继续游戏</button><button id="confirm-leave">退出并交给 AI</button></div></dialog>
+    <div id="era-transition" class="era-transition" hidden role="status" aria-live="polite"><div><p class="gxf-eyebrow">A NEW CHAPTER</p><strong id="transition-year"></strong><h2 id="transition-title">新的十年，新的机遇</h2><p>预算已到账 · 时代事件揭晓 · 国家工程立项</p><span>正在发牌，请稍候</span></div></div>
   </main>
   <SiteFooter />
-  <link rel="stylesheet" href="/assets/games/gaoxiao-fengyun/online.css" />
-  <script is:inline type="module" src="/assets/games/gaoxiao-fengyun/online.js"></script>
+  <link rel="stylesheet" href="/assets/games/gaoxiao-fengyun/online.css?v=1.1.0" />
+  <script is:inline type="module" src="/assets/games/gaoxiao-fengyun/online.js?v=1.1.0"></script>
 </BaseLayout>
