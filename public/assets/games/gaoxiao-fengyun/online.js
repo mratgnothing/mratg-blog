@@ -8,7 +8,7 @@ let selectedMode='human', animationTimer, wasLocked=false;
 try { session=JSON.parse(localStorage.getItem(KEY)||'{}'); } catch { session={}; }
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(session));}catch{error('浏览器禁止保存数据；关闭页面后将无法恢复本次会话。');}};
 function error(message='') {$('game-error').textContent=message;$('game-error').hidden=!message;}
-function mode(name) {for(const id of ['lobby','queue','room'])$(id).hidden=id!==name;$('lobby-hero').hidden=name==='room';document.querySelector('.gxf-online').classList.toggle('in-room',name==='room');}
+function mode(name) {for(const id of ['lobby','queue','room'])$(id).hidden=id!==name;$('lobby-hero').hidden=name==='room';document.querySelector('.gxf-online').classList.toggle('in-room',name==='room');document.body.classList.toggle('playing-gaoxiao',name==='room');if(name==='room'){$('desk-archive').append($('archive'));}else{$('archive-home').after($('archive'));}}
 function selectMode(value){selectedMode=value;for(const m of ['human','ai']){$('mode-'+m).classList.toggle('selected',m===value);$('mode-'+m).setAttribute('aria-pressed',String(m===value));}$('match').hidden=value==='ai';$('practice').hidden=value!=='ai';$('mode-help').textContent=value==='ai'?'你亲自操作自己的高校，AI 只担任对手。':'真人优先匹配，空位由 AI 补齐。';}
 async function api(path,body) {
   const controller=new AbortController(),abort=setTimeout(()=>controller.abort(),12000);
@@ -128,14 +128,14 @@ function renderRoom() {
   $('ready-button').disabled=busy||view.ready?.includes(view.me);
   $('ready-button').textContent=view.ready?.includes(view.me)?'已准备，等待同桌校长':'准备好了，开始对局';
   $('ready-copy').textContent=`你的席位：${me.name} · ${me.school}（真人）。${view.practice?'你可以自由思考，AI 不会替你操作。':`已准备 ${view.ready?.length||0} / ${view.players.filter(p=>p.human&&!p.left).length} 位真人。`}`;
-  $('players').innerHTML=view.players.filter(p=>p.id!==view.me).map(p=>`<article class="gxf-player ${p.id===view.active?'active':''}" data-player="${esc(p.id)}"><header><b>${esc(p.name)}</b><span>${p.human?(p.left?'真人已离席':'真人玩家'):'AI 玩家'}</span></header><h3>${esc(p.school)}</h3><div class="score">${p.prestige} <small>声望 / 目标 ${p.target}</small></div><div class="gxf-resources"><span>${p.money}💰</span><span>${p.science}🔬</span><span>${p.students}🎓</span><span>${p.policy}🏛</span></div><p>${p.ap} AP · ${p.campus.length} 院系 · 相对成就 ${p.prestige-p.target}</p><details><summary>查看校园</summary><p>${p.campus.map(f=>`${esc(f.card.name)}（强度 ${f.strength}）`).join('<br>')}</p></details></article>`).join('');
+  $('players').innerHTML=view.players.filter(p=>p.id!==view.me).map(p=>`<article class="gxf-player ${p.id===view.active?'active':''}" data-player="${esc(p.id)}"><header><b>${esc(p.name)}</b><span>${p.human?(p.left?'真人已离席':'真人玩家'):'AI 玩家'}</span></header><h3>${esc(p.school)}</h3><div class="score">${p.prestige} <small>声望 / 目标 ${p.target}</small></div><div class="gxf-resources"><span>${p.money}💰</span><span>${p.science}🔬</span><span>${p.students}🎓</span><span>${p.policy}🏛</span></div><p>${p.ap} AP · ${p.campus.length} 院系 · 相对成就 ${p.prestige-p.target}</p><button class="inspect-player" data-inspect-player="${esc(p.id)}">查看校园 ↗</button></article>`).join('');
   $('events').innerHTML=view.events.map(c=>item(c,`<p>${esc(c.body)}</p>`)).join('');
   $('projects').innerHTML=view.projects.map(c=>`<article class="gxf-item project"><span class="gxf-tag">${esc(c.id)} / ${esc(c.lane)}</span><h3>${esc(c.name)}</h3><div class="project-pool">${c.pool}<small>声望池</small></div><p>主导 ${esc(c.main.join(' / '))}<br>协同 ${esc(c.support.join(' / '))}</p><div class="project-rates">${esc(c.contribution.split('｜')[0])}</div>${c.bids.filter(b=>b.points).map(b=>`<div class="bid-line ${b.id===view.me?'mine':''}"><span>${b.id===view.me?'你':esc(b.name)}</span><b>${b.points} 点</b></div>`).join('')||'<div class="bid-empty">暂无出资 · 等待申报</div>'}${cardButtons(c,'bid')}</article>`).join('');
   $('my-school-title').textContent=`${me.school} · 我的校园`;
   document.querySelector('.my-desk').classList.toggle('is-your-turn',view.active===view.me);
   document.querySelector('.human-badge').textContent=`${me.name} · 你 · 真人`;
   $('my-resources').innerHTML=[['money','经费'],['science','学术'],['students','生源'],['policy','政策'],['prestige','声望']].map(([key,label])=>`<div class="my-resource ${key}"><b>${me[key]}</b><span>${label}${key==='prestige'?` / ${me.target}`:''}</span></div>`).join('');
-  $('campus').innerHTML=me.campus.map(f=>`<article class="gxf-item faculty" data-campus-id="${esc(f.id)}"><span class="gxf-tag">${esc(f.card.discipline)} / ${esc(f.card.levelLabel)}级 · ${f.core?'核心院系':'非核心'}${f.certified?' · 认证':''}</span><h3>${esc(f.card.name)}</h3><p>强度 ${f.strength} · 基础产出 ${resourceText(f.card)}<br>人才 ${esc(f.talentNames.join('、'))||'暂无'}</p>${cardButtons(f.card,f.card.level<3?'upgrade':null)}</article>`).join('');
+  $('campus').innerHTML=me.campus.map(f=>`<article class="gxf-item faculty" data-campus-id="${esc(f.id)}"><span class="gxf-tag">${esc(f.card.discipline)} / ${esc(f.card.levelLabel)}级 · ${f.core?'核心院系':'非核心'}${f.certified?' · 认证':''}</span><h3>${esc(f.card.name)} <small class="faculty-strength">强度 ${f.strength}</small></h3><p>强度 ${f.strength} · 基础产出 ${resourceText(f.card)}<br>人才 ${esc(f.talentNames.join('、'))||'暂无'}</p>${cardButtons(f.card,f.card.level<3?'upgrade':null)}</article>`).join('');
   $('faculty-market').innerHTML=view.market.faculty.map(c=>`<article class="gxf-item faculty"><span class="gxf-tag">${esc(c.discipline)} / ${c.levelLabel}</span><h3>${esc(c.name)}</h3><p>${c.cost}💰 · 强度 ${c.strength}<br>${resourceText(c)}</p>${cardButtons(c,'build')}</article>`).join('');
   $('talent-market').innerHTML=view.market.talent.map(c=>`<article class="gxf-item talent"><span class="gxf-tag">${esc(c.discipline)}</span><h3>${esc(c.name)}</h3><p>${c.cost} 资源 · 强度 +${c.strength}</p>${cardButtons(c,'talent')}</article>`).join('');
   $('transfers-panel').hidden=!view.transfers.length;
@@ -145,7 +145,7 @@ function renderRoom() {
   $('ap-dots').innerHTML=Array.from({length:4},(_,i)=>`<i class="${i<me.ap?'available':''}"></i>`).join('')+`<span>${me.ap} / 4 AP</span>`;
   $('results').hidden=!view.ended;
   if(view.ended)$('result-table').innerHTML=`<table><thead><tr><th>名次</th><th>校长 / 高校</th><th>声望</th><th>相对成就</th></tr></thead><tbody>${view.results.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}<br>${esc(data.decks.school.find(s=>s.id===r.schoolId)?.name)}</td><td>${r.prestige} / ${r.target}</td><td>${r.achievement}</td></tr>`).join('')}</tbody></table>`;
-  $('action-panel').hidden=view.ended;renderActions();
+  $('action-panel').hidden=view.ended;document.querySelector('#room').classList.toggle('game-ended',view.ended);renderActions();
 }
 function renderActions() {
   $('ready-button').disabled=busy||view.ready?.includes(view.me);
@@ -212,9 +212,9 @@ document.querySelector('.gxf-online').addEventListener('click',e=>{const button=
   const play=e.target.closest('[data-select-type]');
   const jump=e.target.closest('[data-jump]');if(jump)$(jump.dataset.jump).scrollIntoView({block:'start',behavior:session.motion===false?'instant':'smooth'});
   if(play&&view){const a=view.actions.find(a=>a.type===play.dataset.selectType&&a.label.includes(play.dataset.selectName));
-    if(!view.started){error('请先点击「准备好了」，再开始对局。');$('ready-panel').scrollIntoView({block:'center',behavior:'smooth'});return;}
+    if(!view.started){error('请先点击「准备好了」，再开始对局。');$('ready-button').focus();return;}
     if(!a){error(view.active!==view.me?'还没轮到你，先观察一下场上局势。':'当前资源不足或不满足资格；请查看校务决策中的合法行动。');return;}
-    error();$('action-type').value=a.type;renderChoices();$('action-choice').value=a.id;$('action-description').textContent=a.label;$('action-panel').scrollIntoView({block:'center',behavior:session.motion===false?'instant':'smooth'});$('execute').focus({preventScroll:true});
+    error();$('action-type').value=a.type;renderChoices();$('action-choice').value=a.id;$('action-description').textContent=a.label;deskTab('actions');mobileView('tools');$('execute').focus({preventScroll:true});
   }});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&(session.waiting||session.roomId))schedule(0);});
 window.addEventListener('pagehide',()=>{stopped=true;clearTimeout(timer);});
@@ -224,10 +224,28 @@ async function init() {
   try {
     const r=await fetch('/assets/games/gaoxiao-fengyun/cards.json');if(!r.ok)throw new Error('牌库暂时无法加载，请刷新页面。');data=await r.json();cards=Object.values(data.decks).flat();
     $('school').innerHTML=data.decks.school.map(c=>`<option value="${c.id}">${esc(c.name)} · ${esc(c.tier)}</option>`).join('');
-    $('nickname').value=session.name||'';$('school').value=session.schoolId||'S21';$('table-size').value=String(session.size||4);previewSchool();renderArchive();selectMode(session.practice?'ai':'human');setMotion();
+    $('nickname').value=session.name||'';$('school').value=session.schoolId||'S21';$('table-size').value=String(session.size||4);previewSchool();renderArchive();selectMode(['human','ai'].includes(new URLSearchParams(location.search).get('mode'))?new URLSearchParams(location.search).get('mode'):session.practice?'ai':'human');setMotion();
     try {await api('/health');$('service-status').textContent='游戏服务已连接 · 策略 AI 随时就位';}catch{$('service-status').textContent='游戏服务暂时无法连接，可以先查阅卡牌，或点击匹配重试。';}
     $('match').disabled=false;$('practice').disabled=false;
     if(session.roomId||session.waiting){mode(session.roomId?'room':'queue');schedule(0);}
   }catch(e){error(e.message);}
 }
 init();
+
+// Tool tabs are local UI state; server snapshots must never reset reading or selection.
+function deskTab(name){
+  for(const b of document.querySelectorAll('[data-desk-tab]')){const on=b.dataset.deskTab===name;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;}
+  for(const p of document.querySelectorAll('.desk-content'))p.hidden=p.id!=='desk-'+name;
+}
+function mobileView(name){document.querySelector('.gxf-online').dataset.mobileView=name;for(const b of document.querySelectorAll('[data-mobile-view]'))b.setAttribute('aria-pressed',String(b.dataset.mobileView===name));}
+document.querySelector('.desk-tabs').addEventListener('keydown',e=>{const tabs=[...document.querySelectorAll('[data-desk-tab]')];let i=tabs.indexOf(document.activeElement);if(i<0)return;if(e.key==='ArrowRight')i=(i+1)%tabs.length;else if(e.key==='ArrowLeft')i=(i+tabs.length-1)%tabs.length;else if(e.key==='Home')i=0;else if(e.key==='End')i=tabs.length-1;else return;e.preventDefault();deskTab(tabs[i].dataset.deskTab);tabs[i].focus();});
+document.querySelector('.gxf-online').addEventListener('click',e=>{
+ const tab=e.target.closest('[data-desk-tab]');if(tab)deskTab(tab.dataset.deskTab);
+ const nav=e.target.closest('[data-mobile-view]');if(nav)mobileView(nav.dataset.mobileView);
+ const seat=e.target.closest('[data-inspect-player]');if(seat&&view){const p=view.players.find(p=>p.id===seat.dataset.inspectPlayer);$('card-detail').innerHTML=`<p class="gxf-eyebrow">${p.human?'真人玩家':'AI 玩家'} · ${esc(p.name)}</p><h2>${esc(p.school)}</h2><p>声望 ${p.prestige} / ${p.target} · ${p.ap} AP</p>${p.campus.map(f=>`<p><strong>${esc(f.card.name)}</strong> · 强度 ${f.strength}<br>人才：${esc(f.talentNames.join('、'))||'暂无'}</p>`).join('')}`;$('card-dialog').showModal();}
+});
+$('fullscreen-toggle').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{error('浏览器未允许全屏，可使用浏览器的全屏功能。');}});
+document.addEventListener('fullscreenchange',()=>{$('fullscreen-toggle').textContent=document.fullscreenElement?'退出全屏':'全屏牌桌';});
+mobileView('table');
+// Events and transfers belong to the history drawer, leaving the common table stable.
+$('desk-history').prepend(document.querySelector('.event-strip'),$('transfers-panel'));

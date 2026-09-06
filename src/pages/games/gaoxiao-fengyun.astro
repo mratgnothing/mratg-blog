@@ -3,11 +3,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 ---
-<BaseLayout title="高校风云 · 你的大学，你的时代" description="中国高校策略桌游。选择真人匹配或 AI 对战，在同一张牌桌上建设院系、争夺人才、参与国家工程。">
+<BaseLayout title="中国高校殺 · 你的大学，你的时代" description="中国高校策略桌游。选择真人匹配或 AI 对战，在同一张牌桌上建设院系、争夺人才、参与国家工程。">
   <SiteHeader />
   <main class="gxf-online">
     <header class="gxf-hero" id="lobby-hero">
-      <div><p class="gxf-eyebrow">高校风云 / UNIVERSITY CHRONICLES</p><h1>你的大学，<br/><span>你的时代。</span></h1><p>一张牌桌，六十年校史。<br/>在时代的变局中，找到属于你的办学之道。</p><div class="hero-facts"><span>3–6 位校长</span><span>6 个时代</span><span>336 张卡牌档案</span></div></div>
+      <div><p class="gxf-eyebrow">中国高校殺 / UNIVERSITY CHRONICLES</p><h1 class="game-calligraphy">中国高校<span>殺</span></h1><p class="game-motto">你的大学，你的时代。</p><p>一张牌桌，六十年校史。<br/>在时代的变局中，找到属于你的办学之道。</p><div class="hero-facts"><span>3–6 位校长</span><span>6 个时代</span><span>336 张卡牌档案</span></div></div>
       <div class="hero-editorial"><span class="hero-year">1990</span><div class="hero-divider"></div><span class="hero-year future">2050</span><p>从第一所院系<br/>到世界一流大学</p><span class="hero-edition">ONLINE EDITION / 01</span></div>
     </header>
     <section class="gxf-lobby" id="lobby" aria-labelledby="lobby-title">
@@ -34,7 +34,7 @@ import SiteFooter from '../../components/SiteFooter.astro';
     <section id="queue" class="gxf-panel gxf-queue" hidden aria-label="匹配中"><span class="gxf-pulse" aria-hidden="true"></span><p class="gxf-eyebrow">FINDING YOUR TABLE</p><h2>正在寻找同桌校长</h2><p id="queue-summary" role="status" aria-live="polite"></p><p id="queue-names"></p><strong id="queue-timer"></strong><p>倒计时结束后，AI 将加入剩余席位。</p><button id="cancel-match">取消匹配</button></section>
     <p id="game-error" class="gxf-error" role="alert" hidden></p>
     <section id="room" hidden aria-labelledby="room-title">
-      <header class="gxf-room-header"><div><p class="gxf-eyebrow" id="room-code"></p><h2 id="room-title">1990s · 初始申报</h2></div><div class="gxf-room-tools"><button id="motion-toggle" aria-pressed="false">动画：开</button><button id="resume" hidden>恢复操作</button><button id="leave-room">离开牌桌</button></div></header>
+      <header class="gxf-room-header"><div><p class="gxf-eyebrow" id="room-code"></p><h2 id="room-title">1990s · 初始申报</h2></div><div class="gxf-room-tools"><span class="table-brand game-calligraphy">中国高校殺</span><button id="fullscreen-toggle">全屏牌桌</button><button id="motion-toggle" aria-pressed="false">动画：开</button><button id="resume" hidden>恢复操作</button><button id="leave-room">离开牌桌</button></div></header>
       <nav id="era-track" class="era-track" aria-label="时代进度"></nav>
       <section id="ready-panel" class="ready-panel" hidden><div><h2>先看清牌桌，再开始你的校史</h2><p id="ready-copy">你的席位由你亲自操作。准备完成后，才会开始发牌和行动。</p></div><button id="ready-button" class="gxf-primary">准备好了，开始对局</button></section>
       <section id="results" class="gxf-panel" hidden><p class="gxf-eyebrow">YOUR UNIVERSITY CHRONICLE</p><h2>校史终章</h2><div id="result-table"></div><button id="play-again" class="gxf-primary">再来一局</button></section>
@@ -52,19 +52,28 @@ import SiteFooter from '../../components/SiteFooter.astro';
           <section class="gxf-panel" id="transfers-panel" hidden><h2>跨校调档</h2><div id="transfers"></div></section>
         </div>
         <aside class="control-column">
+          <nav class="desk-tabs" role="tablist" aria-label="牌桌工具">
+            <button id="desk-tab-actions" role="tab" aria-selected="true" aria-controls="desk-actions" data-desk-tab="actions">决策</button>
+            <button id="desk-tab-market" role="tab" aria-selected="false" aria-controls="desk-market" tabindex="-1" data-desk-tab="market">市场</button>
+            <button id="desk-tab-history" role="tab" aria-selected="false" aria-controls="desk-history" tabindex="-1" data-desk-tab="history">校史</button>
+            <button id="desk-tab-archive" role="tab" aria-selected="false" aria-controls="desk-archive" tabindex="-1" data-desk-tab="archive">牌库</button>
+          </nav>
+          <div id="desk-actions" class="desk-content" role="tabpanel" aria-labelledby="desk-tab-actions">
           <section class="gxf-panel gxf-actions" id="action-panel"><div class="turn-heading"><p class="gxf-eyebrow">YOUR DECISION</p><strong id="turn-timer"></strong></div><h2>校务决策</h2><p id="turn-status" role="status" aria-live="polite"></p><div id="ap-dots" class="ap-dots" aria-label="行动点"></div><p id="action-hint"></p><label>行动类别<select id="action-type"></select></label><label>选择行动<select id="action-choice"></select></label><p id="action-description"></p><button id="execute" class="gxf-primary" disabled>确认执行</button><button id="pass" disabled>结束本时代的行动</button><p class="gxf-muted">市场和校园中的卡牌可点击选择；这里只显示资源足够的合法行动。</p></section>
-          <section class="market-panel gxf-panel"><header><p class="gxf-eyebrow">SHARED MARKET</p><h2>共享市场</h2></header><div class="market-tabs" role="group" aria-label="市场类别"><button id="faculty-tab" aria-pressed="true">院系市场</button><button id="talent-tab" aria-pressed="false">人才市场</button></div><div id="faculty-market" class="gxf-market"></div><div id="talent-market" class="gxf-market" hidden></div></section>
-          <details class="gxf-panel log-panel"><summary>校史记录</summary><ol id="game-log"></ol></details>
+          </div><div id="desk-market" class="desk-content" role="tabpanel" aria-labelledby="desk-tab-market" hidden><section class="market-panel gxf-panel"><header><p class="gxf-eyebrow">SHARED MARKET</p><h2>共享市场</h2></header><div class="market-tabs" role="group" aria-label="市场类别"><button id="faculty-tab" aria-pressed="true">院系市场</button><button id="talent-tab" aria-pressed="false">人才市场</button></div><div id="faculty-market" class="gxf-market"></div><div id="talent-market" class="gxf-market" hidden></div></section>
+          </div><div id="desk-history" class="desk-content" role="tabpanel" aria-labelledby="desk-tab-history" hidden><section class="gxf-panel log-panel"><h2>校史记录</h2><ol id="game-log"></ol></section></div>
+          <div id="desk-archive" class="desk-content" role="tabpanel" aria-labelledby="desk-tab-archive" hidden></div>
         </aside>
       </div>
     </section>
-    <section class="gxf-archive gxf-panel" id="archive" aria-labelledby="archive-title"><div class="gxf-archive-header"><div><p class="gxf-eyebrow">THE COMPLETE COLLECTION</p><h2 id="archive-title">每一张牌，都有它的故事。</h2></div><p>高校 48 · 院系 96 · 人才 36<br/>事件 72 · 国家工程 60 · 政策 24</p></div><div class="gxf-archive-filters"><label>牌类<select id="archive-type"><option value="all">全部卡牌</option><option value="school">高校</option><option value="faculty">院系</option><option value="talent">人才</option><option value="event">事件</option><option value="project">国家工程</option><option value="policy">政策</option></select></label><label>搜索<input id="archive-search" type="search" placeholder="学校、门类、航天…"/></label></div><p id="archive-count" class="gxf-muted"></p><div id="archive-grid" class="gxf-archive-grid"></div><button id="more-cards">继续翻阅</button></section>
-    <nav class="mobile-table-nav" aria-label="牌桌快捷导航"><button data-jump="players">看牌桌</button><button data-jump="my-resources">我的校园</button><button data-jump="action-panel">校务决策</button></nav>
+    <div id="archive-home"></div><section class="gxf-archive gxf-panel" id="archive" aria-labelledby="archive-title"><div class="gxf-archive-header"><div><p class="gxf-eyebrow">THE COMPLETE COLLECTION</p><h2 id="archive-title">每一张牌，都有它的故事。</h2></div><p>高校 48 · 院系 96 · 人才 36<br/>事件 72 · 国家工程 60 · 政策 24</p></div><div class="gxf-archive-filters"><label>牌类<select id="archive-type"><option value="all">全部卡牌</option><option value="school">高校</option><option value="faculty">院系</option><option value="talent">人才</option><option value="event">事件</option><option value="project">国家工程</option><option value="policy">政策</option></select></label><label>搜索<input id="archive-search" type="search" placeholder="学校、门类、航天…"/></label></div><p id="archive-count" class="gxf-muted"></p><div id="archive-grid" class="gxf-archive-grid"></div><button id="more-cards">继续翻阅</button></section>
+    <nav class="mobile-table-nav" aria-label="牌桌视图"><button data-mobile-view="table" aria-pressed="true">牌桌</button><button data-mobile-view="campus" aria-pressed="false">校园</button><button data-mobile-view="tools" aria-pressed="false">决策 / 市场</button></nav>
     <dialog id="card-dialog"><button id="close-card" aria-label="关闭卡牌详情">关闭 ×</button><div id="card-detail"></div></dialog>
     <dialog id="leave-dialog"><h2>离开这张牌桌？</h2><p>退出后由 AI 接替你完成本局，可以重新匹配。如果只是暂时离开，保留页面即可；刷新也能重连。</p><div class="gxf-buttons"><button id="keep-playing">继续游戏</button><button id="confirm-leave">退出并交给 AI</button></div></dialog>
     <div id="era-transition" class="era-transition" hidden role="status" aria-live="polite"><div><p class="gxf-eyebrow">A NEW CHAPTER</p><strong id="transition-year"></strong><h2 id="transition-title">新的十年，新的机遇</h2><p>预算已到账 · 时代事件揭晓 · 国家工程立项</p><span>正在发牌，请稍候</span></div></div>
   </main>
   <SiteFooter />
-  <link rel="stylesheet" href="/assets/games/gaoxiao-fengyun/online.css?v=1.1.1" />
-  <script is:inline type="module" src="/assets/games/gaoxiao-fengyun/online.js?v=1.1.1"></script>
+  <link rel="stylesheet" href="/assets/games/gaoxiao-fengyun/online.css?v=1.2.0" />
+  <link rel="stylesheet" href="/assets/games/gaoxiao-fengyun/table.css?v=1.2.0" />
+  <script is:inline type="module" src="/assets/games/gaoxiao-fengyun/online.js?v=1.2.0"></script>
 </BaseLayout>

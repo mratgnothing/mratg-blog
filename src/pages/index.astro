@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
+import GameFeature from "../components/GameFeature.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import PostCard from "../components/PostCard.astro";
@@ -55,7 +56,6 @@ const publicTopicLinks = [
   { label: "PhyX platform", href: "/projects/seuphyx/" },
   { label: "Fitness routine", href: "/posts/pull-up-16-half-semester/" },
   { label: "Daily gaming", href: "/columns/games/" },
-  { label: "高校风云 · 线上测试", href: "/games/gaoxiao-fengyun/" },
   { label: "Recent Music", href: "/columns/music/" },
 ];
 ---
@@ -112,6 +112,8 @@ const publicTopicLinks = [
         {publicTopicLinks.map((item) => <a href={item.href}>{item.label}</a>)}
       </div>
     </section>
+
+    <GameFeature />
 
     <section class="section village-motion-band" aria-label="Pixel village route">
       <div class="village-panorama" aria-hidden="true">
