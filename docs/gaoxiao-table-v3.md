@@ -27,4 +27,8 @@
 
 ## 发布
 
-本地验证完成，正式域名验证结果在发布后补记。
+Cloudflare Pages 已部署成功：`https://a7a25cb3.mratg-pixel-blog-git.pages.dev`，对应源码提交 `3170bbf`。
+
+对正式域名 `https://mra-t-g-blog.cn` 运行同一浏览器验证脚本全部通过：首页双入口、2 真人 + 2 AI 匹配及双方操作、刷新、四个标签、移动端三个视图、6 人 AI 桌、退出。浏览器脚本错误为 0；真实域名截图和结果位于 `output/playwright/v3-production/`。
+
+GitHub 源码普通推送因自动审批要求对具体仓库 main 及本次/上一任务提交范围的明确授权而暂停，已向用户提出授权请求；不是 Cloudflare 发布失败。授权后再执行普通推送，不使用强制覆盖。
