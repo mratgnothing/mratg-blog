@@ -1751,6 +1751,37 @@ h1 {
   word-break: break-word;
 }
 
+/* Fenced Markdown code blocks are rendered by Shiki as <pre><code>...</code></pre>.
+   Reset the inline-code treatment inside <pre>, otherwise every visual line gets
+   a beige inline box and ASCII / Unicode diagrams are broken into strips. */
+.article-body pre {
+  max-width: 100%;
+  margin: 24px 0;
+  padding: 0;
+  overflow-x: auto;
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 rgba(32, 24, 39, 0.18);
+  font-family: var(--pixel-font);
+  -webkit-overflow-scrolling: touch;
+}
+
+.article-body pre code {
+  display: block;
+  min-width: max-content;
+  padding: 18px 20px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  box-decoration-break: slice;
+  -webkit-box-decoration-break: slice;
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  white-space: pre;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
 .article-body a {
   color: var(--grass-dark);
   font-weight: 800;
