@@ -1,0 +1,6 @@
+
+# BEGIN TEMP APPLE SHOWCASE
+/demo/apple-showcase/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-store
+# END TEMP APPLE SHOWCASE

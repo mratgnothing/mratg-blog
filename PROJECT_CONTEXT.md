@@ -281,3 +281,8 @@ As of this review:
 正式名称为《中国高校殺》，保留 `/games/gaoxiao-fengyun/` 及既有 API、存档键和历史规则文件名。首页 `GameFeature.astro` 提供独立游戏模块与真人/AI 双入口；导航指向 `/#games`。字体使用本地霞鹜文楷标题子集（含繁体「殺」）及系统正文。
 
 对局使用 `table.css` 固定视口：上方对手、中央工程、底部校园；右栏决策/市场/校史/牌库标签，手机切换牌桌/校园/工具视图。事件与调档位于校史，对手校园为弹窗。服务仍使用原有真人控制、准备和思考节奏，不改变快速规则。验证入口 `scripts/test-gaoxiao-table.mjs`，详细证据见 `docs/gaoxiao-table-v3.md`。
+
+
+## 临时展示页（2026-10-09）
+
+新增独立静态路径 `/demo/apple-showcase/`，源位于 `public/demo/apple-showcase/`，只通过链接分享；不接入首页导航。路径声明禁止搜索索引并使用 no-store。删除步骤和本轮待发布内容的重复核对说明见 `docs/temporary-apple-showcase.md`。副本与现有公开原稿重复，继续保留本地，不重复新增公开文章。
