@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="九月大学生日常的像素风插画：电脑、纸质表格和日历">
+<defs><pattern id="p" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#ddd1b2" opacity=".5"/></pattern></defs><rect width="1200" height="630" fill="#ece3cd"/><rect width="1200" height="630" fill="url(#p)"/>
+<rect x="64" y="59" width="1072" height="513" rx="18" fill="#fff9ed" stroke="#ae9784" stroke-width="5"/>
+<text x="99" y="119" fill="#5c7868" font-family="monospace" font-size="23">CAMPUS LOG · SEP 2026</text><text x="99" y="180" fill="#353b38" font-family="sans-serif" font-size="51" font-weight="bold">课业、代码和一大摞表格</text>
+<rect x="113" y="261" width="404" height="219" rx="14" fill="#475c66"/><rect x="136" y="284" width="357" height="170" rx="5" fill="#1d3445"/><text x="156" y="327" fill="#70edc7" font-family="monospace" font-size="22">&gt; build --check</text><text x="156" y="371" fill="#cbe4f4" font-family="monospace" font-size="18">✓ date verified</text><text x="156" y="409" fill="#cbe4f4" font-family="monospace" font-size="18">✓ pages aligned</text><path d="M99 481H533l-30 24H132Z" fill="#718995"/>
+<rect x="610" y="245" width="235" height="262" rx="9" fill="#edbc89" transform="rotate(-6 610 245)"/><rect x="633" y="231" width="235" height="262" rx="9" fill="#fff" stroke="#c9ab8d" stroke-width="4" transform="rotate(4 633 231)"/>
+<g stroke="#b5bec5" stroke-width="3"><path d="M665 296h160M665 332h160M665 368h160M665 404h131"/></g>
+<rect x="902" y="251" width="160" height="151" rx="11" fill="#dc8c78"/><rect x="902" y="251" width="160" height="33" rx="7" fill="#b96c63"/><text x="982" y="335" text-anchor="middle" fill="#fff6ec" font-size="46" font-family="sans-serif" font-weight="bold">09</text>
+<path d="M945 448h111v76H945Z" fill="#7aa493"/><path d="M960 462h81v49h-81Z" fill="#dde9dd"/>
+<text x="110" y="543" fill="#876c5d" font-family="sans-serif" font-size="20">生活的许多小问题，也值得用工程方法认真解决。</text></svg>

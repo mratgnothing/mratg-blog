@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="九月十日至十四日数学建模竞赛进程，模型、模拟测试、论文彼此循环">
+<defs><pattern id="g" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#34435a" stroke-width=".8" opacity=".45"/></pattern><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101827"/><stop offset="1" stop-color="#1d2941"/></linearGradient></defs>
+<rect width="1200" height="630" fill="url(#bg)"/><rect width="1200" height="630" fill="url(#g)"/>
+<rect x="63" y="58" width="1074" height="514" rx="22" fill="#0e182b" stroke="#52647e" stroke-width="2"/>
+<text x="105" y="119" font-size="23" fill="#8bb9dc" font-family="sans-serif" letter-spacing="3">SEPTEMBER 10 — 14 / 2026</text>
+<text x="105" y="184" font-size="52" font-weight="800" fill="#f4f0e4" font-family="sans-serif">四天，四问，无数次重跑</text>
+<text x="105" y="225" font-size="23" fill="#c0cddd" font-family="sans-serif">不是一次漂亮运行，而是一条可追溯的证据链</text>
+<path d="M170 385H990" stroke="#61738f" stroke-width="8" stroke-linecap="round"/>
+<g font-family="sans-serif" text-anchor="middle" font-weight="bold"><rect x="110" y="308" width="205" height="149" rx="12" fill="#183f50" stroke="#66d6d8" stroke-width="3"/><text x="212" y="367" font-size="30" fill="#e9ffff">赛题</text><text x="212" y="403" font-size="19" fill="#99d2d3">约束与目标</text>
+<rect x="367" y="308" width="205" height="149" rx="12" fill="#2b3c68" stroke="#a4b9ff" stroke-width="3"/><text x="469" y="367" font-size="30" fill="#fff">模型</text><text x="469" y="403" font-size="19" fill="#c6d2fe">策略和代码</text>
+<rect x="625" y="308" width="205" height="149" rx="12" fill="#453d2b" stroke="#f4c56b" stroke-width="3"/><text x="727" y="367" font-size="30" fill="#fff">演练</text><text x="727" y="403" font-size="19" fill="#ffe0a1">真实执行反馈</text>
+<rect x="885" y="308" width="205" height="149" rx="12" fill="#423246" stroke="#e49cc6" stroke-width="3"/><text x="987" y="367" font-size="30" fill="#fff">论文</text><text x="987" y="403" font-size="19" fill="#ebc8e0">图表与复核</text></g>
+<path d="M1000 487Q550 553 204 483" fill="none" stroke="#f4c56b" stroke-width="3" stroke-dasharray="9 11"/><path d="m212 472-19 10 18 13" fill="none" stroke="#f4c56b" stroke-width="3"/>
+<text x="601" y="529" text-anchor="middle" fill="#e6c790" font-size="17" font-family="sans-serif">发现问题 → 返回修正 → 再次验证</text></svg>

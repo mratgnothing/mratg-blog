@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="长沙湘江夜色中的桥、山影、灯光与江水，旅行前的想象性插画">
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#111936"/><stop offset=".7" stop-color="#304264"/><stop offset="1" stop-color="#334965"/></linearGradient><linearGradient id="river" x2="0" y2="1"><stop stop-color="#264c70"/><stop offset="1" stop-color="#10243e"/></linearGradient></defs><rect width="1200" height="630" fill="url(#sky)"/>
+<g fill="#f8dba8"><circle cx="986" cy="98" r="36"/><circle cx="123" cy="86" r="3"/><circle cx="222" cy="150" r="2"/><circle cx="623" cy="103" r="3"/><circle cx="792" cy="192" r="2"/><circle cx="1044" cy="241" r="3"/></g>
+<text x="75" y="91" font-size="20" fill="#e0c899" font-family="monospace">TRAVEL NOTES / OCT 09, 2026</text><text x="75" y="152" font-size="56" fill="#faf2df" font-weight="bold" font-family="sans-serif">出发前夜，想象湘江晚风</text>
+<path d="M0 352Q210 220 390 329T740 320T1200 297V471H0Z" fill="#1c3547"/>
+<g fill="#233049"><rect x="95" y="289" width="54" height="171"/><rect x="174" y="324" width="49" height="137"/><rect x="260" y="306" width="66" height="155"/><rect x="870" y="290" width="56" height="172"/><rect x="947" y="320" width="45" height="142"/><rect x="1026" y="275" width="63" height="187"/></g>
+<path d="M0 467H1200V630H0Z" fill="url(#river)"/>
+<path d="M0 408Q300 300 600 395T1200 373" stroke="#ffd58b" stroke-width="10" fill="none"/><path d="M70 414v93m120-120v110m120-104v111m125-114v104m141-99v99m139-95v91m146-98v103m142-110v86" stroke="#f4ce89" stroke-width="7" opacity=".72"/>
+<path d="M150 521h203m229-4h140m205 26h178M62 573h245m466 6h260" stroke="#f5c27a" stroke-width="5" stroke-linecap="round" opacity=".43"/>
+<text x="73" y="599" font-family="sans-serif" fill="#cdd9e8" font-size="18">夜色是计划里的想象，真正的风景要等走到江边才知道。</text></svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Android 手机通过加密连接与桌面 Claude Code 对话和任务状态同步">
+<defs><pattern id="p" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#26324b" opacity=".6"/></pattern><linearGradient id="b" x2="1" y2="1"><stop stop-color="#101a30"/><stop offset="1" stop-color="#172c38"/></linearGradient></defs>
+<rect width="1200" height="630" fill="url(#b)"/><rect width="1200" height="630" fill="url(#p)"/>
+<text x="71" y="95" font-size="23" fill="#8fd8be" font-family="sans-serif" letter-spacing="2">POCKET WORKSTATION / 2026.09</text>
+<text x="71" y="156" font-size="53" fill="#f9f4e9" font-weight="800" font-family="sans-serif">让桌面 Agent 跟着我出门</text>
+<rect x="113" y="203" width="233" height="345" rx="37" stroke="#c4e0e7" stroke-width="12" fill="#172c3f"/>
+<rect x="138" y="247" width="185" height="260" rx="11" fill="#233b50"/>
+<rect x="198" y="218" width="64" height="9" rx="4" fill="#c4e0e7"/>
+<g font-family="monospace"><rect x="151" y="274" width="158" height="38" rx="8" fill="#316e66"/><text x="163" y="298" font-size="15" fill="#e3fff2">Chat / Run</text><rect x="151" y="328" width="135" height="13" rx="6" fill="#7293a1"/><rect x="151" y="350" width="118" height="13" rx="6" fill="#7293a1"/><rect x="151" y="385" width="158" height="50" rx="8" fill="#324f6c"/><text x="163" y="415" font-size="14" fill="#cce9ff">/btw ...</text></g>
+<rect x="451" y="288" width="304" height="154" rx="17" fill="#1d3e4b" stroke="#7ad8c5" stroke-width="3"/>
+<text x="604" y="341" font-size="28" fill="#e8fff6" font-family="sans-serif" text-anchor="middle" font-weight="bold">安全桥接层</text><text x="604" y="380" font-size="20" fill="#b5e5d7" font-family="sans-serif" text-anchor="middle">会话 / 状态 / 事件同步</text>
+<path d="M360 365H443m-19-13 15 13-15 13M763 365h74m-17-13 15 13-15 13" stroke="#e7bf79" stroke-width="5" fill="none"/>
+<rect x="848" y="242" width="273" height="199" rx="16" stroke="#b2c9f6" stroke-width="9" fill="#1c2b48"/><rect x="869" y="266" width="229" height="149" rx="4" fill="#2a3959"/>
+<g font-family="monospace" font-size="16"><text x="889" y="296" fill="#84e5c8">&gt; codex run</text><text x="889" y="330" fill="#e6dca9">Analyzing...</text><text x="889" y="361" fill="#98b9ff">✓ workspace</text><text x="889" y="392" fill="#98b9ff">✓ history</text></g><path d="M933 448h110l20 30H914Z" fill="#9ab0d3"/>
+<text x="232" y="587" fill="#d4e8ec" text-anchor="middle" font-family="sans-serif" font-size="21">ANDROID</text><text x="987" y="587" fill="#d4e8ec" text-anchor="middle" font-family="sans-serif" font-size="21">DESKTOP</text>
+</svg>
