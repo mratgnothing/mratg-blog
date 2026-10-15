@@ -79,7 +79,7 @@ WAVE 提供项目、数据集、版本与审计能力，通过 MCP Gateway 校�
 
 ## 证据如何复核
 
-[查看公开验证摘要 JSON](/assets/posts/wave-visionlab-agh-hackathon-u286/verification-summary.json)。该文件是从既有验证报告提取的公开汇总，**不是 AGH 原始轨迹**。完整原始执行记录与验证脚本保留在非公开赛事附件中，未公开模型 Key、WAVE PAT、运行账户配置或完整 WAVE 私有源码。
+[查看公开验证摘要 JSON](/assets/posts/wave-visionlab-agh-hackathon-u286/verification-summary.json)。该文件是从既有验证报告提取的公开汇总，**不是 AGH 原始轨迹**。完整原始执行记录与验证脚本保留在非公开赛事附件中，未公开模型 Key、WAVE PAT、运行账户配置或完整 WAVE 源码。
 
 原始完整轨迹 SHA-256：
 
@@ -95,11 +95,15 @@ WAVE 是此前已开发的工程平台；项目、数据集、版本、权限和
 
 此次没有训练模型、开展检测推理性能测量或租用 GPU，因此没有可报告的 mAP、识别准确率或训练加速比。仅 12 张图像的结果不能推广到完整数据集；近似重复、图像清晰度、人工标注准确性等未测量指标也不作结论。后续可在明确审批后扩展完整数据审计、训练和设备工作流。
 
+## 团队分工
+
+本作品参赛成员为孙潇珩（队长）和陈鹏宇。孙潇珩负责需求与展示统筹、材料审核和提交协调；陈鹏宇负责 AGH/WAVE 接入、真实样本整理、三类验证与证据复核。
+
 ## 第三方来源与许可
 
 - 智能体框架：[Agnes Harness 官方仓库](https://github.com/AgnesAI-Labs/agnes-harness)，项目自身代码采用 Apache-2.0；第三方组件以其各自许可为准。本作品使用官方源码运行，未宣称独立开发 AGH。
 - 数据：[Dataset_Drones_Bluetooth_Wifi，Mendeley Data，version 1](https://data.mendeley.com/datasets/y4w96kzsb5/1)，DOI：[10.17632/y4w96kzsb5.1](https://doi.org/10.17632/y4w96kzsb5.1)。作者：Radhoine ALOUI、saber mgannem、Bilel Hamdi、Sofien Mhatli、Tijeni Delleji、Ignacio Llamas-Garro；许可为 CC BY 4.0。此次仅选取原始图像及标注子集并编制划分清单，未改写图像与标签。
-- 本文架构图和数据统计图是依据实际实现及核验数据制作的说明图；AGH 界面图为实际会话截图。WAVE 私有代码保留原权利，不因本文章发布而开放许可。
+- 本文架构图和数据统计图是依据实际实现及核验数据制作的说明图；AGH 界面图为实际会话截图。WAVE 为既有工程基础，上游代码与第三方组件遵循各自许可。
 
 [赛事官网与参赛规程](https://agnes-ai.cn/hackathon)
 
