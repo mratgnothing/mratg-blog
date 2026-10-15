@@ -27,7 +27,6 @@ draft: false
 视频时长 259.37 秒，H.264 / AAC、1280×720、30 fps，配有自然中文解说。连续空间镜头、光场转场、真实界面聚焦与原始样本展示构成完整演示。它是基于真实截图与已核验原始事件制作的**动态解说回放**，并非连续屏幕录制。
 
 
-[备用：上一版动态演示](/assets/posts/wave-visionlab-agh-hackathon-u286/U286_WAVE_VisionLab_AGH_Motion_Demo.mp4)
 
 ## AGH 负责规划，WAVE 提供工程工具
 
