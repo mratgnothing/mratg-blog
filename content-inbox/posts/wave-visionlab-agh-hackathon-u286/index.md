@@ -15,6 +15,8 @@ draft: false
 
 **WAVE VisionLab：基于 Agnes Harness 的可验证智能工程实验 Agent**，就是围绕这个目标构建的参赛作品。此次以无线电频谱图像为例，完成真实数据审计与异常恢复闭环。
 
+**公开参赛代码仓库：** [wave-visionlab-agh-u286](https://github.com/mratgnothing/wave-visionlab-agh-u286)。固定版本：`b82077b352e375888cee37a56a27c0b771242ba8`；包含本次工作说明、真实接入代码、样本、脱敏汇总与离线复核脚本。
+
 ## 先看 4 分 19 秒动态演示
 
 <video class="u286-demo-video" controls playsinline preload="metadata" poster="/assets/posts/wave-visionlab-agh-hackathon-u286/cinematic-demo-poster.png" style="display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;background:#171b24;border-radius:8px;">
