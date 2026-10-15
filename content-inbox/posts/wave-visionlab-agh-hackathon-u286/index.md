@@ -26,7 +26,6 @@ draft: false
 
 视频时长 260.77 秒，采用 H.264 / AAC、1280×720、30 fps 与中文配音。真实 AGH 界面推近、高亮、工具链与失败恢复时间线连续动画，配有原创程序合成的氛围音和提示音；数据页展示 12 张真实原始样本缩略图。它是基于真实截图与已核验原始事件制作的**动态解说回放**，并非连续屏幕录制。
 
-动画及音效代码由 Claude Code 请求 `claude-opus-5-5` 辅助制作，团队负责内容与验证；该辅助模型不参与三轮 AGH 原始实验。核心任务模型仍为 `agnes-3.0-flash`。[查看视频制作与独立检查摘要](/assets/posts/wave-visionlab-agh-hackathon-u286/motion-video-production-summary.json)。
 
 [备用：原版 4 分 14 秒解说回放](/assets/posts/wave-visionlab-agh-hackathon-u286/U286_WAVE_VisionLab_AGH_Real_Trace_Replay.mp4)
 
