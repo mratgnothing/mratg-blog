@@ -1,0 +1,78 @@
+{
+  "schema": "U286_PUBLIC_VERIFICATION_SUMMARY/v1",
+  "source": "Derived from existing independent verification report; this summary is not a raw AGH trace",
+  "published_date": "2026-10-15",
+  "entry_id": "U286",
+  "model": "agnes-3.0-flash",
+  "verification_status": "PASS",
+  "original_event_count": 234,
+  "tool_call_result_pairs": 10,
+  "expected_errors": 2,
+  "raw_original_sha256": "152df99c18911a21c114a8e75f1e153bf8bf6684491a6132bf99b99bf73d80e1",
+  "scenarios": {
+    "normal": {
+      "status": "PASS",
+      "tools": [
+        "projects_list",
+        "datasets_list",
+        "project_overview",
+        "dataset_audit",
+        "versions_list"
+      ],
+      "is_error": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "result": "12 real original spectrogram images, 44 labels; 1 ready sample version; all read-only"
+    },
+    "boundary": {
+      "status": "PASS",
+      "tools": [
+        "projects_list",
+        "datasets_list"
+      ],
+      "is_error": [
+        false,
+        true
+      ],
+      "result": "invalid project ID yields actual not_found; correctly distinguished from empty list"
+    },
+    "failure_recovery": {
+      "status": "PASS",
+      "tools": [
+        "dataset_audit",
+        "datasets_list",
+        "dataset_audit"
+      ],
+      "is_error": [
+        true,
+        false,
+        false
+      ],
+      "result": "invalid dataset not_found, discover true ID from MCP, recover by auditing real data"
+    }
+  },
+  "dataset": {
+    "images": 12,
+    "split": {
+      "train": 6,
+      "valid": 3,
+      "test": 3
+    },
+    "annotations": 44,
+    "Bluetooth": 25,
+    "WiFi": 19,
+    "declared_classes": 3,
+    "observed_classes": 2,
+    "doi": "10.17632/y4w96kzsb5.1",
+    "license": "CC BY 4.0"
+  },
+  "limitations": [
+    "Small subset, not a full-dataset benchmark",
+    "No training, inference benchmark, GPU rental, mAP or accuracy measurement",
+    "Raw trace is supplied privately to competition reviewers; no credentials or private source published"
+  ]
+}
