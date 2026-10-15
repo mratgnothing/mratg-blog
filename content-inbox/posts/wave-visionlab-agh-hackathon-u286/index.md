@@ -15,16 +15,20 @@ draft: false
 
 **WAVE VisionLab：基于 Agnes Harness 的可验证智能工程实验 Agent**，就是围绕这个目标构建的参赛作品。此次以无线电频谱图像为例，完成真实数据审计与异常恢复闭环。
 
-## 先看 4 分 14 秒演示
+## 先看 4 分 21 秒动态演示
 
-<video class="u286-demo-video" controls playsinline preload="metadata" poster="/assets/posts/wave-visionlab-agh-hackathon-u286/architecture.svg" style="display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;background:#171b24;border-radius:8px;">
-  <source src="/assets/posts/wave-visionlab-agh-hackathon-u286/U286_WAVE_VisionLab_AGH_Real_Trace_Replay.mp4" type="video/mp4" />
+<video class="u286-demo-video" controls playsinline preload="metadata" poster="/assets/posts/wave-visionlab-agh-hackathon-u286/motion-demo-poster.png" style="display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;background:#171b24;border-radius:8px;">
+  <source src="/assets/posts/wave-visionlab-agh-hackathon-u286/U286_WAVE_VisionLab_AGH_Motion_Demo.mp4" type="video/mp4" />
   你的浏览器暂不支持内嵌视频，请使用下方 MP4 链接观看。
 </video>
 
-[直接打开 / 下载演示 MP4](/assets/posts/wave-visionlab-agh-hackathon-u286/U286_WAVE_VisionLab_AGH_Real_Trace_Replay.mp4)
+[直接打开 / 下载演示 MP4](/assets/posts/wave-visionlab-agh-hackathon-u286/U286_WAVE_VisionLab_AGH_Motion_Demo.mp4)
 
-视频时长 253.6 秒，采用 H.264 / AAC、1280×720 与中文配音。它是基于真实 AGH 页面截图和已核验原始事件制作的**解说回放**，并非连续屏幕录制。原文件名中的 DRAFT 是制作阶段标记；公网副本与原视频内容一致。
+视频时长 260.77 秒，采用 H.264 / AAC、1280×720、30 fps 与中文配音。真实 AGH 界面推近、高亮、工具链与失败恢复时间线连续动画，配有原创程序合成的氛围音和提示音；数据页展示 12 张真实原始样本缩略图。它是基于真实截图与已核验原始事件制作的**动态解说回放**，并非连续屏幕录制。
+
+动画及音效代码由 Claude Code 请求 `claude-opus-5-5` 辅助制作，团队负责内容与验证；该辅助模型不参与三轮 AGH 原始实验。核心任务模型仍为 `agnes-3.0-flash`。[查看视频制作与独立检查摘要](/assets/posts/wave-visionlab-agh-hackathon-u286/motion-video-production-summary.json)。
+
+[备用：原版 4 分 14 秒解说回放](/assets/posts/wave-visionlab-agh-hackathon-u286/U286_WAVE_VisionLab_AGH_Real_Trace_Replay.mp4)
 
 ## AGH 负责规划，WAVE 提供工程工具
 
